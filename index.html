@@ -1,12 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="utf-8"/>
-<meta name="description" content="My very first website.">
-<meta name="author" content="Kevin Cao">
-<meta name="keywords" content="Kevin's IU Class Notes">
-<title>Kevin's Class Notes</title>
+<head> <!--The head element contains metadata which are things like stylesheets, keywords, etc. It is not actually displayed.-->
+    <meta charset="utf-8"/>
+    <meta name="description" content="My very first website.">
+    <meta name="author" content="Kevin Cao">
+    <meta name="keywords" content="Kevin's IU Class Notes">
+    <title>Class Notes | Home</title>
 
+    <link href="" rel="stylesheet">
+
+    <!--Classes begin with a . and IDs begin with a #-->
+    <!-- It's better to do CSS styling in a separate file, so typically you don't want to do styles in the head.-->
+    <style>
+        .nav {
+            background-color:#003350;
+            height: 100px;
+            width: 100%;
+        }
+    </style>
 </head>
 
+<body>
+<nav id="nav" class="nav">
+    <div class="container">
+        <!--Originally had "Hello world" here, but when you're doing HTML, you want everything to be enclosed in tags.-->
+        <div class="logo"> <!--This is a divider.-->
+            <!--src will indicate from where I should get my image, what directory and the file name. alt stands for alternative, and it's what the website will grab if for whatever reason it can't find my image.-->
+            <img style="background-color: #003350;" src="assets/images/logoClear.png" alt=""/>
+        </div>
+    </div>
+</nav>
+
+</body>
 </html>
