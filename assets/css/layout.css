@@ -1,0 +1,40 @@
+body {
+    margin: 0;
+}
+
+h1 {
+    margin: 0;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.nav {
+    height: 120px;
+    width: 100%;
+}
+
+.container {
+    margin: auto;
+    width: 100%;
+    max-width: 960px;
+}
+
+.logo {
+    float: left;
+    width: 140px;
+}
+
+.menu {
+    display: inline-block;
+    float: right;
+    width: 300px;
+}
+
+/* Target the child of the .menu class. In this case, li wasn't given a class, so just li.*/
+.menu > li {
+    font-size: 20px;
+    display: inline-block;
+}
