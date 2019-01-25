@@ -25,6 +25,8 @@ ul {
 .logo {
     float: left;
     width: 140px;
+    position: relative;
+    top: 5px;
 }
 
 .menu {
@@ -37,4 +39,13 @@ ul {
 .menu > li {
     font-size: 20px;
     display: inline-block;
+}
+
+.subtitle-wrapper {
+    width: 100%;
+}
+
+.title {
+    position: relative;
+    top: 150px;
 }

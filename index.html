@@ -12,25 +12,29 @@
 </head>
 
 <body>
-<nav class="nav">
-    <div class="container">
-        <!--Originally had "Hello world" here, but when you're doing HTML, you want everything to be enclosed in tags.-->
-        <div class="logo"> <!--This is a divider.-->
-            <!--src will indicate from where I should get my image, what directory and the file name. alt stands for alternative, and it's what the website will grab if for whatever reason it can't find my image.-->
-            <img src="assets/images/logoClearSmall.png" alt=""/>
+    <nav class="nav">
+        <div class="container">
+            <!--Originally had "Hello world" here, but when you're doing HTML, you want everything to be enclosed in tags.-->
+            <div class="logo"> <!--This is a divider.-->
+                <!--src will indicate from where I should get my image, what directory and the file name. alt stands for alternative, and it's what the website will grab if for whatever reason it can't find my image.-->
+                <img width=80%; src="assets/images/fancyLogo.png" alt=""/>
+            </div>
+            <ul class="menu">
+                <li>Home</li>
+                <li>Classes</li>
+                <li>About</li>
+            </ul>
         </div>
-        <ul class="menu">
-            <li>Home</li>
-            <li>Classes</li>
-            <li>About</li>
-        </ul>
-    </div>
-</nav>
+    </nav>
 
-<!--Use caniuse.com to check if a html tag can be read by a certain browser.-->
-<header>
-    <h1 class="header-title">My First Website</h1>
-</header>
-
+    <!--Use caniuse.com to check if a html tag can be read by a certain browser.-->
+    <header>
+        <div class="title">
+            <img class="title-image" src="assets/images/headerEatSleepCodeRepeat.png" alt=""/>
+        </div>
+        <div class="subtitle-wrapper">
+            <h1 class="header-subtitle">My First Website</h1>
+        </div>
+    </header>
 </body>
 </html>
