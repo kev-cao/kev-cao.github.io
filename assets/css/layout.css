@@ -2,8 +2,8 @@ body {
     margin: 0;
 }
 
-h1 {
-    margin: 0;
+h1, h3 {
+    margin: 0px;
 }
 
 ul {
@@ -48,4 +48,16 @@ ul {
 .title {
     position: relative;
     top: 150px;
+}
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.intro {
+    padding-top: 50px;
+    width: 50%;
+    float: left;
 }

@@ -3,6 +3,10 @@ body {
     font-family: Helvetica;
 }
 
+.white {
+    color: #ffffff;
+}
+
 .nav {
     background-color:#000728;
 }
@@ -21,7 +25,7 @@ body {
 /* No need for a . or # because I am targeting a tag. */
 header {
     background-image: url('../images/headerBg.png');
-    height: 741px;
+    height: 733px;
     width: auto;
     background-position: center center;
     text-align: center;
@@ -29,7 +33,6 @@ header {
 
 .header-subtitle {
     display: block;
-    color: #ffffff;
     font-size: 48px;
     font-weight: 100;
     margin: 200px auto 0 auto;
@@ -40,4 +43,35 @@ header {
 .title-image {
     display: block;
     margin: 0 auto 0 auto;
+}
+
+.go-to-classes {
+    background-color: #009ad6;
+    height: 150px;
+    width: 100%;
+}
+
+.section-title {
+    font-size: 30px;
+    font-weight: 100;
+    text-transform: uppercase;
+}
+
+
+.intro > p {
+    color: #ffffff;
+    font-size: 20px;
+    margin-top: 15px;
+}
+
+.go-to-button {
+    font-size: 40px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 5px solid #ffffff;    
+    padding: 10px 30px;
+}
+
+.right {
+    text-align: center;
 }
