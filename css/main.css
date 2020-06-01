@@ -13,11 +13,12 @@ body {
 header {
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.13);
   background-color: white;
-  z-index: 2;
+  width: 100%;
 }
 
 nav {
-  padding: 0 0 3px 0;
+  padding: 0 0 2px 0;
+  width: 100%;
 }
 
 .center {
