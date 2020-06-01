@@ -1,0 +1,232 @@
+@font-face {
+  font-family: 'SourceCodePro';
+  src: url('/assets/fonts/SourceCodePro-Regular.otf') format('opentype');
+}
+
+body {
+  font-family: Helvetica, sans-serif;
+  font-size: 16px;
+  margin: 0 0 0 0;
+  background-color: #f5f5f5;
+}
+
+header {
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.13);
+  background-color: white;
+  z-index: 2;
+}
+
+nav {
+  padding: 0 0 3px 0;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#navmenu {
+  list-style: inside;
+  text-align: center;
+  padding-left: 0;
+}
+
+#navmenu > li {
+  display: inline-block;
+  padding: 0 20px 0 20px;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+a:visited {
+  text-decoration: none;
+  color: inherit;
+}
+
+#front-page {
+  height: 40em;
+  width: 100%;
+  min-width: 75em;
+}
+
+#terminal {
+  font-family: SourceCodePro;
+  display: inline-block;
+  color: white;
+  width: 45%;
+  height: 100%;
+  background-color: #1b1d1e;
+  border-radius: 5px;
+  box-shadow: 10px 10px 7px rgba(0, 0, 0, 0.3);
+  margin: 30px;
+  padding: 1px 1em 1px 1em;
+}
+
+#terminal p {
+  line-height: .8em;
+} 
+
+#terminal th, #terminal td {
+  padding: 0 1em 0 0;
+}
+
+.blinking-cursor {
+  display: inline;
+  -webkit-animation: 1s blink step-end infinite;
+  -moz-animation: 1s blink step-end infinite;
+  -ms-animation: 1s blink step-end infinite;
+  -o-animation: 1s blink step-end infinite;
+  animation: 1s blink step-end infinite;
+}
+
+@keyframes "blink" {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: white;
+  }
+}
+
+@-moz-keyframes blink {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: white;
+  }
+}
+
+@-webkit-keyframes "blink" {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: white;
+  }
+}
+
+@-ms-keyframes "blink" {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: white;
+  }
+}
+
+@-o-keyframes "blink" {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: white;
+  }
+}
+
+.terminal table {
+  display: block;
+  margin-bottom: 1em;
+}
+
+#introduction {
+  display: inline-block;
+  vertical-align: top;
+  color: #515659;
+  width: 45%;
+  margin: 10% 0 0 0;
+}
+
+#introduction * {
+  margin: 0;
+}
+
+#introduction h1 {
+  font-size: 48px;
+}
+
+#introduction h2 {
+  margin: .5em 0 .5em 0;
+  color: #54ace3;
+}
+
+#resume {
+  display: block;
+  margin: 5% auto 0 auto;
+  width: 40%;
+  min-width: 55em;
+  vertical-align: top;
+}
+
+#tabs {
+  display: inline-block;
+  min-width: 12em;
+  width: 20%;
+  text-align: right;
+  vertical-align: top;
+}
+
+#tabcontentcontainer {
+  display: inline-block;
+  min-width: 20em;
+  width: 70%;
+}
+
+.tablink {
+  display: inline-block;
+  margin: 0 1em 3em 0;
+  font-size: 18px;
+  background-color: inherit;
+  border: none;
+  border-right: solid;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.tablink.active {
+  border-color: #54ace3;
+}
+
+.tabcontent h2 {
+  margin: 0;
+  color: #464646;
+  line-height: 100%;
+}
+
+.tabheader {
+  color: #5c5c5c;
+}
+
+.tabheader p {
+  display: inline;
+}
+
+.tabbody {
+  color: slategray;
+  margin-bottom: 2em;
+}
+
+.tabbody ul {
+  list-style-type: circle;
+}
+
+.tabbody ul>li {
+  margin-bottom: .5em;
+}
+
+.tabbody table {
+  margin-top: 1em;
+}
+
+.tabbody td, th {
+  width: 12em;
+  text-align: left;
+}
+
+.rightalign {
+  float: right;
+}

@@ -1,86 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
-<head> <!--The head element contains metadata which are things like stylesheets, keywords, etc. It is not actually displayed.-->
-    <meta charset="utf-8"/>
-    <meta name="description" content="My very first website.">
-    <meta name="author" content="Kevin Cao">
-    <meta name="keywords" content="Kevin's IU Class Notes">
-    <title>Class Notes | Home</title>
-
-    <link href="assets/css/layout.css" rel="stylesheet">
-    <link href="assets/css/theme.css" rel="stylesheet">
-</head>
-
-<body>
-    <nav class="nav">
-        <div class="container">
-            <!--Originally had "Hello world" here, but when you're doing HTML, you want everything to be enclosed in tags.-->
-            <div class="logo"> <!--This is a divider.-->
-                <!--src will indicate from where I should get my image, what directory and the file name. alt stands for alternative, and it's what the website will grab if for whatever reason it can't find my image.-->
-                <img width=80%; src="assets/images/fancyLogo.png" alt=""/>
-            </div>
-            <ul class="menu">
-                <li>Home</li>
-                <li>Classes</li>
-                <li>About</li>
-            </ul>
-        </div>
-    </nav>
-
-    <!--Use caniuse.com to check if a html tag can be read by a certain browser.-->
+  <head> <!-- Contains metadeta like stylesheets, keywords, etc. -->
+    <meta charset="utf-8" />
+    <meta name="description" content-"DefineCoding website." />
+    <meta name="keywords" content="kevin cao, computer science, definecoding, define, coding, programming, blog, indiana university" />
+    <meta name="author" content="DefineCoding" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Define Coding | Home </title>
+    <link href="css/main.css" rel="stylesheet" />
+  </head>
+  <body>
     <header>
-        <div class="title">
-            <img class="title-image" src="assets/images/headerEatSleepCodeRepeat.png" alt=""/>
-        </div>
-        <div class="subtitle-wrapper">
-            <h1 class="header-subtitle white">My First Website</h1>
-        </div>
+      <img class="center" src="/assets/images/logo_small.jpg" alt="Website logo." />
+      <nav>
+        <ul class="center" id="navmenu">
+          <li><a href="/index.html">Home</a></li>
+          <li>Blog</li>
+          <li><a href="https://www.youtube.com/channel/UCLic-4S1Ym0eyJzpI1Eqlsw" target="_blank">YouTube</a></li>
+          <li><a href="/resume.html">Resume</a></li>
+        </ul>
+      </nav>
     </header>
-
-    <section class="go-to-classes">
-        <div class="container">
-            <div class="intro">
-                <h3 class="section-title white">Go to Classes</h3>
-                <p>Find class notes and other materials in this page.</p>
-            </div>
-            <div class="intro right">
-                <a href="/" class="go-to-button white">Classes</a>
-            </div>
-        </div>
-    </section>
-
-    <section class="works">
-        <div class="container">
-            <h3 class="section-title gray works">Github Projects</h3>
-        </div>
-        <div class="container">
-            <div class="column">
-                <a href="https://github.com/defCoding/Hangman-CSharp" target="_blank" rel="noopener noreferrer"><img src="assets/images/Hangman.png" alt="Hangman"></a>
-            </div>
-            <div class="column">
-                <a href="https://github.com/defCoding/LaserCar" target="_blank" rel="noopener noreferrer"><img src="assets/images/LaserPointer.jpg" alt="LaserPointer"></a>
-            </div>
-            <div class="column">
-                <a href="https://github.com/defCoding/iOS_Multiplication_Game" target="_blank" rel="noopener noreferrer"><img src="assets/images/iOSQuickMaths.jpg" alt="QuickMaths"></a>
-            </div>
-            <div class="column">
-                <a href="https://github.com/defCoding/Java-Snake" target="_blank" rel="noopener noreferrer"><img src="assets/images/Snake.png" alt="Snake"></a>
-            </div>
-        </div>
-    </section>
-
-    <section class="about">
-        <div class="container">
-            <h3 class="section-title white">
-                About Me
-            </h3>
-            <p class="white" style="font-size: 20px">
-                I am an undergraduate computer science major that is currently aiming to become a software engineer. The main reason for my investment in software engineering is because 
-                I have always enjoyed problem solving, particularly when it comes to creating products for others to use. The feeling of watching a piece of software you have worked on slowly
-                 come into fruition is captivating. This website is a way for me to learn web development while also sharing my projects on Github. In addition, some of my notes from my various 
-                 classes will be stored on here for easy access.
-            </p>
-        </div>
-    </section>
-</body>
+    <div id="front-page">
+      <span id="terminal">
+        <p>
+        <span style="color: #97ff00">
+          <b>&gt;</b>
+        </span>
+        whoami
+        </p>
+        <p>
+        Kevin Cao
+        </p>
+        <p>
+        <span style="color: #97ff00">
+          <b>&gt;</b>
+        </span>
+        pwd
+        </p>
+        <p>
+        /undergrad/Indiana_University/Bloomington
+        </p>
+        <p>
+        <span style="color: #97ff00">
+          <b>&gt;</b>
+        </span>
+        cat major.txt
+        </p>
+        <p>
+        Computer Science - Software Engineering Specialization 
+        </p>
+        <p>
+        <span style="color: #97ff00">
+          <b>&gt;</b>
+        </span>
+        ps
+        </p>
+        <table>
+          <tr>
+            <td style="width: 1em; text-align: right;">PID</td>
+            <td style="width: 3em;">TTY</td>
+            <td style="width: 6em; text-align: right;">TIME</td>
+            <td>CMD</td>
+          </tr>
+          <tr>
+            <td style="text-align: right;">1</td>
+            <td>?</td>
+            <td style="text-align: right;">2019-Now</td>
+            <td>IU Undergraduate Instructor</td>
+          </tr>
+          <tr>
+            <td style="text-align: right;">2</td>
+            <td>?</td>
+            <td style="text-align: right;">2019-2020</td>
+            <td>IU SICE Tutor</td>
+          </tr>
+          <tr>
+            <td style="text-align: right;">3</td>
+            <td>?</td>
+            <td style="text-align: right;">2015-Now</td>
+            <td>Tokyo Grill IT Support</td>
+          </tr>
+        </table>
+        <p>
+        <span style="color: #97ff00">
+          <b>&gt;</b>
+        </span>
+        locale -a
+        </p>
+        <p>
+        Java
+        </p>
+        <p>
+        C
+        </p>
+        <p>
+        Python
+        </p>
+        <p>
+        C#
+        </p>
+        <p>
+        Racket
+        </p>
+        <p>
+        Javascript
+        </p>
+        <p>
+        GDScript
+        </p>
+        <p>
+        Swift
+        </p>
+        <p>
+        Arduino
+        </p>
+        <span style="color: #97ff00">
+          <b>&gt;</b>
+        </span>
+        <p class="blinking-cursor">
+        █
+        </p>
+      </span>
+      <span id="introduction">
+        <p>
+        Hello, I'm
+        </p>
+        <h1>
+        Kevin Cao
+        </h1>
+        <h2>
+        I like to make things.
+        </h2>
+        <p>
+        I'm an aspiring software engineer and am currently studying computer science at Indiana University. I also like teaching what I learn, which has resulted in a personal blog and YouTube channel where I make educational content.
+        </p>
+      </span>
+    </div>
+  </body>
 </html>

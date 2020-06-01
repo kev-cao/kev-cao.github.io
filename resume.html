@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head> <!-- Contains metadeta like stylesheets, keywords, etc. -->
+    <meta charset="utf-8" />
+    <meta name="description" content-"DefineCoding website." />
+    <meta name="keywords" content="kevin cao, computer science, definecoding, define, coding, programming, blog, indiana university" />
+    <meta name="author" content="DefineCoding" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Define Coding | Resume </title>
+    <link href="css/main.css" rel="stylesheet" />
+    <script src="js/resume.js"></script>
+  </head>
+  <body>
+    <header>
+      <img class="center" src="/assets/images/logo_small.jpg" alt="Website logo." />
+      <nav>
+        <ul class="center" id="navmenu">
+          <li><a href="/index.html">Home</a></li>
+          <li>Blog</li>
+          <li><a href="https://www.youtube.com/channel/UCLic-4S1Ym0eyJzpI1Eqlsw" target="_blank">YouTube</a></li>
+          <li><a href="/resume.html">Resume</a></li>
+        </ul>
+      </nav>
+    </header>
+    <span id="resume">
+      <span id="tabs">
+        <button id="default" class="tablink" onclick="showResume(event, 'education')">Education</button>
+        <br />
+        <button class="tablink" onclick="showResume(event, 'workexperience')">Work Experience</button>
+        <br />
+        <button class="tablink" onclick="showResume(event, 'github')">Github Projects</button>
+        <br />
+        <button class="tablink" onclick="showResume(event, 'otherprojects')">Other Projects</button>
+        <br />
+        <button class="tablink" onclick="showResume(event, 'technicalskills')">Technical Skills</button>
+      </span>
+      <span id="tabcontentcontainer">
+        <div id="education" class="tabcontent">
+          <h2>Education</h2>
+          <hr />
+          <div class="tabheader">
+            <b>Indiana University - Bloomington</b>
+            <span class="rightalign">
+              2016 - Present
+            </span>
+            <br />
+            <b>Computer Science, B.S.</b>
+          </div>
+          <div class="tabbody">
+            <p>
+            <b>Specialization:</b> Software Engineering
+            <br />
+            <b>Major GPA:</b> 3.947
+            <br />
+            <b cl>Cumulative GPA:</b> 3.255
+            <br />
+            <br />
+            <b>Related Courses</b>
+            </p>
+            <ul>
+              <li>Intro to Computer Science</li>
+              <li>Intro to Software Systems</li>
+              <li>Discrete Structures</li>
+              <li>Windows Programming with C# and .NET</li>
+              <li>Mobile App Development (iOS)</li>
+              <li>Data Structures</li>
+              <li>System Programming with C and Unix</li>
+              <li>Intro to Algorithm Design and Analysis</li>
+              <li>Database Concepts</li>
+              <li>Intro to Games</li>
+              <li>Game Technology</li>
+              <li>Intro to Artifical Intelligence</li>
+              <li>Programming Languages</li>
+              <li>Computer Structures</li>
+              <li>Javascript</li>
+            </ul>
+          </div>
+        </div>
+        <div id="workexperience" class="tabcontent">
+          <h2>Work Experience</h2>
+          <hr />
+          <div class="tabheader">
+            <b>IU Department of Computer Science</b>
+            <span class="rightalign">
+              May 2019 - Present
+            </span>
+            <br />
+            <p>Data Structures Undergraduate Instructor</p>
+            <span class="rightalign">
+              Bloomington, IN
+            </span>
+          </div>
+          <div class="tabbody">
+            <ul>
+              <li>Streamline virtual instruction during COVID-19 pandemic by developing a Discord bot to manage queues of students during office hours.</li>
+              <li>Collaborate with a team of instructors at weekly meetings and provide input on optimizing future lesson plans.</li>
+              <li>Lead laboratory classes to personally guide students and grant hands-on experience with building and optimizing data structures.</li>
+              <li>Approach data structures in a variety of perspectives to provide flexible teaching material to students.</li>
+              <li>Regularly re-evaluate personal understanding of data structures in order to properly teach students.</li>
+              <li>Organize office hours to provide students opportunities to have any questions answered.</li>
+            </ul>
+          </div>
+          <div class="tabheader">
+            <b>IU School of Informatics, Computing, and Engineering</b>
+            <span class="rightalign">
+              Aug 2019 - May 2020
+            </span>
+            <br />
+            <p>CS Tutor</p>
+            <span class="rightalign">
+              Bloomington, IN
+            </span>
+          </div>
+          <div class="tabbody">
+            <ul>
+              <li>Regularly reviewed material from previously taken classes to maintain ability to teach a variety of subjects.</li>
+              <li>Successfully managed and guided groups of students requesting tutoring for different subjects.</li>
+              <li>Aided Chinese foreign exchange students by teaching in Mandarin Chinese.</li>
+              <li>Increased breadth of knowledge to sufficiently answer unexpected questions.</li>
+              <li>Seamlessly balanced tutoring workload with student workload.</li>
+            </ul>
+          </div>
+          <div class="tabheader">
+            <b>Tokyo Grill Inc.</b>
+            <span class="rightalign">
+              June 2015 - Present
+            </span>
+            <br />
+            <p>IT Support</p>
+            <span class="rightalign">
+              Terre Haute, IN
+            </span>
+          </div>
+          <div class="tabbody">
+            <ul>
+              <li>Set up and handle security system to allow for easy remote access to all security footage.</li>
+              <li>Gather information using the restaurant database system to reliably track sales and progress reports.</li>
+              <li>Install wifi and remote services to enable smooth communication within management and allow for quick access to restaurant data.</li>
+              <li>Consult with users and troubleshoot to ensure that all devices in the restaurant run smoothly and do not hinder operations.</li>
+              <li>Manage restaurant's social media pages and respond to customer feedback in order to promote restaurant's reputation and boost customer satisfaction.</li>
+              <li>Utilize web development and graphic design software to create a user-friendly and intuitive website for the restaurant.</li>
+            </ul>
+          </div>
+        </div>
+        <div id="github" class="tabcontent">
+          <h2><a href="https://www.github.com/defCoding" target="_blank">Github Projects</a></h2>
+          <hr />
+          <div class="tabheader">
+            <b><a href="https://github.com/defCoding/queue-bot-discord" target="_blank">Student Queue Discord Bot</a></b>
+            <span class="rightalign">
+              March 2020
+            </span>
+          </div>
+          <div class="tabbody">
+            <ul>
+              <li>Utilized Discord API to create a bot that organized and queued up students on Discord.</li>
+              <li>Streamlined teaching procedures after all classes were abruptly switched to virtual remote teaching due to the COVID-19 outbreak.</li>
+            </ul>
+          </div>
+          <div class="tabheader">
+            <b><a href="https://github.com/defCoding/sudoku-solver" target="_blank">Sudoku Algorithm</a></b>
+            <span class="rightalign">
+              Feb 2020
+            </span>
+          </div>
+          <div class="tabbody">
+            <ul>
+              <li>Implemented backtracking algorithm in Python to solve Sudoku boards of various sizes.</li>
+              <li>Optimized algorithm using logical deductions to reduce backtracking, and incorporated proper data structures to expedite random access, searches, and deletions.</li>
+              <li>Created scripts to automate result processing and comparison between algorithms.</li>
+            </ul>
+          </div>
+          <div class="tabheader">
+            <b><a href="https://github.com/defCoding/Desert-Run" target="_blank">Desert Run Game - Desktop Application</a></b>
+            <span class="rightalign">
+              Dec 2019
+            </span>
+          </div>
+          <div class="tabbody">
+            <ul>
+              <li>Used Godot and GDScript to produce a "time-killer" game where a player must run and avoid incoming obstacles for as long as possible.</li>
+            </ul>
+          </div>
+          <div class="tabheader">
+            <b><a href="https://github.com/defCoding/sort-visualizer" target="_blank">Sorting Algorithms Visualizer - Windows Application</a></b>
+            <span class="rightalign">
+              Oct 2019
+            </span>
+          </div>
+          <div class="tabbody">
+            <ul>
+              <li>Used Visual Studio, C#, and MVC design scheme to develop a visually appealing sorting algorithm visualizer.</li>
+              <li>Implemented events and delegates to link sorting model with front-end interface.</li>
+              <li>Re-adapted commonly used sorting algorithms to allow for graphical representation of the processes.</li>
+              <li>Exploited multi-threading and buffers to minimize RAM usage while maximizing program speed.</li>
+            </ul>
+          </div>
+          <div class="tabheader">
+            <b><a href="https://github.com/defCoding/arcade-space-shooter" target="_blank">Arcade Space Shooter - Desktop Application</a></b>
+            <span class="rightalign">
+              Oct 2019
+            </span>
+          </div>
+          <div class="tabbody">
+            <ul>
+              <li>Utilized the Python Arcade API to create a version of the old-fashioned arcade space shooter game.</li>
+            </ul>
+          </div>
+          <div class="tabheader">
+            <b><a href="https://github.com/defCoding/LaserCar" target="_blank">Controllable Laser Pointer - Windows Application</a></b>
+            <span class="rightalign">
+              Sep 2019
+            </span>
+          </div>
+          <div class="tabbody">
+            <ul>
+              <li>Integrated C# and Arduino using Visual Studio to control servos attached to a laser pointer.</li>
+              <li>Utilized basic electrical wiring to connect servos to the SOC, which is linked to a Windows application.</li>
+            </ul>
+          </div>
+          <div class="tabheader">
+            <b><a href="https://github.com/defCoding?tab=repositories&q=discord-bot&type=&language=" target="_blank">Discord Bots</a></b>
+            <span class="rightalign">
+              Mar 2019
+            </span>
+          </div>
+          <div class="tabbody">
+            <ul>
+              <li>Utilized Discord's API and NodeJS to create various Discord bots for my personal Discord server.</li>
+              <li>A heavy focus on string parsing and server packets to receive, process, and send messages.</li>
+            </ul>
+          </div>
+          <div class="tabheader">
+            <b><a href="https://github.com/defCoding/Hangman-CSharp" target="_blank">Hangman Game - Windows Application</a></b>
+            <span class="rightalign">
+              Dec 2018
+            </span>
+          </div>
+          <div class="tabbody">
+            <ul>
+              <li>Used C# to create a Hangman game that focuses on streamlining user experience and intuitive design.</li>
+            </ul>
+          </div>
+          <div class="tabheader">
+            <b><a href="https://github.com/defCoding/iOS_Multiplication_Game" target="_blank">Multiplication Game - iOS Application</a></b>
+            <span class="rightalign">
+              Nov 2018
+            </span>
+          </div>
+          <div class="tabbody">
+            <ul>
+              <li>Incorporated the MVC design scheme and used Swift to create a simple, yet effective, game taht quizzed users on random multiplication problems.</li>
+            </ul>
+          </div>
+        </div>
+        <div id="otherprojects" class="tabcontent">
+          <h2>Other Projects</h2>
+          <hr />
+          <div class="tabheader">
+            <b><a href="index.html" target="_blank">DefineCoding Blog</a></b>
+            <span class="rightalign">
+              July 2018 - Present
+            </span>
+          </div>
+          <div class="tabbody">
+            <ul>
+              <li>A blog created to document progress in learning programming.</li>
+              <li>Educate readers with informative posts on various programming concepts.</li>
+            </ul>
+          </div>
+          <div class="tabheader">
+            <b><a href="https://www.youtube.com/channel/UCLic-4S1Ym0eyJzpI1Eqlsw" target="_blank">DefineCoding YouTube</a></b>
+            <span class="rightalign">
+              Feb 2020 - Present
+            </span>
+          </div>
+          <div class="tabbody">
+            <ul>
+              <li>A YouTube channel created to review material covered in Data Structures lectures.</li>
+              <li>Utilize video/audio editing and graphic design software to create educational content.</li>
+            </ul>
+          </div>
+          <div class="tabheader">
+            <b><a href="https://www.twitch.tv/lockin/" target="_blank">Editor and Graphics Creator for Twitch.tv Personality Lockin</a></b>
+            <span class="rightalign">
+              2017 - 2018
+            </span>
+          </div>
+          <div class="tabbody">
+            <ul>
+              <li>Used skills in Photoshop, Premiere Pro, After Effects, and OBS to create visually appealing graphics and animations for viewers.</li>
+            </ul>
+          </div>
+        </div>
+        <div id="technicalskills" class="tabcontent">
+          <h2>Technical Skills</h2>
+          <hr />
+          <div class="tabheader">
+            <b>Programming Languages</b>
+          </div>
+          <div class="tabbody">
+            <table>
+              <tr>
+                <th scope="col">Language</th>
+                <th scope="col">Relative Skill</th>
+              </tr>
+              <tr>
+                <td>Java</td>
+                <td>Expert</td>
+              </tr>
+              <tr>
+                <td>C</td>
+                <td>Expert</td>
+              </tr>
+              <tr>
+                <td>Python</td>
+                <td>Expert</td>
+              </tr>
+              <tr>
+                <td>Racket</td>
+                <td>Intermediate</td>
+              </tr>
+              <tr>
+                <td>Javascript</td>
+                <td>Intermediate</td>
+              </tr>
+              <tr>
+                <td>C#</td>
+                <td>Intermediate</td>
+              </tr>
+              <tr>
+                <td>GDScript</td>
+                <td>Intermediate</td>
+              </tr>
+              <tr>
+                <td>Swift</td>
+                <td>Intermediate</td>
+              </tr>
+              <tr>
+                <td>Arduino</td>
+                <td>Novice</td>
+              </tr>
+            </table>
+          </div>
+          <div class="tabheader">
+            <b>Markup</b>
+          </div>
+          <div class="tabbody">
+            <p>LaTeX, Markdown, HTML, CSS</p>
+          </div>
+          <div class="tabheader">
+            <b>Workflow</b>
+          </div>
+          <div class="tabbody">
+            <p>Unix Operating Systems (Ubuntu/Arch), Vim/Spacemacs, Git</p>
+          </div>
+          <div class="tabheader">
+            <b>Databases</b>
+          </div>
+          <div class="tabbody">
+            <p>PostgreSQL</p>
+          </div>
+          <div class="tabheader">
+            <b>Multimedia</b>
+          </div>
+          <div class="tabbody">
+            <p>Photoshop, Premiere, After Effects, Animate, Audacity</p>
+          </div>
+          <div class="tabheader">
+            <b>Game Design</b>
+          </div>
+          <div class="tabbody">
+            <p>Comfortable with Godot, some experience with Unity</p>
+          </div>
+        </div>
+      </span>
+
+      <!-- Show the default tab. --!>
+      <script>
+        document.getElementById("default").click();
+      </script>
+    </span>
+  </body>
+</html>
