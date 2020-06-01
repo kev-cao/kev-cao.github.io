@@ -190,6 +190,7 @@ a:visited {
 
 .tablink.active {
   border-color: #54ace3;
+  color: #54ace3;
 }
 
 .tabcontent h2 {
