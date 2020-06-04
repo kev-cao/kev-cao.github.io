@@ -358,9 +358,16 @@ a:visited.nodecor {
   font-style: italic;
 }
 
-#articlecontent p {
+#articlecontent {
   line-height: 1.5em;
+}
+
+#articlecontent p {
   margin: 1.5em 0 1.5em 0;
+}
+
+#articlecontent li {
+  margin-bottom: 1em;
 }
 
 #articlecontent img {
