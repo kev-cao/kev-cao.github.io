@@ -3,9 +3,10 @@ function toggleCollapsible(button) {
   button.classList.toggle("active");
   var content = button.nextElementSibling;
 
-  if (content.style.display === "block") {
-    content.style.display = "none";
+  // For animated collapsing and opening.
+  if (content.style.maxHeight) {
+    content.style.maxHeight = null;
   } else {
-    content.style.display = "block";
+    content.style.maxHeight = content.scrollHeight + "px";
   }
 }

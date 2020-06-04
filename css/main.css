@@ -405,10 +405,11 @@ blockquote {
 }
 
 .collapsiblecontent {
-  padding: 1em;
-  display: none;
+  padding: 0 1em;
   overflow: hidden;
   background-color: #e9e9e6;
+  max-height: 0;
+  transition: max-height .4s ease-out;
 }
 
 @media screen and (max-width: 910px) {
