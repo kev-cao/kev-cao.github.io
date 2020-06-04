@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head> <!-- Contains metadeta like stylesheets, keywords, etc. -->
+    <meta charset="utf-8" />
+    <meta name="description" content-"DefineCoding website." />
+    <meta name="keywords" content="kevin cao, computer science, definecoding, define, coding, programming, blog, indiana university" />
+    <meta name="author" content="DefineCoding" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Define Coding | Blog </title>
+    <link href="css/main.css" rel="stylesheet" />
+    <script src="/js/collapsible.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <div id="header">
+    </div>
+    <script>
+      $("#header").load("/header.html #headerdata");
+    </script>
+    <div id="article">
+    </div>
+    <script>
+      let params = new URLSearchParams(window.location.search);
+      let articlefile = params.get("postid") + ".html";
+      $("#article").load("/blog_files/" + articlefile);
+    </script>
+  </body>
+</html>

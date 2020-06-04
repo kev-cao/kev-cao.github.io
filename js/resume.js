@@ -11,9 +11,9 @@ function showResume(evt, tabname) {
   tablinks = document.getElementsByClassName("tablink");
 
   for (i = 0; i < tablinks.length; i++) {
-    tablinks[i].className = tablinks[i].className.replace(" active", "");
+    tablinks[i].classList.toggle("active", false);
   }
 
   document.getElementById(tabname).style.display = "inline-block";
-  evt.currentTarget.className += " active";
+  evt.currentTarget.classList.toggle("active");
 }
