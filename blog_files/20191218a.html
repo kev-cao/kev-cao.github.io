@@ -1,0 +1,282 @@
+<div id="articletitle">
+  <h2>Pointers Part 2: Arrays</h2>
+  <p>Published December 18, 2019</p>
+</div>
+<div id="articlecontent">
+<p>This was originally all going to be one large post, but it was starting to become obscenely long, so I’ve decided to split it into two parts. This is a continuation of the previous post, <strong>Pointers Part 1: Introduction [C]</strong>, where we’ll be going over the relationship between arrays and pointers in C. As with the last post, this is assuming a 64-bit architecture, so sizes of types may vary if you’re working on a 32-bit architecture.</p>
+
+<p class="disclaimer"><strong>DISCLAIMER:&nbsp;</strong><em>I am still a novice in programming, so keep in mind that it is possible that I may be wrong here and there. However, with this post, I did a lot of research and double-checking, so there should not be any errors. If you would like some help in finding educational resources, check out the /r/learnprogramming subreddit wiki <a href="https://www.reddit.com/r/learnprogramming/wiki/faq" target="_blank">[here]</a>. While I still have your attention, [<a href="https://www.reddit.com/r/learnprogramming/wiki/index#wiki_discouraged_resources" target="_blank">here</a>] is a list of resources discouraged by /r/learnprogramming either due to unreliable or misleading information.</em></p>
+
+<br />
+
+<h2>Arrays and Pointers</h2>
+
+<p>After learning about pointers in C, you typically start learning about how arrays and pointers are related. While arrays and pointers are closely related, and in most instances, arrays decay into pointers and actually are treated as pointers, do not make the mistake of assuming that they are the same thing.</p>
+<p><img class="size-medium center" title="Be rest assured; there are no tiny workers being worked to death in your computer. Probably." src="https://i0.wp.com/i.imgur.com/c04vV68.png?resize=910%2C449&amp;ssl=1" width="910" height="449" data-recalc-dims="1"></p>
+
+<p>When you create an array in C, you tell the computer to allocate a certain amount of memory for the array. So for example, if you create an array of 5 ints, then when the array is initialized, 20 bytes of memory is allocated for the array. However, what does the variable itself store? Let’s try printing out those values.</p>
+
+<pre>
+<code>#include&lt;stdio.h&gt;
+
+int main(void) {
+  int my_array[5] = {1, 2, 3, 4, 5};
+  printf("Size of Array: %d\n", sizeof(my_array));
+
+  printf("Print Array as Integer: %d\n", my_array);
+
+  /*
+   * Output:
+   * Size of Array: 20
+   * Print Array as Integer: -799467888
+   * */
+}
+</code>
+</pre>
+
+<p>Looking at the code above, we can see that when we print out an int array of size 5, the size of the array is 20, which is what we expected. However, if we try printing out the value of the array as an integer, there’s clearly something wrong. You’d might expect it would print out the value of the first element, but it prints out a seemingly random negative value. The following code will help illuminate what is actually being printed out:</p>
+
+<pre>
+<code>#include&lt;stdio.h&gt;
+
+int main(void) {
+  // Code from above here.
+  int *first_ptr = &amp;my_array[0];
+
+  printf("Print Array as Pointer: %p\n", my_array);
+  printf("Print Address of First Element: %p\n", first_ptr);
+  /*
+   * Output:
+   * Print Array as Pointer: 0x7fffd0591690
+   * Print Address of First Element: 0x7fffd0591690
+   * */ 
+}
+</code>
+</pre>
+
+<p><img class=" center" src="https://i1.wp.com/i.imgur.com/kiptZ0J.png?resize=418%2C519&amp;ssl=1" width="418" height="519" data-recalc-dims="1"></p>
+<p>If we retrieve the address of the first element of the array, and compare it to the value of <tt>my_array</tt>, we can see that they actually have the same value. So why is it that arrays and pointers are not identical, yet they have the same value?</p>
+
+<p>As I mentioned previously, arrays will, in most instances, decay into pointers. So in those instances, an array variable has the same value as a pointer to the first element in the array. If I pass an array to a function, say <tt>arr_func(int arr[])</tt>, then arr is not seen as an array, but rather a pointer. We can see this happen here:</p>
+
+<pre>
+<code>#include&lt;stdio.h&gt;
+
+void arr_func(int arr[]);
+
+int main(void) {
+  // Code from above here.
+  arr_func(my_array);
+  /*
+   * Output:
+   * Size of Array in Function: 8
+   * */
+}
+
+void arr_func(int arr[]) {
+  int size = sizeof(arr);
+  printf("Size of Array in Function: %d\n", size);
+}
+</code>
+</pre>
+
+<p><img class="center" src="https://i1.wp.com/i.imgur.com/6TASe4p.png?resize=615%2C368&amp;ssl=1" width="615" height="368" data-recalc-dims="1"></p>
+<p>When we call <tt>sizeof()</tt> on <tt>my_array</tt> in the function, we get an output of 8, whereas when we called <tt>sizeof()</tt> in the immediate scope of <tt>my_array</tt> earlier, we got an output of 20. Pointers all have a size of 8 bytes (on a 64-bit architecture at least, which is what we are assuming on this post), so this matches what we expected. When <tt>my_array</tt> was passed to <tt>arr_func()</tt>, it was converted to a pointer.</p>
+
+<p>Now, some of you may be wondering why <tt>sizeof()</tt> prints out the correct size of the array at all. After all, we’re passing <tt>my_array</tt> to it, so shouldn’t <tt>my_array</tt> decay into a pointer? Well it turns out there are a couple exceptions. First of all, <tt>sizeof()</tt> is not actually a function, but rather an operator, just like +, -, &amp;, etc. With that in mind, there are three exceptions to the rule.</p>
+
+<ol>
+<li>The <tt>sizeof()</tt> operator is applied on the array.</li>
+<li>The unary &amp; operator is applied on the array.</li>
+<li>The array is a string literal being used to initialize and declare an array.</li>
+</ol>
+
+<p>We’ve already demonstrated how <tt>sizeof()</tt> is an exception to this rule, so let’s focus on the latter two. Since the &amp; operator does not decay the array, if you use the &amp; operator on an array, it gives you the address of the block of memory dedicated to the array. Since the block of memory begins at the array’s first element, the address of the array is the address of the first element. You can verify this with the code below.</p>
+
+<pre>
+<code>#include&lt;stdio.h&gt;
+
+int main(void) {
+  // Code from above here.
+  int (*arr_ptr)[5] = &amp;my_array;
+  printf("Array Pointer Value: %p\n", arr_ptr);
+
+  /*
+   * Output:
+   * Array Pointer Value: 0x7fffd0591690
+   * */
+}
+</code>
+</pre>
+
+<p>Comparing the value printed out when we pass <tt>arr_ptr</tt> to the print function, we can see that it’s the same exact value as the one printed out when we passed the array itself to be printed out. However, this does not mean that <tt>arr_ptr</tt> is the same as <tt>my_array</tt>. They have the same value, but they are not of the same type.</p>
+
+<p>I’ll lightly touch on pointer arithmetic here, but I’ll go over it in more detail in the next section. If you have an int array like <tt>my_array</tt> and you want to go to the next int in your array, you would do <tt>my_array[1]</tt>. In essence, you are saying to the computer, “hey, I want to find the thing that is after what this pointer is pointing to”. So <tt>my_array</tt> points to the first item of the array, which in this case is 1. You tell it to find the next item, so it moves over four bytes and sees that the value 2 is there and gives that to you. It knows to move over four bytes because <tt>my_array</tt> is an int array, and ints have a size of four bytes. So logically speaking, if it wants the item that comes after, it must move four bytes over in memory. The same goes for an int pointer. If we use <tt>first_ptr</tt> from above, and we say <tt>first_ptr[2]</tt>, the computer knows that it should move over 2 ints worth of data to get the item that you want. And it knows that it should move over 2 ints worth of bytes and not 2 doubles worth of bytes because it knows that <tt>first_ptr</tt> is specifically an int pointer.</p>
+
+<p>However, unlike <tt>my_array</tt>, which is an array of ints, or <tt>first_ptr</tt>, which is an int pointer, <tt>arr_ptr</tt> is an int array pointer. After all, we got the address from applying &amp; to <tt>my_array</tt> as a whole. So if we call <tt>arr_ptr[1]</tt>, instead of moving 4 bytes over, it will move over <tt>sizeof(my_array)</tt> bytes. This is why we had to declare <tt>arr_ptr</tt> as type <tt> int(*)[5]</tt>, which states that <tt>arr_ptr</tt> is a pointer (*) to an array of five ints (int[5]). Without doing so, the computer would not know how many bytes it should move forward in memory when you call <tt>arr_ptr[1]</tt>. In this instance, the size of <tt>my_array</tt> is 20 bytes, so the address of <tt>arr_ptr[1]</tt> should be 20 bytes further in memory than the value of <tt>arr_ptr</tt>. We can see this here:</p>
+
+<pre>
+<code>#include&lt;stdio.h&gt;
+
+int main(void) {
+  // Code from above here.
+  printf("Array Pointer Value: %p\n", arr_ptr);
+  printf("Array Pointer Incremented by 1: %p\n", arr_ptr[1]);
+  printf("Array Incremented by 1: %p\n", &amp;my_array[1]);
+
+  /*
+   * Output:
+   * Array Pointer Value: 0x7fffd0591690
+   * Array Pointer Incremented by 1: 0x7fffd05916a4
+   * Array Incremented by 1: 0x7fffd0591694
+   * */
+}
+</code>
+</pre>
+
+<p>If you subtract the <tt>0x7fffd0591690</tt> from <tt>0x7fffd05916a4</tt>, you get <tt>0x14</tt>, which when converted into base 10 is 20, the size of <tt>my_array</tt>. And if you subtract <tt>0x7fffd0591690</tt> from <tt>0x7fffd0591694</tt>, we get <tt>0x4</tt>, which is just 4, the size of an int.</p>
+
+<p>Now for the third exception, there are two ways you can use string literals. If we declare a char array with <tt>my_array[]</tt> and initialize it with the value “Define Coding”, then the string literal “Define Coding” is treated as an array. But if you declare a char pointer with <tt>*my_array</tt> and initialize it with the same string literal, then “Define Coding” will decay into a pointer.</p>
+
+<pre>
+<code>
+#include&lt;stdio.h&gt;
+
+int main(void) {
+  char str[] = "Define Coding";
+  char *char_ptr = "Define Coding";
+
+  printf("String Literal Array Size: %d\n", sizeof(str));
+  printf("String Literal Pointer Size: %d\n", sizeof(char_ptr));
+  /*
+   * Output:
+   * String Literal Array Size: 14
+   * String Literal Pointer Size: 8
+   * */
+}
+</code>
+</pre>
+
+<p>As you can see, when we print out the two different values, you can see how if we declare the array using <tt>str[]</tt>, we get a size of 14 bytes, whereas if we declare it using <tt>*char_ptr</tt>, we get a size of 8 bytes. This is not the best example, as clearly the type of <tt>char_ptr</tt> is a char pointer, but I can’t think of a better example at the moment. There’s just one more topic I’d like to cover: pointer arithmetic.</p>
+
+<br />
+
+<h2>Pointer Arithmetic</h2>
+
+<p>We briefly touched on pointer arithmetic before when I discussed applying the &amp; operator on an array. As you know by now, a pointer is simply a variable that holds a memory location.</p>
+
+<p>Let’s refer back to the analogy from <strong>Part 1</strong>. If you’ve just delivered your letter to the house at 144 Main Street, and your boss calls and says, “Hey, there’s an important package that you need to pick up two over from the house you’re at right now”, where do you go? And yes, your boss is terrible at giving instructions. You’d probably come to the logical conclusion that he means two <em>houses</em> over from 144 Main Street, and not two <em>yards</em> over from 144 Main Street. So you would drive your truck over to 146 Main Street.</p>
+<p><img class="center " title="For anyone wondering, 4 shades of brown lighter is roughly equivalent to 3.5 shades of blue darker plus a splash of red." src="https://i1.wp.com/i.imgur.com/SAUhkd6.png?resize=673%2C448&amp;ssl=1" width="673" height="448" data-recalc-dims="1"></p>
+
+<p>How were you able to come to this conclusion? Well, you would use context clues. Letters have addresses to direct you to various buildings, or in this case, houses. They don’t direct you to, for example, specific yard lines in the neighborhood (<s>house on yard line 75</s>). So based on that context, when the boss says “two over”, you assume he means houses. That’s how pointers work as well.</p>
+
+<p>Say you create an int pointer, and let’s call it <tt>int_ptr</tt> for the sake of simplicity, and you tell <tt>int_ptr</tt> to go two over by using subscript notation (<tt>int_ptr[2]</tt>). Well instead of houses, the pointer will assume two <em>ints</em> over. So it moves ahead 2 * <tt>sizeof(int)</tt> = 8 bytes in memory. It knows to do this because <tt>int_ptr</tt> is an int pointer. If we had a double pointer <tt>double_ptr</tt>, and we told it to move 2 over, it would move ahead 2 * <tt>sizeof(double)</tt> = 16 bytes in memory.</p>
+<p><img src="https://i1.wp.com/i.imgur.com/hw1w8nb.gif?ssl=1" data-recalc-dims="1"></p>
+
+<p>That also helps explain why arrays start with index 0 in so many languages. If an array <tt>my_array</tt> has a value of the address of its first element, then if you want the first element, you want to move 0 over. In other words, have it stay in place. If you want the second item, you want it to move 1 over from the memory address, so you call <tt>my_array[1]</tt>.</p>
+<br />
+
+<p>There are two ways you can do pointer arithmetic.</p>
+
+<ul>
+<li><strong>Pointer Offset Notation –</strong> <br>This is when you add/subtract a value from a pointer using the familiar binary operators +/- that you’ve used since elementary school. So with our analogy, let’s say our pointer <tt>ptr</tt> is pointing to 144 Main Street. If I want the address at 146 Main Street, I’d have to do <tt>ptr + 2</tt>. What if I want the mailbox at 146 Main Street? Then I’d have to dereference the address 146 Main Street, so I’d do <tt>*(ptr + 2)</tt>. This also means you can use ++/– on the pointer as well.</li>
+<li><strong>Subscript Notation –</strong> <br>This is what you see in other languages, when you use the [] operator to refer to a specific index in an array. In C, if I do <tt>ptr[i]</tt>, where i is an integer, it’s same as doing <tt>*(ptr + i)</tt>. In other words, using the [] operator helps cut down on character count, but it also automatically dereferences the pointer. If you don’t want to happen, you’ll be better off using pointer offset notation.</li>
+</ul>
+
+<p>The code below should help clarify all of this.</p>
+
+<pre>
+<code>#include&lt;stdio.h&gt;
+
+int main(void) {
+  // Code from above here.
+  int *int_ptr = &amp;my_array[2]; // int_ptr is pointing to the 3 in my_array
+  
+  printf("Value of int_ptr[2]: %d\n", int_ptr[2]);
+  printf("Value of *(int_ptr + 2): %d\n", *(int_ptr + 2));
+  printf("Value of *(int_ptr - 2): %d\n", *(int_ptr - 2));
+  printf("Address of the 5 in the array: %p\n", int_ptr + 2); 
+  printf("Value of ++int_ptr: %d\n", *++int_ptr);
+
+  /*
+   * Output:
+   * Value of int_ptr[2]: 5
+   * Value of *(int_ptr + 2): 5
+   * Value of *(int_ptr - 2): 1
+   * Address of the 5 in the array: 0x7fffd05916a0
+   * Value of ++int_ptr: 4
+   * */
+}
+</code>
+</pre>
+<p>One last thing to mention about pointer arithmetic is the fact that it is commutative. In other words, <tt>ptr[4]</tt> is the same as <tt>4[ptr]</tt>. This is because as mentioned before, <tt>ptr[4]</tt> is the same as <tt>*(ptr + 4)</tt>. And <tt>4[ptr] == *(4 + ptr)</tt>. <tt>4 + ptr</tt> is the same as <tt>ptr + 4</tt>.</p>
+
+<pre>
+<code>#include&lt;stdio.h&gt;
+
+int main(void) {
+  // Code from above here.
+  int_ptr = &amp;my_array[0];
+
+  printf("Value of int_ptr[2]: %d\n", int_ptr[2]);
+  printf("Value of 2[int_ptr]: %d\n", 2[int_ptr]);
+  /*
+   * Output:
+   * Value of int_ptr[2]: 3
+   * Value of 2[int_ptr]: 3
+   * */
+}
+</code>
+</pre>
+<p>That’s the end of everything I wanted to go over today. Hopefully you’ve gotten a much clearer idea as to how pointers work and their relationship with arrays. The code will be below for you to run yourself if you so desire. Have a great day!</p>
+
+<pre>
+<code>
+#include&lt;stdio.h&gt;
+
+void arr_func(int arr[]);
+
+int main(void) {
+  int my_array[5] = {1, 2, 3, 4, 5}; 
+  printf("Size of Array: %d\n", sizeof(my_array));
+    
+  printf("Print Array as Integer: %d\n", my_array);
+
+  int *address_of_first = &amp;my_array[0];
+  printf("Print Array as Pointer: %p\n", my_array);
+  printf("Print Address of First Element: %p\n", address_of_first);
+  
+  arr_func(my_array);
+  
+  int (*arr_ptr)[5] = &amp;my_array;
+  printf("Array Pointer Value: %p\n", arr_ptr);
+  printf("Array Pointer Incremented by 1: %p\n", arr_ptr[1]);
+  printf("Array Incremented by 1: %p\n", &amp;my_array[1]);
+
+  char str[] = "Define Coding";
+  char *char_ptr = "Define Coding";
+
+  printf("String Literal Array Size: %d\n", sizeof(str));
+  printf("String Literal Pointer Size: %d\n", sizeof(char_ptr));
+
+  int *int_ptr = &amp;my_array[2]; // int_ptr is pointing to the 3 in my_array
+  
+  printf("Value of int_ptr[2]: %d\n", int_ptr[2]);
+  printf("Value of *(int_ptr + 2): %d\n", *(int_ptr + 2));
+  printf("Value of *(int_ptr - 2): %d\n", *(int_ptr - 2));
+  printf("Address of the 5 in the array: %p\n", int_ptr + 2); 
+  printf("Value of ++int_ptr: %d\n", *++int_ptr);
+
+  int_ptr = &amp;my_array[0];
+  printf("Value of int_ptr[2]: %d\n", int_ptr[2]);
+  printf("Value of 2[int_ptr]: %d\n", 2[int_ptr]);
+}
+
+void arr_func(int arr[]) {
+  int size = sizeof(arr);
+  printf("Size of Array in Function: %d\n", size);
+}
+</code>
+</pre>
+</div>
+<script>hljs.initHighlightingOnLoad();</script>

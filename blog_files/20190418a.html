@@ -4,14 +4,14 @@
 </div>
 <div id="articlecontent">
   <p>I must admit, it has been quite a while since my last post.</p>
-  <img src="https://i0.wp.com/i.imgur.com/aJVdMpb.png?ssl=1" alt="" width="691" height="413">
+  <img class="center" src="https://i0.wp.com/i.imgur.com/aJVdMpb.png?ssl=1" alt="" width="691" height="413">
   <p>But on the bright side, I have learned quite a lot in the past, what, 10 months? So I certainly have a lot of material to talk about. Today’s topic, as you can clearly see from the title, is about pointers. The language we’ll be using today is C, as pointers play a rather significant role, and any program more complicated than simply printing “Hello world” essentially demands the use of pointers.</p>
   <p>Before I learned C and anything about pointers, pointers were daunting. I heard horror stories about the nightmare that is pointers and how pointers ruined lives, started the Holocaust, and probably initiated 9/11 too. Fortunately for me, a friend of mine gave me a rather illuminating analogy that helped make pointers much simpler for me. Let’s get started.</p>
   <p class="disclaimer"><strong>DISCLAIMER:&nbsp;</strong><em>I am still a novice in programming, so keep in mind that it is possible that I may be wrong here and there. However, with this post, I did a lot of research and double-checking, so there should not be any errors. If you would like some help in finding educational resources, check out the /r/learnprogramming subreddit wiki <a href="https://www.reddit.com/r/learnprogramming/wiki/faq" target="_blank">[here]</a>. While I still have your attention, [<a href="https://www.reddit.com/r/learnprogramming/wiki/index#wiki_discouraged_resources" target="_blank">here</a>] is a list of resources discouraged by /r/learnprogramming either due to unreliable or misleading information.</em></p>
   <br />
   <h2>What is a pointer?</h2>
   <p>When you declare a variable, your computer has to have somewhere that it stores the variable. For the sake of simplicity, we will say that the variable is stored in RAM (it could also technically be stored in the cache, but the location of storage is not particularly important for this post). For the computer to know how to retrieve a particular variable from memory, you need to give it an address so that the computer knows where in memory to go to get that variable.</p>
-  <figure class="wp-block-image"><img src="https://i1.wp.com/i.imgur.com/DmkHUas.png?ssl=1" alt="" width="691" height="556"></figure>
+  <figure class="wp-block-image"><img class="center" src="https://i1.wp.com/i.imgur.com/DmkHUas.png?ssl=1" alt="" width="691" height="556"></figure>
   <p>The address in this instance, is the pointer. And you can store that pointer inside another variable as well. Now, before I talk about the analogy, let’s quickly discuss how you create a pointer in C.</p>
   <br />
   <h2>How do you create a pointer in C?</h2>
@@ -20,7 +20,7 @@
 
   <p>The &amp; operator, when placed in front of a variable, essentially says, “give me the address of this variable”.</p>
 
-  <figure class="wp-block-image"><img src="https://i2.wp.com/i.imgur.com/RKcEXlJ.png?ssl=1" alt="" width="691" height="404"></figure>
+  <figure class="wp-block-image"><img class="center" src="https://i2.wp.com/i.imgur.com/RKcEXlJ.png?ssl=1" alt="" width="691" height="404"></figure>
 
   <p>So for example, take a look at the following code:</p>
 
@@ -72,7 +72,7 @@ int main(void) {
 
   <p>Imagine that you’ve decided to work as a mailman for your local post office. You’re sitting in your truck and looking at the first letter you have to deliver (I’m pretty sure this isn’t actually how mailmen deliver letters and they have a preset route, but this is my analogy so get off of it). It says “144 Main Street”.</p>
 
-  <figure><img src="https://i2.wp.com/i.imgur.com/wpwxJp3.png?ssl=1" alt="" width="691" height="543"></figure>
+  <figure><img class="center" src="https://i2.wp.com/i.imgur.com/wpwxJp3.png?ssl=1" alt="" width="691" height="543"></figure>
 
   <p>Your goal is to get this letter into the mailbox at that location. The pointer in this instance is the address written on the letter. The variable would be the mailbox. And this pointer, or letter, points you to the variable, or mailbox, at that address. In C, this might look something like this:</p>
   <pre>
@@ -97,7 +97,7 @@ int main(void) {
 
   <p>What’s particularly interesting is that the pointer <tt>letter_address</tt> also has an address. In other words, you can create a pointer to a pointer. And a pointer to a pointer to a pointer. And a pointer to a point-.</p>
 
-  <img src="https://i1.wp.com/i.imgur.com/awFlHxK.png?resize=682%2C325&amp;ssl=1" alt="" width="682" height="325">
+  <img class="center" src="https://i1.wp.com/i.imgur.com/awFlHxK.png?resize=682%2C325&amp;ssl=1" alt="" width="682" height="325">
 
   <p>So if we created a pointer to <tt>letter_address</tt>, what would be stored in it? Well, a pointer simply contains the address, or location, of a variable. So the location of <tt>letter_address</tt> would be wherever the envelope is. Right now, it’s in your truck, which is parked on, say, 16 Elm Street. To create a pointer to a pointer in C, you simply have to declare it with two asterisks. If you wanted to create a pointer to a pointer of a pointer, you’d declare it with three asterisks, and so on and so forth.</p>
   <pre>
@@ -116,7 +116,7 @@ int main(void) {
 </code>
   </pre>
   <p>So the address of <tt>letter_address</tt> is <tt>0x7ffed0b040c8</tt>, which is 16 Elm Street. We have stored that address in <tt>letter_address_address</tt>, which is a pointer to a pointer. The following graphic should help visualize what’s going on here pretty well, and connect what’s happening in the computer to the analogy as well.</p>
-  <img src="https://i1.wp.com/i.imgur.com/7lIuLvc.png?ssl=1" alt="" width="691" height="357">
+  <img class="center" src="https://i1.wp.com/i.imgur.com/7lIuLvc.png?ssl=1" alt="" width="691" height="357">
   <br />
   <p>I’ll cut the pointer post short here, because it’s going to be way too long if I try adding in arrays and pointer arithmetic into this one post. As always, thanks for reading! I did my best to research everything and verify my facts, but if you see any mistakes, please let me know. The code from the post is below in case you want to try running it yourself.</p>
 
