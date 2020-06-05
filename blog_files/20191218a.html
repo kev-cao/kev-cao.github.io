@@ -173,7 +173,7 @@ int main(void) {
 
 <ul>
 <li><strong>Pointer Offset Notation –</strong> <br>This is when you add/subtract a value from a pointer using the familiar binary operators +/- that you’ve used since elementary school. So with our analogy, let’s say our pointer <tt>ptr</tt> is pointing to 144 Main Street. If I want the address at 146 Main Street, I’d have to do <tt>ptr + 2</tt>. What if I want the mailbox at 146 Main Street? Then I’d have to dereference the address 146 Main Street, so I’d do <tt>*(ptr + 2)</tt>. This also means you can use ++/– on the pointer as well.</li>
-<li><strong>Subscript Notation –</strong> <br>This is what you see in other languages, when you use the [] operator to refer to a specific index in an array. In C, if I do <tt>ptr[i]</tt>, where i is an integer, it’s same as doing <tt>*(ptr + i)</tt>. In other words, using the [] operator helps cut down on character count, but it also automatically dereferences the pointer. If you don’t want to happen, you’ll be better off using pointer offset notation.</li>
+<li><strong>Subscript Notation –</strong> <br>This is what you see in other languages when you use the [] operator to refer to a specific index in an array. In C, if I do <tt>ptr[i]</tt>, where i is an integer, it’s same as doing <tt>*(ptr + i)</tt>. In other words, using the [] operator helps cut down on character count, but it also automatically dereferences the pointer. If you don’t want this to happen, you’ll be better off using pointer offset notation.</li>
 </ul>
 
 <p>The code below should help clarify all of this.</p>
