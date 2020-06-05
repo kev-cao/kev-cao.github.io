@@ -1,0 +1,151 @@
+<div id="articletitle">
+  <h2>Pointers Part 1: Introduction [C]</h2>
+  <p>Published April 18, 2019</p>
+</div>
+<div id="articlecontent">
+  <p>I must admit, it has been quite a while since my last post.</p>
+  <img src="https://i0.wp.com/i.imgur.com/aJVdMpb.png?ssl=1" alt="" width="691" height="413">
+  <p>But on the bright side, I have learned quite a lot in the past, what, 10 months? So I certainly have a lot of material to talk about. Today’s topic, as you can clearly see from the title, is about pointers. The language we’ll be using today is C, as pointers play a rather significant role, and any program more complicated than simply printing “Hello world” essentially demands the use of pointers.</p>
+  <p>Before I learned C and anything about pointers, pointers were daunting. I heard horror stories about the nightmare that is pointers and how pointers ruined lives, started the Holocaust, and probably initiated 9/11 too. Fortunately for me, a friend of mine gave me a rather illuminating analogy that helped make pointers much simpler for me. Let’s get started.</p>
+  <p class="disclaimer"><strong>DISCLAIMER:&nbsp;</strong><em>I am still a novice in programming, so keep in mind that it is possible that I may be wrong here and there. If you would like some help in finding educational resources, check out the /r/learnprogramming subreddit wiki <a href="https://www.reddit.com/r/learnprogramming/wiki/faq" target="_blank">[here]</a>. While I still have your attention, [<a href="https://www.reddit.com/r/learnprogramming/wiki/index#wiki_discouraged_resources" target="_blank">here</a>] is a list of resources discouraged by /r/learnprogramming either due to unreliable or misleading information.</em></p>
+  <br />
+  <h2>What is a pointer?</h2>
+  <p>When you declare a variable, your computer has to have somewhere that it stores the variable. For the sake of simplicity, we will say that the variable is stored in RAM (it could also technically be stored in the cache, but the location of storage is not particularly important for this post). For the computer to know how to retrieve a particular variable from memory, you need to give it an address so that the computer knows where in memory to go to get that variable.</p>
+  <figure class="wp-block-image"><img src="https://i1.wp.com/i.imgur.com/DmkHUas.png?ssl=1" alt="" width="691" height="556"></figure>
+  <p>The address in this instance, is the pointer. And you can store that pointer inside another variable as well. Now, before I talk about the analogy, let’s quickly discuss how you create a pointer in C.</p>
+  <br />
+  <h2>How do you create a pointer in C?</h2>
+
+  <p>There are two important operators you’ll need to know regarding pointers: &amp; and *.</p>
+
+  <p>The &amp; operator, when placed in front of a variable, essentially says, “give me the address of this variable”.</p>
+
+  <figure class="wp-block-image"><img src="https://i2.wp.com/i.imgur.com/RKcEXlJ.png?ssl=1" alt="" width="691" height="404"></figure>
+
+  <p>So for example, take a look at the following code:</p>
+
+  <pre>
+<code>#include&lt;stdio.h&gt;
+
+int main(void) {
+  int my_variable = 144;
+  int *my_variable_ptr = &amp;my_variable;
+
+  printf("Variable: %d\nVariable Address: %p\n", my_variable, my_variable_ptr);
+
+  /*  
+   * Output:
+   * Variable: 144
+   * Variable Address: 0x7fff89a83bec
+   * */
+}
+</code>
+  </pre>
+  <p>We first declare an int variable called <tt>my_variable</tt> and store the value 144 inside of it. We then create a pointer called <tt>my_variable_ptr</tt> and store the address of <tt>my_variable</tt> inside of it by applying the &amp; operator the <tt>my_variable</tt>. When we print out the values stored in the two variables, we can see that <tt>my_variable</tt> contains 144, and <tt>my_variable_ptr</tt> contains a hexadecimal representation of the address of <tt>my_variable</tt>.</p>
+
+  <p>You may have also noticed that <tt>my_variable_ptr</tt> is preceded by an asterisk. There are two different uses of the asterisk, both of which are related but not the same. The first use applies when using * in a <strong>variable declaration.</strong> If you declare a variable with a * in front of it, then you are stating that the variable you are declaring is a pointer to whatever type you indicate. So in the code above, the line <tt>int *my_variable_ptr</tt> is stating that the variable <tt>my_variable_ptr</tt> is a pointer to an int.</p>
+
+  <p>The second use of * includes all other instances that are not variable declarations. If you aren’t declaring a variable and you use * before a variable, then that’s saying, “go to the address stored in this variable and give me what’s there”. This is called dereferencing. So, expanding on the code above, try writing this line:</p>
+  <pre>
+<code>#include&lt;stdio.h&gt;
+
+int main(void) {
+  // Code from above here.
+  int other_variable = *my_variable_ptr;
+
+  printf("Other Variable: %d\n", other_variable);
+  /*
+   * Output:
+   * Other Variable: 144
+   * */
+}
+</code>
+  </pre>
+
+  <p>In the first line, we state, “go to the address stored in <tt>my_variable_ptr</tt> and get the value that is in there, and store it in <tt>other_variable</tt>“. So computer goes to memory address <tt>0x7fff89a83bec</tt>, takes the value stored there (144), and stores that value in <tt>other_variable</tt>. As a result, the value of <tt>other_variable</tt> is 144.</p>
+
+  <p>There is a lot more you can do with pointers, and it will get more confusing when you start talking about arrays and the like, but that’s the basic overview. Let’s move on to the analogy I was speaking of.</p>
+
+  <br />
+
+  <h2>Pointer Analogy</h2>
+
+  <p>Imagine that you’ve decided to work as a mailman for your local post office. You’re sitting in your truck and looking at the first letter you have to deliver (I’m pretty sure this isn’t actually how mailmen deliver letters and they have a preset route, but this is my analogy so get off of it). It says “144 Main Street”.</p>
+
+  <figure><img src="https://i2.wp.com/i.imgur.com/wpwxJp3.png?ssl=1" alt="" width="691" height="543"></figure>
+
+  <p>Your goal is to get this letter into the mailbox at that location. The pointer in this instance is the address written on the letter. The variable would be the mailbox. And this pointer, or letter, points you to the variable, or mailbox, at that address. In C, this might look something like this:</p>
+  <pre>
+<code>include&lt;stdio.h&gt;
+
+int main(void) {
+  char mailbox = 'A';
+  char *letter_address = &amp;mailbox;
+
+  printf("Mailbox Address: %p\nAddress on Letter: %p\n", &amp;mailbox, letter_address);
+  /*  
+   * Output:
+   * Mailbox Address: 0x7ffc9433e76f
+   * Address on Letter: 0x7ffc9433e76f
+   * */
+}
+</code>
+  </pre>
+  <p>The variable <tt>mailbox</tt> is, well, our mailbox. <tt>letter_address</tt> is the address on our letter. Ignore the fact that the envelope has something in it, as it isn’t relevant in this analogy. Strictly speaking, the pointer is specifically the address written on the letter. So <tt>letter_address</tt> is the pointer.</p>
+
+  <p>When we print out the address of <tt>mailbox</tt> and the address stored in <tt>letter_address</tt>, you can see that both addresses are the same, which is what we expect. With regard to the analogy, you can treat <tt>0x7ffc9433e76f</tt> as 144 Main Street.</p>
+
+  <p>What’s particularly interesting is that the pointer <tt>letter_address</tt> also has an address. In other words, you can create a pointer to a pointer. And a pointer to a pointer to a pointer. And a pointer to a point-.</p>
+
+  <img src="https://i1.wp.com/i.imgur.com/awFlHxK.png?resize=682%2C325&amp;ssl=1" alt="" width="682" height="325">
+
+  <p>So if we created a pointer to <tt>letter_address</tt>, what would be stored in it? Well, a pointer simply contains the address, or location, of a variable. So the location of <tt>letter_address</tt> would be wherever the envelope is. Right now, it’s in your truck, which is parked on, say, 16 Elm Street. To create a pointer to a pointer in C, you simply have to declare it with two asterisks. If you wanted to create a pointer to a pointer of a pointer, you’d declare it with three asterisks, and so on and so forth.</p>
+  <pre>
+<code>#include&lt;stdio.h&gt;
+
+int main(void) {
+  // Code from above here.
+  char **letter_address_address = &amp;letter_address;
+
+  printf("Address of Address on Letter: %p\n", letter_address_address);
+  /*  
+   * Output:
+   * Address of Address on Letter: 0x7ffed0b040c8
+   * */
+}
+</code>
+  </pre>
+  <p>So the address of <tt>letter_address</tt> is <tt>0x7ffed0b040c8</tt>, which is 16 Elm Street. We have stored that address in <tt>letter_address_address</tt>, which is a pointer to a pointer. The following graphic should help visualize what’s going on here pretty well, and connect what’s happening in the computer to the analogy as well.</p>
+  <img src="https://i1.wp.com/i.imgur.com/7lIuLvc.png?ssl=1" alt="" width="691" height="357">
+  <br />
+  <p>I’ll cut the pointer post short here, because it’s going to be way too long if I try adding in arrays and pointer arithmetic into this one post. As always, thanks for reading and feel free to leave any constructive criticism in the comments. I did my best to research everything and verify my facts, but if you see any mistakes, please let me know. The code from the post is below in case you want to try running it yourself.</p>
+
+  <pre>
+<code>#include&lt;stdio.h&gt;
+
+int main(void) {
+  int my_variable = 144;
+  int *my_variable_ptr = &amp;my_variable;
+
+  printf("Variable: %d\nVariable Address: %p\n", my_variable, my_variable_ptr);
+
+  int other_variable = *my_variable_ptr;
+
+  printf("Other Variable: %d\n", other_variable);
+
+
+
+  char mailbox = 'A';
+  char *letter_address = &amp;mailbox;
+
+  printf("Mailbox Address: %p\nAddress on Letter: %p\n", &amp;mailbox, letter_address);
+
+  char **letter_address_address = &amp;letter_address;
+
+  printf("Address of Address on Letter: %p\n", letter_address_address);
+}
+</code>
+  </pre>
+</div>
+<script>hljs.initHighlightingOnLoad();</script>
+

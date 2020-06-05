@@ -304,7 +304,7 @@ a:visited.nodecor {
 }
 
 .postpreview {
-  margin: 2em auto 0 auto;
+  margin: 2em auto 2em auto;
   padding: .5em 1em .5em 1em;
   width: 80%;
   max-width: 800px;
