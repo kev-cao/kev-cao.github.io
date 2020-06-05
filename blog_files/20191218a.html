@@ -30,8 +30,7 @@ int main(void) {
    * Size of Array: 20
    * Print Array as Integer: -799467888
    * */
-}
-</code>
+}</code>
 </pre>
 
 <p>Looking at the code above, we can see that when we print out an int array of size 5, the size of the array is 20, which is what we expected. However, if we try printing out the value of the array as an integer, there’s clearly something wrong. You’d might expect it would print out the value of the first element, but it prints out a seemingly random negative value. The following code will help illuminate what is actually being printed out:</p>
@@ -50,8 +49,7 @@ int main(void) {
    * Print Array as Pointer: 0x7fffd0591690
    * Print Address of First Element: 0x7fffd0591690
    * */ 
-}
-</code>
+}</code>
 </pre>
 
 <p><img class=" center" src="https://i1.wp.com/i.imgur.com/kiptZ0J.png?resize=418%2C519&amp;ssl=1" width="418" height="519" data-recalc-dims="1"></p>
@@ -76,8 +74,7 @@ int main(void) {
 void arr_func(int arr[]) {
   int size = sizeof(arr);
   printf("Size of Array in Function: %d\n", size);
-}
-</code>
+}</code>
 </pre>
 
 <p><img class="center" src="https://i1.wp.com/i.imgur.com/6TASe4p.png?resize=615%2C368&amp;ssl=1" width="615" height="368" data-recalc-dims="1"></p>
@@ -105,8 +102,7 @@ int main(void) {
    * Output:
    * Array Pointer Value: 0x7fffd0591690
    * */
-}
-</code>
+}</code>
 </pre>
 
 <p>Comparing the value printed out when we pass <tt>arr_ptr</tt> to the print function, we can see that it’s the same exact value as the one printed out when we passed the array itself to be printed out. However, this does not mean that <tt>arr_ptr</tt> is the same as <tt>my_array</tt>. They have the same value, but they are not of the same type.</p>
@@ -130,8 +126,7 @@ int main(void) {
    * Array Pointer Incremented by 1: 0x7fffd05916a4
    * Array Incremented by 1: 0x7fffd0591694
    * */
-}
-</code>
+}</code>
 </pre>
 
 <p>If you subtract the <tt>0x7fffd0591690</tt> from <tt>0x7fffd05916a4</tt>, you get <tt>0x14</tt>, which when converted into base 10 is 20, the size of <tt>my_array</tt>. And if you subtract <tt>0x7fffd0591690</tt> from <tt>0x7fffd0591694</tt>, we get <tt>0x4</tt>, which is just 4, the size of an int.</p>
@@ -139,8 +134,7 @@ int main(void) {
 <p>Now for the third exception, there are two ways you can use string literals. If we declare a char array with <tt>my_array[]</tt> and initialize it with the value “Define Coding”, then the string literal “Define Coding” is treated as an array. But if you declare a char pointer with <tt>*my_array</tt> and initialize it with the same string literal, then “Define Coding” will decay into a pointer.</p>
 
 <pre class="prettyprint">
-<code>
-#include&lt;stdio.h&gt;
+<code>#include&lt;stdio.h&gt;
 
 int main(void) {
   char str[] = "Define Coding";
@@ -153,8 +147,7 @@ int main(void) {
    * String Literal Array Size: 14
    * String Literal Pointer Size: 8
    * */
-}
-</code>
+}</code>
 </pre>
 
 <p>As you can see, when we print out the two different values, you can see how if we declare the array using <tt>str[]</tt>, we get a size of 14 bytes, whereas if we declare it using <tt>*char_ptr</tt>, we get a size of 8 bytes. This is not the best example, as clearly the type of <tt>char_ptr</tt> is a char pointer, but I can’t think of a better example at the moment. There’s just one more topic I’d like to cover: pointer arithmetic.</p>
@@ -206,8 +199,7 @@ int main(void) {
    * Address of the 5 in the array: 0x7fffd05916a0
    * Value of ++int_ptr: 4
    * */
-}
-</code>
+}</code>
 </pre>
 <p>One last thing to mention about pointer arithmetic is the fact that it is commutative. In other words, <tt>ptr[4]</tt> is the same as <tt>4[ptr]</tt>. This is because as mentioned before, <tt>ptr[4]</tt> is the same as <tt>*(ptr + 4)</tt>. And <tt>4[ptr] == *(4 + ptr)</tt>. <tt>4 + ptr</tt> is the same as <tt>ptr + 4</tt>.</p>
 
@@ -225,14 +217,12 @@ int main(void) {
    * Value of int_ptr[2]: 3
    * Value of 2[int_ptr]: 3
    * */
-}
-</code>
+}</code>
 </pre>
 <p>That’s the end of everything I wanted to go over today. Hopefully you’ve gotten a much clearer idea as to how pointers work and their relationship with arrays. The code will be below for you to run yourself if you so desire. Have a great day!</p>
 
 <pre class="prettyprint">
-<code>
-#include&lt;stdio.h&gt;
+<code>#include&lt;stdio.h&gt;
 
 void arr_func(int arr[]);
 
@@ -275,8 +265,7 @@ int main(void) {
 void arr_func(int arr[]) {
   int size = sizeof(arr);
   printf("Size of Array in Function: %d\n", size);
-}
-</code>
+}</code>
 </pre>
 </div>
 <script>hljs.initHighlightingOnLoad();</script>

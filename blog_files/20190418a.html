@@ -38,8 +38,7 @@ int main(void) {
    * Variable: 144
    * Variable Address: 0x7fff89a83bec
    * */
-}
-</code>
+}</code>
   </pre>
   <p>We first declare an int variable called <tt>my_variable</tt> and store the value 144 inside of it. We then create a pointer called <tt>my_variable_ptr</tt> and store the address of <tt>my_variable</tt> inside of it by applying the &amp; operator the <tt>my_variable</tt>. When we print out the values stored in the two variables, we can see that <tt>my_variable</tt> contains 144, and <tt>my_variable_ptr</tt> contains a hexadecimal representation of the address of <tt>my_variable</tt>.</p>
 
@@ -58,8 +57,7 @@ int main(void) {
    * Output:
    * Other Variable: 144
    * */
-}
-</code>
+}</code>
   </pre>
 
   <p>In the first line, we state, “go to the address stored in <tt>my_variable_ptr</tt> and get the value that is in there, and store it in <tt>other_variable</tt>“. So computer goes to memory address <tt>0x7fff89a83bec</tt>, takes the value stored there (144), and stores that value in <tt>other_variable</tt>. As a result, the value of <tt>other_variable</tt> is 144.</p>
@@ -88,8 +86,7 @@ int main(void) {
    * Mailbox Address: 0x7ffc9433e76f
    * Address on Letter: 0x7ffc9433e76f
    * */
-}
-</code>
+}</code>
   </pre>
   <p>The variable <tt>mailbox</tt> is, well, our mailbox. <tt>letter_address</tt> is the address on our letter. Ignore the fact that the envelope has something in it, as it isn’t relevant in this analogy. Strictly speaking, the pointer is specifically the address written on the letter. So <tt>letter_address</tt> is the pointer.</p>
 
@@ -112,8 +109,7 @@ int main(void) {
    * Output:
    * Address of Address on Letter: 0x7ffed0b040c8
    * */
-}
-</code>
+}</code>
   </pre>
   <p>So the address of <tt>letter_address</tt> is <tt>0x7ffed0b040c8</tt>, which is 16 Elm Street. We have stored that address in <tt>letter_address_address</tt>, which is a pointer to a pointer. The following graphic should help visualize what’s going on here pretty well, and connect what’s happening in the computer to the analogy as well.</p>
   <img class="center" src="https://i1.wp.com/i.imgur.com/7lIuLvc.png?ssl=1" alt="" width="691" height="357">
@@ -143,8 +139,7 @@ int main(void) {
   char **letter_address_address = &amp;letter_address;
 
   printf("Address of Address on Letter: %p\n", letter_address_address);
-}
-</code>
+}</code>
   </pre>
 </div>
 <script>hljs.initHighlightingOnLoad();</script>
