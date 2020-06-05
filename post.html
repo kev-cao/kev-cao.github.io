@@ -25,8 +25,12 @@
     <script>
       let params = new URLSearchParams(window.location.search);
       let articlefile = params.get("postid") + ".html";
-      $("#article").load("/blog_files/" + articlefile);
-      document.title = $("#article#articletitle h2").text();
+      $("#article").load("/blog_files/" + articlefile, function () {
+        document.title = $("#articletitle").text();
+      });
     </script>
+  <script>
+      document.title = $("#articletitle").text();
+  </script>
   </body>
 </html>
