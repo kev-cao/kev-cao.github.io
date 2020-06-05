@@ -429,6 +429,10 @@ blockquote {
   transition: max-height .4s ease-out;
 }
 
+.prettyprint {
+  overflow: auto;
+}
+
 @media screen and (max-width: 910px) {
   #front-page {
     display: table;

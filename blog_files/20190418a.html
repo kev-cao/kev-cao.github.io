@@ -24,7 +24,7 @@
 
   <p>So for example, take a look at the following code:</p>
 
-  <pre>
+  <pre class="prettyprint">
 <code>#include&lt;stdio.h&gt;
 
 int main(void) {
@@ -46,7 +46,7 @@ int main(void) {
   <p>You may have also noticed that <tt>my_variable_ptr</tt> is preceded by an asterisk. There are two different uses of the asterisk, both of which are related but not the same. The first use applies when using * in a <strong>variable declaration.</strong> If you declare a variable with a * in front of it, then you are stating that the variable you are declaring is a pointer to whatever type you indicate. So in the code above, the line <tt>int *my_variable_ptr</tt> is stating that the variable <tt>my_variable_ptr</tt> is a pointer to an int.</p>
 
   <p>The second use of * includes all other instances that are not variable declarations. If you aren’t declaring a variable and you use * before a variable, then that’s saying, “go to the address stored in this variable and give me what’s there”. This is called dereferencing. So, expanding on the code above, try writing this line:</p>
-  <pre>
+  <pre class="prettyprint">
 <code>#include&lt;stdio.h&gt;
 
 int main(void) {
@@ -75,7 +75,7 @@ int main(void) {
   <figure><img class="center" src="https://i2.wp.com/i.imgur.com/wpwxJp3.png?ssl=1" alt="" width="691" height="543"></figure>
 
   <p>Your goal is to get this letter into the mailbox at that location. The pointer in this instance is the address written on the letter. The variable would be the mailbox. And this pointer, or letter, points you to the variable, or mailbox, at that address. In C, this might look something like this:</p>
-  <pre>
+  <pre class="prettyprint">
 <code>include&lt;stdio.h&gt;
 
 int main(void) {
@@ -100,7 +100,7 @@ int main(void) {
   <img class="center" src="https://i1.wp.com/i.imgur.com/awFlHxK.png?resize=682%2C325&amp;ssl=1" alt="" width="682" height="325">
 
   <p>So if we created a pointer to <tt>letter_address</tt>, what would be stored in it? Well, a pointer simply contains the address, or location, of a variable. So the location of <tt>letter_address</tt> would be wherever the envelope is. Right now, it’s in your truck, which is parked on, say, 16 Elm Street. To create a pointer to a pointer in C, you simply have to declare it with two asterisks. If you wanted to create a pointer to a pointer of a pointer, you’d declare it with three asterisks, and so on and so forth.</p>
-  <pre>
+  <pre class="prettyprint">
 <code>#include&lt;stdio.h&gt;
 
 int main(void) {
@@ -120,7 +120,7 @@ int main(void) {
   <br />
   <p>I’ll cut the pointer post short here, because it’s going to be way too long if I try adding in arrays and pointer arithmetic into this one post. As always, thanks for reading! I did my best to research everything and verify my facts, but if you see any mistakes, please let me know. The code from the post is below in case you want to try running it yourself.</p>
 
-  <pre>
+  <pre class="prettyprint">
 <code>#include&lt;stdio.h&gt;
 
 int main(void) {

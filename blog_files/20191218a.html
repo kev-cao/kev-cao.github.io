@@ -16,7 +16,7 @@
 
 <p>When you create an array in C, you tell the computer to allocate a certain amount of memory for the array. So for example, if you create an array of 5 ints, then when the array is initialized, 20 bytes of memory is allocated for the array. However, what does the variable itself store? Let’s try printing out those values.</p>
 
-<pre>
+<pre class="prettyprint">
 <code>#include&lt;stdio.h&gt;
 
 int main(void) {
@@ -36,7 +36,7 @@ int main(void) {
 
 <p>Looking at the code above, we can see that when we print out an int array of size 5, the size of the array is 20, which is what we expected. However, if we try printing out the value of the array as an integer, there’s clearly something wrong. You’d might expect it would print out the value of the first element, but it prints out a seemingly random negative value. The following code will help illuminate what is actually being printed out:</p>
 
-<pre>
+<pre class="prettyprint">
 <code>#include&lt;stdio.h&gt;
 
 int main(void) {
@@ -59,7 +59,7 @@ int main(void) {
 
 <p>As I mentioned previously, arrays will, in most instances, decay into pointers. So in those instances, an array variable has the same value as a pointer to the first element in the array. If I pass an array to a function, say <tt>arr_func(int arr[])</tt>, then arr is not seen as an array, but rather a pointer. We can see this happen here:</p>
 
-<pre>
+<pre class="prettyprint">
 <code>#include&lt;stdio.h&gt;
 
 void arr_func(int arr[]);
@@ -93,7 +93,7 @@ void arr_func(int arr[]) {
 
 <p>We’ve already demonstrated how <tt>sizeof()</tt> is an exception to this rule, so let’s focus on the latter two. Since the &amp; operator does not decay the array, if you use the &amp; operator on an array, it gives you the address of the block of memory dedicated to the array. Since the block of memory begins at the array’s first element, the address of the array is the address of the first element. You can verify this with the code below.</p>
 
-<pre>
+<pre class="prettyprint">
 <code>#include&lt;stdio.h&gt;
 
 int main(void) {
@@ -115,7 +115,7 @@ int main(void) {
 
 <p>However, unlike <tt>my_array</tt>, which is an array of ints, or <tt>first_ptr</tt>, which is an int pointer, <tt>arr_ptr</tt> is an int array pointer. After all, we got the address from applying &amp; to <tt>my_array</tt> as a whole. So if we call <tt>arr_ptr[1]</tt>, instead of moving 4 bytes over, it will move over <tt>sizeof(my_array)</tt> bytes. This is why we had to declare <tt>arr_ptr</tt> as type <tt> int(*)[5]</tt>, which states that <tt>arr_ptr</tt> is a pointer (*) to an array of five ints (int[5]). Without doing so, the computer would not know how many bytes it should move forward in memory when you call <tt>arr_ptr[1]</tt>. In this instance, the size of <tt>my_array</tt> is 20 bytes, so the address of <tt>arr_ptr[1]</tt> should be 20 bytes further in memory than the value of <tt>arr_ptr</tt>. We can see this here:</p>
 
-<pre>
+<pre class="prettyprint">
 <code>#include&lt;stdio.h&gt;
 
 int main(void) {
@@ -138,7 +138,7 @@ int main(void) {
 
 <p>Now for the third exception, there are two ways you can use string literals. If we declare a char array with <tt>my_array[]</tt> and initialize it with the value “Define Coding”, then the string literal “Define Coding” is treated as an array. But if you declare a char pointer with <tt>*my_array</tt> and initialize it with the same string literal, then “Define Coding” will decay into a pointer.</p>
 
-<pre>
+<pre class="prettyprint">
 <code>
 #include&lt;stdio.h&gt;
 
@@ -185,7 +185,7 @@ int main(void) {
 
 <p>The code below should help clarify all of this.</p>
 
-<pre>
+<pre class="prettyprint">
 <code>#include&lt;stdio.h&gt;
 
 int main(void) {
@@ -211,7 +211,7 @@ int main(void) {
 </pre>
 <p>One last thing to mention about pointer arithmetic is the fact that it is commutative. In other words, <tt>ptr[4]</tt> is the same as <tt>4[ptr]</tt>. This is because as mentioned before, <tt>ptr[4]</tt> is the same as <tt>*(ptr + 4)</tt>. And <tt>4[ptr] == *(4 + ptr)</tt>. <tt>4 + ptr</tt> is the same as <tt>ptr + 4</tt>.</p>
 
-<pre>
+<pre class="prettyprint">
 <code>#include&lt;stdio.h&gt;
 
 int main(void) {
@@ -230,7 +230,7 @@ int main(void) {
 </pre>
 <p>That’s the end of everything I wanted to go over today. Hopefully you’ve gotten a much clearer idea as to how pointers work and their relationship with arrays. The code will be below for you to run yourself if you so desire. Have a great day!</p>
 
-<pre>
+<pre class="prettyprint">
 <code>
 #include&lt;stdio.h&gt;
 
