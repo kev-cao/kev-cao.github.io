@@ -6,7 +6,7 @@
     <meta name="keywords" content="kevin cao, computer science, definecoding, define, coding, programming, blog, indiana university" />
     <meta name="author" content="DefineCoding" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Define Coding | Blog </title>
+    <title>Define Coding | Blog</title>
     <link href="css/main.css" rel="stylesheet" />
     <link rel="stylesheet"
           href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/default.min.css">
@@ -26,6 +26,7 @@
       let params = new URLSearchParams(window.location.search);
       let articlefile = params.get("postid") + ".html";
       $("#article").load("/blog_files/" + articlefile);
+      document.title = $("#article#articletitle h2").text();
     </script>
   </body>
 </html>

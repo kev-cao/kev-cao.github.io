@@ -1,0 +1,141 @@
+<div id="articletitle">
+  <h2>Dijkstra's Shortest Path Algorithm</h2>
+  <p>Published January 15, 2020</p>
+</div>
+<div id="articlecontent">
+  <p>One of the first algorithms you are exposed to when learning about graphs is probably Dijkstra’s shortest path algorithm. Provided a graph of nodes (with no negative weighted edges) and a starting node, Dijkstra’s algorithm returns the shortest path to every other node from the starting node. The algorithm is actually fairly intuitive, so I would like to go over the intuition and the proof for it.</p>
+  <p class="disclaimer"><strong>DISCLAIMER:&nbsp;</strong><em>I am by no means an expert in programming, so keep in mind that it is possible that I may be wrong here and there. However, for this particular post, I had the contents verified by a professor, so there should be no mistakes. If you would like some help in finding educational resources, check out the /r/learnprogramming subreddit wiki <a href="https://www.reddit.com/r/learnprogramming/wiki/faq" target="_blank">[here]</a>. While I still have your attention, [<a href="https://www.reddit.com/r/learnprogramming/wiki/index#wiki_discouraged_resources" target="_blank">here</a>] is a list of resources discouraged by /r/learnprogramming either due to unreliable or misleading information.</em></p>
+  <br />
+  <h2>Introduction</h2>
+  <p>I often get a bit confused when having to deal with multiple variable/functions, and have to refer back to previous paragraphs to remember what each maps to. To make that easier for you, here’s a key to help define the variables/functions I use in the explanation:<br>
+  </p>
+  <ul>
+    <li><em>s</em> – the starting node. The algorithm will output the length of the shortest path from&nbsp;<em>s</em> to every other node.</li>
+    <li><em>u, v&nbsp;</em>– arbitrary node names. If I just need a variable for some node, I’ll use <em>u</em> and&nbsp;<em>v.</em></li>
+    <li><em>dist(u)</em> – gives you the length of the current shortest path to&nbsp;<em>u</em> from&nbsp;<em>s</em>.</li>
+    <li><em>σ(u)&nbsp;</em>– gives you the length of the actual shortest path to&nbsp;<em>u</em> from&nbsp;<em>s</em>, which is what we’re looking for. By definition,&nbsp;<em>dist(u) ≥ σ(u).</em></li>
+    <li><em>weight(u, v)&nbsp;</em>– gives you the weight of the edge <em>u→</em><em>v</em> .</li>
+  </ul>
+  <p>I’ll briefly go over some of these again in the algorithm overview just to provide extra detail.</p>
+  <br />
+  <h2>Algorithm Overview</h2>
+  <p>Before we go into the specifics of the algorithm itself, let’s lay out the rudimentary foundation and rules.</p>
+  <p>First, maintain some data structure to map each node to an integer value. That integer value will represent the shortest distance from <em>s</em>. Let’s call that data structure <em>dist</em>, and&nbsp;<em>dist(u) </em>gives you the current distance value for a given node <em>u</em>.</p>
+  <p>Nodes can be marked as unsettled or settled. A given node <em>u</em> is considered settled when <em>dist(u) == σ(u)</em>. If <em>dist(u) &gt; σ(u)</em>, then <em>u</em> is unsettled. Simply put, a node is settled if the algorithm thinks it has the right answer for that node. Otherwise, it is considered unsettled.</p>
+  <p>Finally, we will also have a data structure that maps pairs of nodes to integers. A key pair of&nbsp;<em>(u, v)</em>&nbsp;maps to an integer value representing the length of the edge from that begins at node&nbsp;<em>u</em> and ends at node <em>v</em>. This integer value is also known as the <strong>weight</strong> of the edge. For the sake of this outline, you can access the weight of an edge from <em>u&nbsp;</em>to&nbsp;<em>v</em> using <em>weight</em><em>(u, v)</em>.</p>
+  <p>Now, for the algorithm.</p>
+  <ol>
+    <li>Label all nodes as unsettled.</li>
+    <li>Set the distance of&nbsp;<em>s</em>&nbsp;to 0. For all nodes <strong>except <em>s</em></strong>, set the distance to some value to represent infinity (for example, in Java, Integer.MAX_VALUE would be a good representation).</li>
+    <li>Of all the&nbsp;<strong>unsettled</strong> nodes, choose the node with the smallest distance value. That will be the current node we are working on, and we’ll call that node <em>c</em>. Mark <em>c </em>as settled. Then, relax all of its <strong>unsettled</strong> neighboring nodes.
+      <ol>
+        <li>To relax a neighbor&nbsp;<em>n</em>, check if&nbsp;<em>dist(n) &gt; dist(c) + weight(c, n)</em>. If that equality is true, then set&nbsp;<em>dist(n) = dist(c) + weight(c, n)</em>.</li>
+      </ol>
+    </li>
+    <li>Rinse and repeat step 3 until one of two conditions have met:
+      <ul>
+        <li>All nodes have been settled.</li>
+        <li>Our current node,&nbsp;<em>c</em>, has an infinite distance value.</li>
+      </ul>
+    </li>
+  </ol>
+  <p>Once step 4 is completed, then&nbsp;<em>dist</em> will contain the lengths of the shortest paths from&nbsp;<em>s</em> to all other nodes. You may notice, however, that this does not tell you the actual path, but only the length of the path.</p>
+  <br />
+  <h2>&nbsp;Algorithm Intuition/Proof</h2>
+  <p>Dijkstra’s algorithm is not actually a very difficult algorithm, and once you’ve understood the intuition, then the steps make a lot more sense.</p>
+  <br />
+  <h3>Initial Setting of Settled/Unsettled</h3>
+  <p>We set all nodes as unsettled because at the very beginning of the algorithm, we have not determined the shortest distance from&nbsp;<em>s</em> to any node, so we cannot claim that any of the nodes have been settled.</p>
+  <br />
+  <h3>Initial Setting of Distances</h3>
+  <p>Next, set the distance of the starting node to 0, because the distance to the starting node from the starting node is 0, for fairly obvious reasons. However, keep in mind that this is only true because there are no edges with negative weights. If there were negatively weighted edges, then you could have the following, where by taking a negatively weighted cycle, you can achieve a distance shorter than 0 from any node to itself:</p>
+  <p><img class="size-medium center" src="https://i0.wp.com/i.imgur.com/cL6XnGP.png?resize=560%2C139&amp;ssl=1" alt="Negative cycle graph" width="560" height="139" data-recalc-dims="1"></p>
+  <p>In addition, having negative-weight edges, even if there were no negatively weighted cycles, will ruin the premise of a proof that I will be demonstrating later on.</p>
+  <p>For all the other nodes, set their distance value to infinity. There’s two intuitive reasons for this:</p>
+  <ol>
+    <li>Since we have not determined a path to these nodes yet, then they are effectively infinitely far away. For example, if there were no path from node <em>u</em> to node&nbsp;<em>v</em>, then we could say that&nbsp;the distance from&nbsp;<em>u&nbsp;</em>to&nbsp;<em>v</em> is infinite, since it is impossible to get to&nbsp;<em>v</em> from&nbsp;<em>u</em>.</li>
+    <li>We use the maximum value because we wish to update the distances with newer, <strong>shorter</strong> distances. Let’s say we did not set the distances to the maximum value, and instead picked an arbitrary value, say 100. In the following sample graph, let’s say that we are starting at node&nbsp;<em>u</em> and want to find the shortest path to all the other nodes (only one node, <em>v</em>, in this example). We can see that the shortest path from <em>u</em> to&nbsp;<em>v&nbsp;</em>is 110.<br>
+      <img class="size-medium center" src="https://i1.wp.com/i.imgur.com/J281hbq.png?resize=325%2C85&amp;ssl=1" alt="Graph with two nodes and one edge of length 110 km." width="325" height="85" data-recalc-dims="1"><br>
+      But 110 is not smaller than the default null value we set <em>v</em> at, so the program would not update the distance to <em>v</em> to 110 as it will always pick the smaller value. By picking the default null value to be the largest possible integer value, then we guarantee that any path, no matter how long, is better than the null value. The null value is represents “no possible path”, and any path is better than no path. Therefore, the null value should always be the “worse”, or largest, case.</li>
+  </ol>
+  <br />
+  <h3>The For Loop</h3>
+  <p>The for loop contains the real meat of the algorithm. To help illustrate how it works, let’s use a real world example. Imagine that you’ve moved into a new house in a new city, and you want to find the shortest path to a nearby library. This is the map you have been given:</p>
+  <p><img class="size-medium center" src="https://i2.wp.com/i.imgur.com/9O9VE6Z.png?resize=794%2C339&amp;ssl=1" alt="Map showing paths to locations in graph." width="794" height="339" data-recalc-dims="1"></p>
+  <p>For us humans, it’s fairly easy to determine that the shortest path is to go to the arcade, then to the mall, and then the library, for a path length of 7 km. However, we are only able to determine that so easily because the graph is small and not very dense. If the graph had, say, a million nodes, then it would not be so obvious.</p>
+  <p> Remember that computer does not see the graph as we see it above. For the computer, the graph is represented by a collection of nodes, a mapping from one node to other nodes to represent edges, and a mapping of edges to numbers to represent the weights. So as the computer “traverses” the graph, it only knows what it has seen so far. In other words, if the computer is currently at home, then it only sees the 3 edges leading away from home, the lengths of those edges, and the nodes the edges lead to. It will not see the edge from the grocery store to the library, for example, because that is out of its scope.</p>
+  <p>To put this into perspective for us humans, it would be as if you did not have the map, and instead would see a sign like this at every location:</p>
+  <p><img class="size-medium center" src="https://i1.wp.com/i.imgur.com/9rQtZ5C.png?resize=809%2C671&amp;ssl=1" alt="Sign at " width="809" height="671" data-recalc-dims="1"></p>
+  <p>With a setup like this, if you wanted to figure out where the library was, you would have to try out each path and see if it led to the library. That’s how the computer would see it as well.</p>
+  <br />
+  <h3>What does “relaxing” mean?</h3>
+  <p>I think it’s best if we discuss what the term “relaxing” means. In the technical definition, an edge <em>u→</em><em>v</em> is considered “tense” if&nbsp;<em>dist(u) + weight(u, v) &lt; dist(v) </em>(recall that&nbsp;<em>dist(u)</em> is the length of the current shortest path from the starting node <em>s</em> to&nbsp;<em>u</em>). For some of you, this may make perfect sense and need no further explanation. However, this sort of explanation doesn’t work for everybody, so let’s approach this from a different angle.</p>
+  <p>Using the map from above, let’s say that you’ve been going to the mall using the direct path from your home for a total of 6 km. Then, one day you decide to check out the arcade. When you get to the arcade, you see a sign that shows a path to the mall, 1 km away from the arcade. Upon seeing this, you think</p>
+  <blockquote><p>“Hmm… the shortest path to the arcade was 4 km. The mall is 1 km away from the arcade, so that must mean the path to the mall <strong>that cuts through the arcade</strong> is 5 km. That’s shorter than the path I used to take, so from now on I’ll use this path.”</p></blockquote>
+  <p><strong>This is relaxing the edge from the arcade to the mall.</strong> The initial path to the mall that you used was 6 km long <em>(dist(mall))</em>. However, upon reaching the arcade, you realized that there was an even shorter path that used a different road <em>(arcade→mall)</em>. Also, notice how when calculating the shortest path to the mall, you didn’t only look at the 1 km path between the arcade and mall. You also had to include the shortest path to the arcade <em>(dist(arcade))</em>, because the desired result is the shortest path from your home to the mall, not the arcade to the mall. It turns out that <em>dist(arcade) + weight(arcade, mall) </em><em>&lt; </em><em>dist(mall)</em>, so you set&nbsp;<em>dist(mall)</em><em>&nbsp;= dist(arcade) + weight(arcade, mall)</em>.</p>
+  <p>It’s also critical that you have the correct value for the shortest path to the arcade. We calculated the shortest path to the mall that goes through the arcade was 5 km, but we based that on the fact that the shortest path to the arcade was 4 km. If the shortest path to the arcade was 2 km, then the shortest path to the mall that goes through the arcade would be 3 km, not 5 km. <strong>In other words, if you are determining the shortest path from&nbsp;<em>s</em> to&nbsp;<em>v</em>&nbsp; that goes through&nbsp;<em>u</em>, then you must already have settled&nbsp;<em>u</em> (simply put, you must have already determined the shortest path&nbsp;from&nbsp;<em>s</em> to&nbsp;<em>u </em>and <em>dist[u] == σ(u) </em>).</strong></p>
+  <p>One last thing about relaxing before we move on. We do not actually have to visit the location to relax the edge to it. When you reached the arcade, you were able to find a new, shorter path to the mall without having to actually go to the mall.</p>
+  <br />
+  <h3>Running the Algorithm</h3>
+  <p>To explain the rest, let’s try running the algorithm. We’ll want to find the shortest path to the library, which will invariably find the shortest path to all of the other locations as well. I begin at home. At this moment, I only know that the shortest distance to home is 0. That much is settled, and we cannot improve that. For the other locations, whatever they may be, I don’t know the shortest distance, so I’ll say that they are infinitely far away from me. Our goal is to update the shortest distance whenever we find a path that is shorter than the previous shortest path.</p>
+  <p>Looking at the sign, I can determine that if I were to take the 2 km path to the grocery store, then that would mean I’ve found a path to the grocery store that is 2 km long. Given that 2 km is shorter than the previous infinite distance I had earlier, the new shortest distance to the grocery store is 2 km. With that same logic, the new distance to the mall is 6 km, and 4 km for the arcade. Notice how I was able to determine these values without actually having to go to these locations. After all, given that the signs give me their distances, there’s no actual need to head to those locations to know how far they are. And with this, I have relaxed the edges. Previously, the distances to the three locations was infinite, and I’ve updated them with shorter distances, thereby relaxing them. However, that does not mean that I have guaranteed that those are the shortest paths, but just that those are the shortest so far.</p>
+  <p>Now, if I want to figure out the shortest path to the library, which path of the three do I take now? In Dijkstra’s terms, all three locations laid out in front of us are <strong>unsettled</strong>. According to the algorithm, we should pick the minimum.<br>
+  </p>
+  <br />
+  <h3>Why Pick the Minimum?</h3>
+  <p>In our above example, we should pick the grocery store as the path to take as we continue exploring this graph. However, we know that the shortest path doesn’t even pass through the grocery store. So why are we picking the minimum?</p>
+  <p>Of course, it’s easy to see in hindsight that the resulting shortest path does not contain the grocery store. However, as the computer is working its way through the graph, it has no way of knowing that. As I mentioned earlier, accurate relaxing is dependent on having the correct shortest path for the node you are relaxing the neighbors of. Picking the minimum ensures that we pick a node that has the correct shortest distance value, which means that when we relax the neighbors of that node, we are relaxing based on the correct value. Let’s review the intuition of that.</p>
+  <p>Your goal is to only relax the outgoing edges to the unsettled neighbors of a node if that node has been settled. Let’s say that you pick a node <em>v</em> to relax its neighbors, but&nbsp;<em>v&nbsp;</em>does not have the minimum distance of the unsettled nodes you picked from. That would mean that there is a node <em>u</em> among the unsettled nodes such that&nbsp;<em>dist(u) &lt; dist(v)</em>. If that’s the case, then what’s there to say that&nbsp;<em>dist(u) + weight(u, v)&nbsp;</em>isn’t shorter than&nbsp;<em>dist(v)</em> ? Our graph has non-negative edges, but that does not mean non-zero. If there exists an edge&nbsp;<em>u→v</em> that has a weight of 0, then&nbsp;<em>dist(u) + 0 &lt; dist(v)&nbsp;</em>must be true since we’ve established earlier that&nbsp;<em>dist(u) &lt; dist(v)</em>. Then that would mean that&nbsp;<em>v</em> has not actually been settled yet since there’s still another shorter path, so we should not relax the outgoing edges of&nbsp;<em>v</em> just yet.</p>
+  <p>Of course, this does not prove that the unsettled node with the minimum distance is settled. It simply shows that an unsettled node that doesn’t have the minimum distance is unsettled. I wanted to keep this post focused more on the intuition behind the algorithm, but if you want to see the actual proof, I’ll put it in the spoiler below.</p>
+  <button type="button" class="collapsible" onclick="toggleCollapsible(this)">Algorithm Proof</button>
+  <div class="collapsiblecontent">
+    <p>We are choosing which node among the unsettled nodes to relax the unsettled neighbors of. Call the node with the minimum distance among that collection <em>w</em>. Now, we want to prove that&nbsp;<em>w</em> has been correctly settled, i.e. <em>dist(w) </em>== <em>σ(w)</em>.&nbsp; We can prove this by contradiction. First, the assumptions:</p>
+    <ol>
+      <li><em>dist(w) &gt; σ(w)</em>. This is the main assumption (<em>w</em> is unsettled)&nbsp;that we wish to prove false by contradiction.</li>
+      <li><em>w&nbsp;</em>is the first vertex that we are going to add to the set of settled nodes&nbsp;<em>T</em>&nbsp;even though <em>dist(w) &gt; σ(w).</em></li>
+      <li><em>w ≠ s.&nbsp;</em>We know that&nbsp;<em>s</em> is settled and&nbsp;<em>dist(s) == <i>σ(s) == 0 </i></em>as explained earlier. Therefore,&nbsp;<em>w</em> cannot be&nbsp;<em>s</em> because of assumption 1.</li>
+      <li><em>dist(w) &lt; ∞.</em>&nbsp;If&nbsp;<em>dist(w) == ∞</em>, then the loop would have stopped and we would not be relaxing anything (see step 4 of Algorithm Overview).</li>
+    </ol>
+    <p>We’ll also need some lemmas, which are proven theorems we know to be true.</p>
+    <ol>
+      <li>A shortest path is comprised of shorter sub-paths (paths within that path). Intuitively speaking, if the shortest path from&nbsp;<em>a&nbsp;</em>to&nbsp;<em>c</em> is <em>a→ *… →b→c</em>, then we should take the shortest path to&nbsp;<em>b</em> from&nbsp;<em>a</em> and then from there, go to&nbsp;<em>c</em>.</li>
+      <li>If the shortest path from&nbsp;<em>a&nbsp;</em>to&nbsp;<em>c&nbsp;</em>is&nbsp;<em>a→ … →b→c</em> and&nbsp;<em>b</em> is settled, then when we relax edge&nbsp;<em>b→c</em>,&nbsp;<em>dist[c] == <i>σ(c)</i></em> and&nbsp;<em>c</em> is now settled. We discussed earlier how when we relax, we want to relax on a settled node so that we are relying on accurate data. So if all the nodes up to&nbsp;<em>c</em> have been settled, then relaxing the edge to&nbsp;<em>c</em> will be accurate.</li>
+    </ol>
+    <p><em>*… could consist of any number of nodes, including no nodes.</em></p>
+    <br />
+    <p>All the other nodes in <em>T</em> must be correctly settled since Assumption 2 states that <em>w</em> is the FIRST node to be incorrectly settled. In that case, if the actual shortest path consisted solely of the other nodes in&nbsp;<em>T</em>, then <em>dist(w) == σ(w) </em>as per Lemma 2. However, we’re assuming that <em>dist(w) &gt; σ(w)</em>, so that means that the actual shortest path to <em>w</em> must consist of at least one node that isn’t in&nbsp;<em>T</em>, which we’ll call <em>v</em>. We’ll call the node that is in&nbsp;<em>T</em> and precedes&nbsp;<em>v</em> on the shortest path to&nbsp;<em>w</em> node&nbsp;<em>u</em>. In short, the shortest path to&nbsp;<em>w</em> is&nbsp;<em>s→ … →u→v→w</em>, where&nbsp;<em>u&nbsp;</em>is settled, but <em>v</em> has not been settled.</p>
+    <p>Using Lemma 1, we can determine that the shortest path to <em>v</em> must then be <em>s→ … →u→v</em> since it is a sub-path&nbsp;of&nbsp;the shortest path from <em>s&nbsp;</em>to&nbsp;<em>w</em>. We know that&nbsp;<em>u</em> has been correctly settled due to Assumption 2. Since the shortest path to&nbsp;<em>v&nbsp;</em>is&nbsp;<em>s→ … →u→v&nbsp;</em>and&nbsp;<em>dist(u) == σ(u)</em>, then when we relaxed the outgoing edges to the unsettled neighbors of <em>u</em> after adding it to&nbsp;<em>T</em>, we must have also relaxed edge&nbsp;<em>u→v</em>. In that case, according to Lemma 2,&nbsp;<em>dist(v) == σ(v)</em>.</p>
+    <p>Since&nbsp;<em>v</em> is in the sub-path to&nbsp;<em>w</em>, and there are no negative-weight edges, then the length of the shortest path to <em>v</em> must be less than or equal to the length of the shortest path to&nbsp;<em>w</em>. So <em>σ(v) ≤ σ(w)</em>. In the beginning, I mentioned that by definition, <em>σ(w)&nbsp;≤</em>&nbsp;<em>dist(w).</em> With that, we get the following inequality:</p>
+    <p style="text-align: center"><em>dist(v) == σ(v) ≤ σ(w) ≤ dist(w)<br>
+    </em><i>⇒<br>
+    </i><i>dist(v) <em>≤ dist(w)</em></i></p>
+    <p>However, we stated earlier that&nbsp;<em>w</em> is the node with the minimum distance among all the other nodes not in&nbsp;<em>T</em>. So that means for all the other nodes, including&nbsp;<em>v</em>,&nbsp;<em>dist(w)&nbsp;</em>must be less than or equal to their distances, which results in these two inequalities.</p>
+    <p style="text-align: center"><em>dist(v) <i>≤ dist(w)<br>
+        dist(v) ≥ dist(w)<br>
+      </i></em></p>
+      <p>In order for both inequalities to be true, then <em>dist(v) == dist(w)</em>. Then, we could substitute in the original equality <em>dist(v) == σ(v) ≤ σ(w) ≤ dist(w)</em> to get&nbsp;<em>dist(w) ≤ σ(w).</em> With that, we end up with a similar situation as before:</p>
+      <p style="text-align: center"><em>dist(w) <i>≥ σ(w)<br>
+          dist(w) ≤ σ(w)</i></em></p>
+      <p>As before, it then follows that <em>dist(w) == σ(w).</em> However, earlier we stated that we are assuming that&nbsp;<em>dist(w) &gt; σ(w) </em>so we are met with a contradiction. Therefore, <em>dist(w) </em>cannot be greater than <em>σ(w)</em> and <em>w</em> must have been properly settled.</p>
+  </div>
+  <br />
+  <h3>Why Pick Among the Unsettled?</h3>
+  <p>This should be fairly obvious. When we pick a node, we relax all of its outgoing edges to unsettled neighbors and mark the node as settled. There’s no reason to then pick from any of the settled nodes because their outgoing edges have already been relaxed. Picking a settled node wouldn’t do anything, and not only that, but a settled node will always have a distance smaller than or equal to the unsettled nodes because we always pick the smallest first.</p>
+  <br />
+  <h3>Why Only Relax Unsettled Neighbors?</h3>
+  <p>It simply gets rid of redundant checks. Let’s say we are currently on node <em>v</em>, and <em>v </em>has a settled neighbor <em>u</em>. Since <em>u </em>has been settled already, that would mean that we visited <em>u</em>, relaxed its neighbors, and marked it as settled before we visited <em>v</em>. We always pick the minimum distance node, so that would mean that <em>dist</em><em>(u) <i>≤ </i>dist(v)</em>. In that case, since there are no negative-weight edges, there is no length of edge <em>v→u</em> that could possibly cause <em>dist(v) + weight(v, u) </em>to be smaller than <em>dist(u)</em>.</p>
+  <br />
+  <h3>Unreachable Nodes (<em>dist[c] == ∞)</em></h3>
+  <p>There is one condition that I did not cover. What if the minimum distance node we pick has a distance value of infinity? For the next closest node to be infinitely far away, that would imply that there is no path to that node, making it unreachable from <em>s</em>. And since it was the minimum, that must imply that all the other nodes are also infinitely far away and have no path to them. In that event, we stop the loop because we’ve reached the point where the other nodes simply have no path to them. An example graph would be the following, where there is no path to the landfill from your home:</p>
+  <p><img class="size-medium center" src="https://i1.wp.com/i.imgur.com/szzw152.png?resize=794%2C339&amp;ssl=1" alt="Graph with an unreachable node." width="794" height="339" data-recalc-dims="1"></p>
+  <br />
+  <h3>Finishing the Example</h3>
+  <p>Now that we’ve finished explaining the reasoning behind the algorithm, let’s finish up our example. We pick the grocery store and relax its outgoing edges. It has only one edge that goes to the library, which currently has a distance value of&nbsp;infinity. The shortest path to the grocery store is 2 km, and the path from the grocery store to the library is 6 km, so we can update the library’s distance to be 8 km.</p>
+  <p>The unsettled node with the smallest distance is now the arcade, so we’ll visit the arcade. There are two outgoing edges to relax now, one that leads to the mall and one to the library. The shortest path to the arcade is 4 km, and the path to the mall is 1 km. The original distance value we had for the mall was 6 km, but this new path would be 4 + 1 = 5 km, so we update the distance to the mall to 5 km. The path from the arcade to the library is 5 km, which means that the path to the library that cuts through the arcade is 4 + 5 = 9 km. However, 9 km is not better than the 8 km we had previously, so we leave it as is.</p>
+  <p>The next node to pick is the mall, with a shortest path distance value of 5 km. The mall has one outgoing edge leading to the library with length 1 km. 5 + 1 = 6 km, which is shorter than the 8 km we had previously, so we update the library’s distance value.</p>
+  <p>The final node to pick is the library. It has no outgoing edges, so we don’t need to relax anything. We mark it as settled, and now that every node is settled, we are done.</p>
+  <p>Our results for this example state that the shortest path from home to the grocery store is 2 km, to the arcade is 4 km, to the mall is 5 km, and to the library is 6 km.</p>
+  <br />
+  <h2>Conclusion</h2>
+  <p>That is it as far as Dijkstra’s algorithm goes. You can include a modification to the algorithm so that it can also return the actual path itself, and not just the length of the path. And if you want to make Prim’s algorithm for minimum spanning trees, you can modify Dijkstra’s by changing 1 line to transform it. I tried to anticipate any questions and answer them in my explanations, but it is certain that there is something I missed so feel free to ask!</p>
+</div>
