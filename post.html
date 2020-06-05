@@ -8,7 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Define Coding | Blog</title>
     <link href="/css/main.css" rel="stylesheet" />
-    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+    <link href="/css/prettify.css" rel="stylesheet" />
+    <script src="/js/prettify.js"></script>
     <script src="/js/collapsible.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </head>
@@ -25,7 +26,6 @@
       let articlefile = params.get("postid") + ".html";
       $("#article").load("/blog_files/" + articlefile, function () {
         document.title = $("#articletitle").text();
-        prettyPrint();
       });
     </script>
  </body>
