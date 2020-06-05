@@ -176,7 +176,7 @@ a:visited.nodecor {
   display: block;
   margin: 5% auto 0 auto;
   width: 50%;
-  min-width: 100vw;
+  min-width: 100%;
   vertical-align: top;
 }
 
