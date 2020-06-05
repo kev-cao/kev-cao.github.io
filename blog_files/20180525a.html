@@ -13,12 +13,12 @@
   <p class="disclaimer"><strong>DISCLAIMER:&nbsp;</strong><em>I am still very much a beginner to programming, so do keep in mind that while my code may work, it may not follow good coding practices or be very efficient. If you would like some help in finding educational resources, check out the /r/learnprogramming subreddit wiki <a href="https://www.reddit.com/r/learnprogramming/wiki/faq" target="_blank">[here]</a>. While I still have your attention, [<a href="https://www.reddit.com/r/learnprogramming/wiki/index#wiki_discouraged_resources" target="_blank">here</a>] is a list of resources discouraged by /r/learnprogramming either due to unreliable or misleading information.</em></p>
   <br />
   <h2>Velocity</h2>
-  <p><img class="center" src="https://i0.wp.com/i.imgur.com/4uwStdA.png?resize=383%2C260&amp;ssl=1" width="383" height="260" data-recalc-dims="1"></p>
+  <p><img class="center" src="https://i.imgur.com/4uwStdA.png?resize=383%2C260&amp;ssl=1" width="383" height="260" data-recalc-dims="1"></p>
   <p>I figure the best way to represent Ted’s continuous and relentless movement is by adding a velocity field to the snake structure:</p>
   <blockquote><p>(define-struct snake (x y sqsize vel))</p></blockquote>
   <p>Unfortunately, this means that I’ll have to go through the&nbsp;<em>move</em> code and add (snake-vel w) to all the (make-snake …) constructor functions. And since I know I’ll be creating more fields for the snake structure later, I have a feeling I’ll be doing this a lot. I don’t know any other way of going about this, so I’ll just have to suffer through the copy-pasting. If anyone knows a way to circumvent this, feel free to let me know in the comments.</p>
   <p>Velocity, as many of you probably already know, is a measure of distance traveled over time in a direction. We have a way of representing distance (changing the increments we increase/decrease x- and y-coordinate by), and we have a way of representing direction (choosing between changing either the x- or y-coordinates). Now we need a way to represent time. Introducing <em>on-tick</em>…</p>
-  <p><img data-attachment-id="127" data-permalink="https://define-coding.com/2018/05/25/programming-snake-part-2-drracket/introducing-on-tick/" data-orig-file="https://i1.wp.com/define-coding.com/wp-content/uploads/2018/05/Introducing-On-Tick.png?fit=321%2C147&amp;ssl=1" data-orig-size="321,147" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="Introducing On-Tick" data-image-description="" data-medium-file="https://i1.wp.com/define-coding.com/wp-content/uploads/2018/05/Introducing-On-Tick.png?fit=300%2C137&amp;ssl=1" data-large-file="https://i1.wp.com/define-coding.com/wp-content/uploads/2018/05/Introducing-On-Tick.png?fit=321%2C147&amp;ssl=1" src="https://i1.wp.com/define-coding.com/wp-content/uploads/2018/05/Introducing-On-Tick.png?resize=183%2C84&amp;ssl=1" alt="" width="183" height="84" srcset="https://i1.wp.com/define-coding.com/wp-content/uploads/2018/05/Introducing-On-Tick.png?resize=300%2C137&amp;ssl=1 300w, https://i1.wp.com/define-coding.com/wp-content/uploads/2018/05/Introducing-On-Tick.png?w=321&amp;ssl=1 321w" sizes="(max-width: 183px) 100vw, 183px"></p>
+  <p><img data-attachment-id="127" data-permalink="https://define-coding.com/2018/05/25/programming-snake-part-2-drracket/introducing-on-tick/" data-orig-file="https://define-coding.com/wp-content/uploads/2018/05/Introducing-On-Tick.png?fit=321%2C147&amp;ssl=1" data-orig-size="321,147" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="Introducing On-Tick" data-image-description="" data-medium-file="https://i1.wp.com/define-coding.com/wp-content/uploads/2018/05/Introducing-On-Tick.png?fit=300%2C137&amp;ssl=1" data-large-file="https://i1.wp.com/define-coding.com/wp-content/uploads/2018/05/Introducing-On-Tick.png?fit=321%2C147&amp;ssl=1" src="https://i1.wp.com/define-coding.com/wp-content/uploads/2018/05/Introducing-On-Tick.png?resize=183%2C84&amp;ssl=1" alt="" width="183" height="84" srcset="https://i1.wp.com/define-coding.com/wp-content/uploads/2018/05/Introducing-On-Tick.png?resize=300%2C137&amp;ssl=1 300w, https://i1.wp.com/define-coding.com/wp-content/uploads/2018/05/Introducing-On-Tick.png?w=321&amp;ssl=1 321w" sizes="(max-width: 183px) 100vw, 183px"></p>
   <p><em>On-tick</em> will run the corresponding function each time the CPU ticks (a CPU tick is an arbitrary unit of the system’s time), thus giving us a way to measure time. Before we move on with the coding, we should think about what we want <em>on-tick</em> to do.</p>
   <br />
   <p>The tl;dr of what <em>on-tick</em> should do is move Ted in a given direction a given distance on each tick. If we want Ted to move upwards at a rate of one segment per tick, then <em>on-tick</em> should subtract one segment from the y-coordinate per tick (remember, the origin (0, 0) is at the top left corner, so moving upwards is actually subtracting from y, not adding).</p>
@@ -35,13 +35,13 @@
   <p>Updating the structure definition:</p>
   <blockquote><p>(define-struct snake (x y sqsize vel dir))</p></blockquote>
   <p>Just a quick edit to the <em>move</em> function should take care of the first three steps:</p>
-  <p><img src="https://i0.wp.com/i.imgur.com/Z9OhSe7.png?resize=724%2C162&amp;ssl=1" width="691" height="155"></p>
+  <p><img src="https://i.imgur.com/Z9OhSe7.png?resize=724%2C162&amp;ssl=1" width="691" height="155"></p>
   <p>I’ve changed it so that (snake-vel w) is subtracted/added from the corresponding coordinates instead of subtracting (snake-sqsize) so we won’t have issues with it later on. The last field is set to <em>a-key</em>, which will either set the direction field to “up”, “down”, “left”, or “right”. That appears to address all our goals for the&nbsp;<em>move</em> function, so let’s transition to the velocity function now.</p>
   <br />
   <p>I’ve named the function&nbsp;<em>motion</em>, and it accepts a world and outputs a new world. By using the direction field, it determines how it should influence position.</p>
-  <p><img src="https://i2.wp.com/i.imgur.com/6Op7G01.png?resize=897%2C71&amp;ssl=1" width="691" height="55"></p>
+  <p><img src="https://i.imgur.com/6Op7G01.png?resize=897%2C71&amp;ssl=1" width="691" height="55"></p>
   <p>Making the code should be pretty straightforward from here. It’s actually gonna look just like our&nbsp;<em>move</em> function, except instead of having&nbsp;<em>a-key</em>, we’ll have (snake-dir w).</p>
-  <p><img src="https://i1.wp.com/i.imgur.com/ZC31Ire.png?resize=806%2C183&amp;ssl=1" width="691" height="157"></p>
+  <p><img src="https://i.imgur.com/ZC31Ire.png?resize=806%2C183&amp;ssl=1" width="691" height="157"></p>
   <p>I added another clause at the end, (string=? (snake-dir w) “still”), for when the game starts. I’ll have Ted start off with “still” as his direction attribute so that when the game starts, he doesn’t move until the player picks a direction. The rest of it should make sense as it is exactly the same as <em>move</em> except&nbsp;<em>a-key</em> is replaced with (snake-dir w).</p>
   <p>For those that want a rundown,</p>
   <button type="button" class="collapsible" onclick="toggleCollapsible(this)">Rundown for the Motion Function</button>
@@ -52,85 +52,85 @@
     <p>If (snake-dir w) is equal to “right”, (snake-x w) is increased by (snake-vel w) instead.</p>
     <br />
     <p>At each clock tick, the function is run again, thereby giving Ted motion.</p>
-    <p><img src="https://i1.wp.com/i.imgur.com/N49H8OO.png?ssl=1" width="861" height="287"></p>
+    <p><img src="https://i.imgur.com/N49H8OO.png?ssl=1" width="861" height="287"></p>
   </div>
   <p></p>
   <br />
   <p>I’ve redefined Ted to match the new code:</p>
   <blockquote><p>(define Ted (make-snake 250 250 10 10 “still”))</p></blockquote>
   <p>So he’s at (250, 250), with a size of 10×10 pixels, 10 pixels/tick velocity (Since there isn’t a direction attribute to this particular field, this is technically speed, but meh), and a direction of “still”.</p>
-  <p><img src="https://i2.wp.com/i.imgur.com/LfjszVx.png?resize=410%2C159&amp;ssl=1" width="410" height="159"></p>
+  <p><img src="https://i.imgur.com/LfjszVx.png?resize=410%2C159&amp;ssl=1" width="410" height="159"></p>
   <p>Time to run it and see if it works!</p>
-  <p><img class="center" src="https://i2.wp.com/i.imgur.com/2MvhLeq.gif?resize=509%2C534&amp;ssl=1" width="509" height="534"></p>
+  <p><img class="center" src="https://i.imgur.com/2MvhLeq.gif?resize=509%2C534&amp;ssl=1" width="509" height="534"></p>
   <p>MUAHAHAHAHAHAHAHAHA.</p>
   <p>Evil laugh aside, there are some issues with this though. The first thing I noticed was that if I held down an arrow key, Ted would move faster than if I didn’t hold onto it (You can actually see this in the GIF). The cause for this is pretty clear though: because the&nbsp;<em>move</em> function also moves Ted around, it’s as if Ted is moving at two times the speed because two functions are causing him to move in a certain direction. Luckily for us, it’s quite an easy fix; all we have to do is remove the ability to move Ted from the&nbsp;<em>move</em> function and only allow&nbsp;<em>move</em> to change Ted’s direction. Four “move”‘s in one sentence; I think I broke a world record.</p>
   <br />
   <p>Here’s the edited&nbsp;<em>move</em> function:</p>
-  <p><img src="https://i2.wp.com/i.imgur.com/SczlrfH.png?resize=629%2C169&amp;ssl=1" width="629" height="169"></p>
+  <p><img src="https://i.imgur.com/SczlrfH.png?resize=629%2C169&amp;ssl=1" width="629" height="169"></p>
   <p>And now when I run the program, you’ll notice that I can’t cause Ted to go faster than the permitted 10 pixels/tick despite holding down the arrow keys.</p>
-  <p><img class="center" src="https://i2.wp.com/i.imgur.com/N0B2MG9.gif?resize=509%2C534&amp;ssl=1" width="509" height="534"></p>
+  <p><img class="center" src="https://i.imgur.com/N0B2MG9.gif?resize=509%2C534&amp;ssl=1" width="509" height="534"></p>
   <br />
   <p>The other issue, of course, is the fact that Ted can leave the playing field without any consequences. That will be our next goal, a game-over mechanic. In the full game, the game will end if one of two criteria are met: either the snake runs into the border of the game, or it runs into itself. For now, however, we’ll just focus on the former.</p>
   <br />
   <h2>Game-Over Mechanic (Hitting a Wall)</h2>
   <p>So&nbsp;<em>big-bang</em> has a <em>stop-when</em> function, which does what it sounds like. It&nbsp;<em>stops</em> the&nbsp;<em>big-bang</em> function&nbsp;<em>when&nbsp;</em>a given function is true. In other words, the signature for&nbsp;<em>stop-when</em> is that it accepts a world state and Boolean, and outputs a new world state.</p>
   <p>With our current goal in mind, we only want the game to end if snake runs into the border of the game. Granted, even if we wanted to add the other game-ending mechanic, we wouldn’t be able to since Ted is only one tiny little square at the moment.</p>
-  <p><img class="center" src="https://i0.wp.com/i.imgur.com/76PH5Yk.png?resize=759%2C465&amp;ssl=1" width="759" height="465" data-recalc-dims="1"></p>
+  <p><img class="center" src="https://i.imgur.com/76PH5Yk.png?resize=759%2C465&amp;ssl=1" width="759" height="465" data-recalc-dims="1"></p>
   <p>Once again, before we start coding, I want us to think about what we want the&nbsp;<em>stop-when</em> function to do.</p>
   <ul>
     <li>When snake runs into a wall, return true so that&nbsp;<em>stop-when</em> will&nbsp;stop&nbsp;<em>big-bang</em> from running.</li>
     <li>In order to detect when snake runs into a wall, we’ll want to know what snake’s position is relative to the wall. That is to say, if snake ever passes x =0, x = 500 (the right-side of the window), y = 0, or y = 500 (the bottom of the window), the function should return true so that the game will end.</li>
   </ul>
   <p>Alright so I think I’ve accurately summarized what the&nbsp;<em>stop</em>–<em>when</em> function should do. So let’s get on to coding!</p>
-  <p><img src="https://i2.wp.com/i.imgur.com/b2N3dXs.png?resize=736%2C69&amp;ssl=1" width="691" height="65"></p>
+  <p><img src="https://i.imgur.com/b2N3dXs.png?resize=736%2C69&amp;ssl=1" width="691" height="65"></p>
   <p>I’ve designed the recipe for a function called <em>game-over</em>, and as per the first goal outlined above, it accepts a world state and then outputs a Boolean depending on that state.</p>
   <p>Now let’s work on the second goal, which is to allow&nbsp;<em>game-over</em> to recognize when snake has hit the window boundaries and return true when snake does.</p>
-  <p><img src="https://i2.wp.com/i.imgur.com/ZlgV4YT.png?resize=455%2C115&amp;ssl=1" width="455" height="115"></p>
+  <p><img src="https://i.imgur.com/ZlgV4YT.png?resize=455%2C115&amp;ssl=1" width="455" height="115"></p>
   <p>With this code,&nbsp;<em>game-over</em> returns true whenever snake crosses the boundaries of the game, x = 0, x = 500, y = 0, and y = 500. I also added/subtracted (/ (snake-sqsize w) 2) from the coordinates because the center of the square is where the coordinates of the square lie, and I want the game to end when the edge of the square passes the walls, not when the center of the square passes the walls. If you look at the diagram below, looking at the left-most wall, if we have snake touching the wall, the actual coordinates of snake would not be (0, y), but rather (5, y). So if snake is touching the left-most wall, we’d have to subtract 5 from the x-coordinate in order to represent x = 0.</p>
-  <p><img class="" src="https://i0.wp.com/i.imgur.com/ZFDiXy5.png?resize=328%2C335&amp;ssl=1" width="328" height="335"></p>
+  <p><img class="" src="https://i.imgur.com/ZFDiXy5.png?resize=328%2C335&amp;ssl=1" width="328" height="335"></p>
   <p>To determine whether or not to subtract or add 5 to the x/y-coordinate, I simply visualized it as I did above and then determined it that way. In the&nbsp;<em>game-over</em> definition, instead of subtracting/adding 5, I simply did (/ (snake-sqsize w) 2) and subtracted half the side length of a segment instead so that if I change the side length of the segment in the future, I won’t have to come back here and edit it.</p>
   <br />
   <p>So let’s add it to our main definition and run it!</p>
-  <p><img src="https://i0.wp.com/i.imgur.com/2auLzbR.png?resize=389%2C190&amp;ssl=1" width="389" height="190"></p>
+  <p><img src="https://i.imgur.com/2auLzbR.png?resize=389%2C190&amp;ssl=1" width="389" height="190"></p>
   <p>Running…</p>
-  <p><img src="https://i1.wp.com/i.imgur.com/1oizbiQ.gif?ssl=1" width="509" height="534"></p>
+  <p><img src="https://i.imgur.com/1oizbiQ.gif?ssl=1" width="509" height="534"></p>
   <p>Dammit.</p>
   <p>Why is it stopping right before the border?</p>
   <p>What did I do wrong?</p>
   <p>How could this happen to me?</p>
   <br />
   <p>Alright let’s figure out what’s wrong. So the first thing that comes to mind is that perhaps the “center” of the square isn’t actually in the center (Kind of like how (0,0) is in the top left corner instead of being in the middle). We can test this by doing a quick <em>place-image</em> function in the interactive area:</p>
-  <p><img data-attachment-id="163" data-permalink="https://define-coding.com/2018/05/25/programming-snake-part-2-drracket/place-image-test/" data-orig-file="https://i1.wp.com/define-coding.com/wp-content/uploads/2018/05/Place-Image-Test.png?fit=411%2C123&amp;ssl=1" data-orig-size="411,123" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="Place-Image Test" data-image-description="" data-medium-file="https://i1.wp.com/define-coding.com/wp-content/uploads/2018/05/Place-Image-Test.png?fit=300%2C90&amp;ssl=1" data-large-file="https://i1.wp.com/define-coding.com/wp-content/uploads/2018/05/Place-Image-Test.png?fit=411%2C123&amp;ssl=1" src="https://i1.wp.com/define-coding.com/wp-content/uploads/2018/05/Place-Image-Test.png?resize=300%2C90&amp;ssl=1" alt="" width="300" height="90" srcset="https://i1.wp.com/define-coding.com/wp-content/uploads/2018/05/Place-Image-Test.png?resize=300%2C90&amp;ssl=1 300w, https://i1.wp.com/define-coding.com/wp-content/uploads/2018/05/Place-Image-Test.png?w=411&amp;ssl=1 411w" sizes="(max-width: 300px) 100vw, 300px"></p>
+  <p><img data-attachment-id="163" data-permalink="https://define-coding.com/2018/05/25/programming-snake-part-2-drracket/place-image-test/" data-orig-file="https://define-coding.com/wp-content/uploads/2018/05/Place-Image-Test.png?fit=411%2C123&amp;ssl=1" data-orig-size="411,123" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="Place-Image Test" data-image-description="" data-medium-file="https://i1.wp.com/define-coding.com/wp-content/uploads/2018/05/Place-Image-Test.png?fit=300%2C90&amp;ssl=1" data-large-file="https://i1.wp.com/define-coding.com/wp-content/uploads/2018/05/Place-Image-Test.png?fit=411%2C123&amp;ssl=1" src="https://i1.wp.com/define-coding.com/wp-content/uploads/2018/05/Place-Image-Test.png?resize=300%2C90&amp;ssl=1" alt="" width="300" height="90" srcset="https://i1.wp.com/define-coding.com/wp-content/uploads/2018/05/Place-Image-Test.png?resize=300%2C90&amp;ssl=1 300w, https://i1.wp.com/define-coding.com/wp-content/uploads/2018/05/Place-Image-Test.png?w=411&amp;ssl=1 411w" sizes="(max-width: 300px) 100vw, 300px"></p>
   <p>Given that the red square seems to be right smack dab in the middle, I’m going to assume that the center of the square is actually in the center. So the root cause of this issue can’t be that.</p>
   <br />
   <p>Hmm…………….</p>
-  <p><img class="center" src="https://i2.wp.com/i.imgur.com/MoeSjeB.png?resize=750%2C447&amp;ssl=1" width="750" height="447" data-recalc-dims="1"></p>
+  <p><img class="center" src="https://i.imgur.com/MoeSjeB.png?resize=750%2C447&amp;ssl=1" width="750" height="447" data-recalc-dims="1"></p>
   <p>Eureka, I’ve got it. Remember how Ted starts at (250, 250)? Well Ted is not traveling pixel by pixel, but rather 10 pixels at a time. Which means Ted can never be at (5, y) (495, y), (x, 5), or (x, 495) because he only moves in multiples of 10. Looking at the left most wall, Ted jumps from (10, y), to (0, y), and skips the pixels in-between.</p>
   <br />
   <p>The fix for this is rather simple (I ended up asking a friend for help finding the solution though): start Ted off at (255, 255) instead of (250, 250). That will allow Ted to be at coordinates mentioned above.</p>
-  <p><img src="https://i1.wp.com/i.imgur.com/qCEs3LF.png?resize=378%2C184&amp;ssl=1" width="378" height="184"></p>
+  <p><img src="https://i.imgur.com/qCEs3LF.png?resize=378%2C184&amp;ssl=1" width="378" height="184"></p>
   <p>Now when we run the program…</p>
-  <p><img src="https://i1.wp.com/i.imgur.com/33oZeUg.gif?resize=509%2C534&amp;ssl=1" width="509" height="534"></p>
+  <p><img src="https://i.imgur.com/33oZeUg.gif?resize=509%2C534&amp;ssl=1" width="509" height="534"></p>
   <p>THE PLAN SHALL GO ON!!</p>
   <p>That was a quite simple fix. I’d like to add a “Game Over” message though. The <a href="https://docs.racket-lang.org/teachpack/2htdpuniverse.html#%28form._world._%28%28lib._2htdp%2Funiverse..rkt%29._stop-when%29%29" target="_blank">documentation</a> states I can do this with a [stop-when&nbsp;<em>lastworld?&nbsp;</em><em>lastpicture</em>]. So I need to create a function for&nbsp;<em>lastpicture</em> that will render a “Game Over” message. This shouldn’t take too long.</p>
-  <p><img src="https://i1.wp.com/i.imgur.com/BIRPYtH.png?resize=459%2C85&amp;ssl=1" width="459" height="85"></p>
+  <p><img src="https://i.imgur.com/BIRPYtH.png?resize=459%2C85&amp;ssl=1" width="459" height="85"></p>
   <p>According to the design recipe,&nbsp;<em>end-picture&nbsp;</em>will accept a world and output an image, and I plan on using the&nbsp;<em>render</em> function we created earlier so that the message “Game Over” can be overlaid on top of the game. The&nbsp;<em>text</em> function, of course, will simply render “Game Over”.</p>
-  <p><img src="https://i0.wp.com/i.imgur.com/RRgq6y8.png?resize=407%2C80&amp;ssl=1" width="407" height="80"></p>
+  <p><img src="https://i.imgur.com/RRgq6y8.png?resize=407%2C80&amp;ssl=1" width="407" height="80"></p>
   <p>This function should do the trick. It places the text “Game Over” on top of what was rendered in the&nbsp;<em>render&nbsp;</em>function. Let’s try it out.</p>
-  <p><img class="" src="https://i0.wp.com/i.imgur.com/t9BCLj4.png?resize=419%2C206&amp;ssl=1" width="419" height="206"></p>
+  <p><img class="" src="https://i.imgur.com/t9BCLj4.png?resize=419%2C206&amp;ssl=1" width="419" height="206"></p>
   <p>Running…</p>
-  <p><img src="https://i1.wp.com/i.imgur.com/tZmyU0l.gif?ssl=1" width="509" height="534"></p>
+  <p><img src="https://i.imgur.com/tZmyU0l.gif?ssl=1" width="509" height="534"></p>
   <p>Hmm… For some reason it’s not rendering Ted at the wall, but rather right when he passes the wall. I know this because in the interactive area, it shows the last state of the world as:</p>
   <blockquote><p>(make-snake -5 85 10 10 “left”)</p></blockquote>
   <p>The x-coordinate is at -5, which is the tick after Ted is at x-coordinate 5. However, this ran perfectly fine when&nbsp;<em>stop-when</em> only contained&nbsp;<em>game-over</em> and not&nbsp;<em>end-picture</em>. Let’s take another look at the&nbsp;<em>end-picture</em> code.</p>
-  <p><img src="https://i0.wp.com/i.imgur.com/RRgq6y8.png?resize=407%2C80&amp;ssl=1" width="407" height="80"></p>
+  <p><img src="https://i.imgur.com/RRgq6y8.png?resize=407%2C80&amp;ssl=1" width="407" height="80"></p>
   <p>The issue is definitely not with the (<em>text …</em>) function, and all&nbsp;<em>place-image</em> does is overlay “Game Over” on the render of the world state. So the issue is definitely with the (<em>render w</em>) section. Somehow, <em>render</em> is&nbsp;rendering the tick after Ted hits the wall, and not the tick where Ted hits the wall.</p>
   <br />
-  <p><img class="center" src="https://i1.wp.com/i.imgur.com/dzTrvox.png?resize=681%2C405&amp;ssl=1" width="681" height="405" data-recalc-dims="1"></p>
+  <p><img class="center" src="https://i.imgur.com/dzTrvox.png?resize=681%2C405&amp;ssl=1" width="681" height="405" data-recalc-dims="1"></p>
   <p>I’ve found the cause.&nbsp;<em>Stop-when</em> stops&nbsp;<em>big-bang&nbsp;</em>from running once the given function, in this case&nbsp;<em>game-over</em>, returns true.&nbsp;<em>Game-over</em> returns true when Ted has passed the wall. However,&nbsp;Ted hasn’t actually passed the wall until the frame <em>after</em> he touches the wall. In the frame where he touches the wall, he’s only right next to it, which means the world state required to make&nbsp;<em>game-over</em> return true is one where Ted has an x/y-coordinate of either -5 or 505.&nbsp;<em>End-picture</em> actually renders the world state that triggered&nbsp;<em>game-over</em>, so it renders Ted once he’s passed the wall, which is why he doesn’t appear in the “Game Over” screen. I’ve created an illustration below to better help explain this:</p>
-  <figure><img src="https://i0.wp.com/i.imgur.com/3Lp2ZjC.png?resize=691%2C517&amp;ssl=1" alt="" width="691" height="517" data-recalc-dims="1"><figcaption>End-picture renders the state of the world that causes game-over to return true, so it renders the bottom picture.</figcaption></figure>
+  <figure><img src="https://i.imgur.com/3Lp2ZjC.png?resize=691%2C517&amp;ssl=1" alt="" width="691" height="517" data-recalc-dims="1"><figcaption>End-picture renders the state of the world that causes game-over to return true, so it renders the bottom picture.</figcaption></figure>
   <p>However, I don’t think that this is much of an issue given that once Ted gets another segment, only one segment will disappear. So, out of pure laziness, I’m just gonna call this a feature.</p>
-  <p><img class="center" src="https://i0.wp.com/i.imgur.com/q1bNTBI.png?resize=476%2C340&amp;ssl=1" width="476" height="340"></p>
+  <p><img class="center" src="https://i.imgur.com/q1bNTBI.png?resize=476%2C340&amp;ssl=1" width="476" height="340"></p>
   <p>Alright, we’ve hit all our goals for this blog post. We’ve added continuous motion to snake, and we’ve created a game-over mechanic that activates when the snake hits the borders of the game. On the next blog post we will deal with adding segments to the snake and perhaps adding food, depending on how long it takes me to figure out the code for segments.</p>
   <br />
   <p>And for those interested in trying the code out themselves, here is the pastebin:</p>

@@ -12,7 +12,7 @@
 <h2>Arrays and Pointers</h2>
 
 <p>After learning about pointers in C, you typically start learning about how arrays and pointers are related. While arrays and pointers are closely related, and in most instances, arrays decay into pointers and actually are treated as pointers, do not make the mistake of assuming that they are the same thing.</p>
-<p><img class="size-medium center" title="Be rest assured; there are no tiny workers being worked to death in your computer. Probably." src="https://i0.wp.com/i.imgur.com/c04vV68.png?resize=910%2C449&amp;ssl=1" width="910" height="449" data-recalc-dims="1"></p>
+<p><img class="size-medium center" title="Be rest assured; there are no tiny workers being worked to death in your computer. Probably." src="https://i.imgur.com/c04vV68.png?resize=910%2C449&amp;ssl=1" width="910" height="449" data-recalc-dims="1"></p>
 
 <p>When you create an array in C, you tell the computer to allocate a certain amount of memory for the array. So for example, if you create an array of 5 ints, then when the array is initialized, 20 bytes of memory is allocated for the array. However, what does the variable itself store? Let’s try printing out those values.</p>
 
@@ -52,7 +52,7 @@ int main(void) {
 }</code>
 </pre>
 
-<p><img class=" center" src="https://i1.wp.com/i.imgur.com/kiptZ0J.png?resize=418%2C519&amp;ssl=1" width="418" height="519" data-recalc-dims="1"></p>
+<p><img class=" center" src="https://i.imgur.com/kiptZ0J.png?resize=418%2C519&amp;ssl=1" width="418" height="519" data-recalc-dims="1"></p>
 <p>If we retrieve the address of the first element of the array, and compare it to the value of <tt>my_array</tt>, we can see that they actually have the same value. So why is it that arrays and pointers are not identical, yet they have the same value?</p>
 
 <p>As I mentioned previously, arrays will, in most instances, decay into pointers. So in those instances, an array variable has the same value as a pointer to the first element in the array. If I pass an array to a function, say <tt>arr_func(int arr[])</tt>, then arr is not seen as an array, but rather a pointer. We can see this happen here:</p>
@@ -77,7 +77,7 @@ void arr_func(int arr[]) {
 }</code>
 </pre>
 
-<p><img class="center" src="https://i1.wp.com/i.imgur.com/6TASe4p.png?resize=615%2C368&amp;ssl=1" width="615" height="368" data-recalc-dims="1"></p>
+<p><img class="center" src="https://i.imgur.com/6TASe4p.png?resize=615%2C368&amp;ssl=1" width="615" height="368" data-recalc-dims="1"></p>
 <p>When we call <tt>sizeof()</tt> on <tt>my_array</tt> in the function, we get an output of 8, whereas when we called <tt>sizeof()</tt> in the immediate scope of <tt>my_array</tt> earlier, we got an output of 20. Pointers all have a size of 8 bytes (on a 64-bit architecture at least, which is what we are assuming on this post), so this matches what we expected. When <tt>my_array</tt> was passed to <tt>arr_func()</tt>, it was converted to a pointer.</p>
 
 <p>Now, some of you may be wondering why <tt>sizeof()</tt> prints out the correct size of the array at all. After all, we’re passing <tt>my_array</tt> to it, so shouldn’t <tt>my_array</tt> decay into a pointer? Well it turns out there are a couple exceptions. First of all, <tt>sizeof()</tt> is not actually a function, but rather an operator, just like +, -, &amp;, etc. With that in mind, there are three exceptions to the rule.</p>
@@ -159,12 +159,12 @@ int main(void) {
 <p>We briefly touched on pointer arithmetic before when I discussed applying the &amp; operator on an array. As you know by now, a pointer is simply a variable that holds a memory location.</p>
 
 <p>Let’s refer back to the analogy from <strong>Part 1</strong>. If you’ve just delivered your letter to the house at 144 Main Street, and your boss calls and says, “Hey, there’s an important package that you need to pick up two over from the house you’re at right now”, where do you go? And yes, your boss is terrible at giving instructions. You’d probably come to the logical conclusion that he means two <em>houses</em> over from 144 Main Street, and not two <em>yards</em> over from 144 Main Street. So you would drive your truck over to 146 Main Street.</p>
-<p><img class="center " title="For anyone wondering, 4 shades of brown lighter is roughly equivalent to 3.5 shades of blue darker plus a splash of red." src="https://i1.wp.com/i.imgur.com/SAUhkd6.png?resize=673%2C448&amp;ssl=1" width="673" height="448" data-recalc-dims="1"></p>
+<p><img class="center " title="For anyone wondering, 4 shades of brown lighter is roughly equivalent to 3.5 shades of blue darker plus a splash of red." src="https://i.imgur.com/SAUhkd6.png?resize=673%2C448&amp;ssl=1" width="673" height="448" data-recalc-dims="1"></p>
 
 <p>How were you able to come to this conclusion? Well, you would use context clues. Letters have addresses to direct you to various buildings, or in this case, houses. They don’t direct you to, for example, specific yard lines in the neighborhood (<s>house on yard line 75</s>). So based on that context, when the boss says “two over”, you assume he means houses. That’s how pointers work as well.</p>
 
 <p>Say you create an int pointer, and let’s call it <tt>int_ptr</tt> for the sake of simplicity, and you tell <tt>int_ptr</tt> to go two over by using subscript notation (<tt>int_ptr[2]</tt>). Well instead of houses, the pointer will assume two <em>ints</em> over. So it moves ahead 2 * <tt>sizeof(int)</tt> = 8 bytes in memory. It knows to do this because <tt>int_ptr</tt> is an int pointer. If we had a double pointer <tt>double_ptr</tt>, and we told it to move 2 over, it would move ahead 2 * <tt>sizeof(double)</tt> = 16 bytes in memory.</p>
-<p><img src="https://i1.wp.com/i.imgur.com/hw1w8nb.gif?ssl=1" data-recalc-dims="1"></p>
+<p><img src="https://i.imgur.com/hw1w8nb.gif?ssl=1" data-recalc-dims="1"></p>
 
 <p>That also helps explain why arrays start with index 0 in so many languages. If an array <tt>my_array</tt> has a value of the address of its first element, then if you want the first element, you want to move 0 over. In other words, have it stay in place. If you want the second item, you want it to move 1 over from the memory address, so you call <tt>my_array[1]</tt>.</p>
 <br />

@@ -49,23 +49,23 @@
   <br />
   <h3>Initial Setting of Distances</h3>
   <p>Next, set the distance of the starting node to 0, because the distance to the starting node from the starting node is 0, for fairly obvious reasons. However, keep in mind that this is only true because there are no edges with negative weights. If there were negatively weighted edges, then you could have the following, where by taking a negatively weighted cycle, you can achieve a distance shorter than 0 from any node to itself:</p>
-  <p><img class="size-medium center" src="https://i0.wp.com/i.imgur.com/cL6XnGP.png?resize=560%2C139&amp;ssl=1" alt="Negative cycle graph" width="560" height="139" data-recalc-dims="1"></p>
+  <p><img class="size-medium center" src="https://i.imgur.com/cL6XnGP.png?resize=560%2C139&amp;ssl=1" alt="Negative cycle graph" width="560" height="139" data-recalc-dims="1"></p>
   <p>In addition, having negative-weight edges, even if there were no negatively weighted cycles, will ruin the premise of a proof that I will be demonstrating later on.</p>
   <p>For all the other nodes, set their distance value to infinity. There’s two intuitive reasons for this:</p>
   <ol>
     <li>Since we have not determined a path to these nodes yet, then they are effectively infinitely far away. For example, if there were no path from node <em>u</em> to node&nbsp;<em>v</em>, then we could say that&nbsp;the distance from&nbsp;<em>u&nbsp;</em>to&nbsp;<em>v</em> is infinite, since it is impossible to get to&nbsp;<em>v</em> from&nbsp;<em>u</em>.</li>
     <li>We use the maximum value because we wish to update the distances with newer, <strong>shorter</strong> distances. Let’s say we did not set the distances to the maximum value, and instead picked an arbitrary value, say 100. In the following sample graph, let’s say that we are starting at node&nbsp;<em>u</em> and want to find the shortest path to all the other nodes (only one node, <em>v</em>, in this example). We can see that the shortest path from <em>u</em> to&nbsp;<em>v&nbsp;</em>is 110.<br>
-      <img class="size-medium center" src="https://i1.wp.com/i.imgur.com/J281hbq.png?resize=325%2C85&amp;ssl=1" alt="Graph with two nodes and one edge of length 110 km." width="325" height="85" data-recalc-dims="1"><br>
+      <img class="size-medium center" src="https://i.imgur.com/J281hbq.png?resize=325%2C85&amp;ssl=1" alt="Graph with two nodes and one edge of length 110 km." width="325" height="85" data-recalc-dims="1"><br>
       But 110 is not smaller than the default null value we set <em>v</em> at, so the program would not update the distance to <em>v</em> to 110 as it will always pick the smaller value. By picking the default null value to be the largest possible integer value, then we guarantee that any path, no matter how long, is better than the null value. The null value is represents “no possible path”, and any path is better than no path. Therefore, the null value should always be the “worse”, or largest, case.</li>
   </ol>
   <br />
   <h3>The For Loop</h3>
   <p>The for loop contains the real meat of the algorithm. To help illustrate how it works, let’s use a real world example. Imagine that you’ve moved into a new house in a new city, and you want to find the shortest path to a nearby library. This is the map you have been given:</p>
-  <p><img class="size-medium center" src="https://i2.wp.com/i.imgur.com/9O9VE6Z.png?resize=794%2C339&amp;ssl=1" alt="Map showing paths to locations in graph." width="794" height="339" data-recalc-dims="1"></p>
+  <p><img class="size-medium center" src="https://i.imgur.com/9O9VE6Z.png?resize=794%2C339&amp;ssl=1" alt="Map showing paths to locations in graph." width="794" height="339" data-recalc-dims="1"></p>
   <p>For us humans, it’s fairly easy to determine that the shortest path is to go to the arcade, then to the mall, and then the library, for a path length of 7 km. However, we are only able to determine that so easily because the graph is small and not very dense. If the graph had, say, a million nodes, then it would not be so obvious.</p>
   <p> Remember that computer does not see the graph as we see it above. For the computer, the graph is represented by a collection of nodes, a mapping from one node to other nodes to represent edges, and a mapping of edges to numbers to represent the weights. So as the computer “traverses” the graph, it only knows what it has seen so far. In other words, if the computer is currently at home, then it only sees the 3 edges leading away from home, the lengths of those edges, and the nodes the edges lead to. It will not see the edge from the grocery store to the library, for example, because that is out of its scope.</p>
   <p>To put this into perspective for us humans, it would be as if you did not have the map, and instead would see a sign like this at every location:</p>
-  <p><img class="size-medium center" src="https://i1.wp.com/i.imgur.com/9rQtZ5C.png?resize=809%2C671&amp;ssl=1" alt="Sign at " width="809" height="671" data-recalc-dims="1"></p>
+  <p><img class="size-medium center" src="https://i.imgur.com/9rQtZ5C.png?resize=809%2C671&amp;ssl=1" alt="Sign at " width="809" height="671" data-recalc-dims="1"></p>
   <p>With a setup like this, if you wanted to figure out where the library was, you would have to try out each path and see if it led to the library. That’s how the computer would see it as well.</p>
   <br />
   <h3>What does “relaxing” mean?</h3>
@@ -127,7 +127,7 @@
   <br />
   <h3>Unreachable Nodes (<em>dist[c] == ∞)</em></h3>
   <p>There is one condition that I did not cover. What if the minimum distance node we pick has a distance value of infinity? For the next closest node to be infinitely far away, that would imply that there is no path to that node, making it unreachable from <em>s</em>. And since it was the minimum, that must imply that all the other nodes are also infinitely far away and have no path to them. In that event, we stop the loop because we’ve reached the point where the other nodes simply have no path to them. An example graph would be the following, where there is no path to the landfill from your home:</p>
-  <p><img class="size-medium center" src="https://i1.wp.com/i.imgur.com/szzw152.png?resize=794%2C339&amp;ssl=1" alt="Graph with an unreachable node." width="794" height="339" data-recalc-dims="1"></p>
+  <p><img class="size-medium center" src="https://i.imgur.com/szzw152.png?resize=794%2C339&amp;ssl=1" alt="Graph with an unreachable node." width="794" height="339" data-recalc-dims="1"></p>
   <br />
   <h3>Finishing the Example</h3>
   <p>Now that we’ve finished explaining the reasoning behind the algorithm, let’s finish up our example. We pick the grocery store and relax its outgoing edges. It has only one edge that goes to the library, which currently has a distance value of&nbsp;infinity. The shortest path to the grocery store is 2 km, and the path from the grocery store to the library is 6 km, so we can update the library’s distance to be 8 km.</p>
