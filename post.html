@@ -25,6 +25,7 @@
       let articlefile = params.get("postid") + ".html";
       $("#article").load("/blog_files/" + articlefile, function () {
         document.title = $("#articletitle").text();
+        prettyPrint();
       });
     </script>
  </body>
