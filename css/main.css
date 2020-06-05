@@ -334,6 +334,12 @@ a:visited.nodecor {
 
 .posttitle {
   color: #464646;
+  margin-bottom: 0;
+}
+
+.postdate {
+  font-style: italic;
+  margin-top: 0;
 }
 
 .postblip {
