@@ -23,6 +23,7 @@ body {
 nav {
   padding: 0 0 .3em 0;
   width: 100%;
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
 }
 
 #logo {
@@ -35,6 +36,23 @@ nav {
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+
+#hamburger-button {
+  display: none;
+  position: absolute;
+  top: 18px;
+  left: 18px;
+}
+
+#hamburger-button > span {
+  display: block;
+  width: 30px;
+  height: 4px;
+  margin-bottom: 5px;
+  position: relative;
+  background: #757575;
+  border-radius: 3px;
 }
 
 #navmenu {
@@ -460,6 +478,23 @@ blockquote {
 @media screen and (max-width: 530px) {
   body {
     font-size: 14px;
+  }
+
+  #hamburger-button {
+    display: block;
+  }
+
+  #navmenu {
+    font-size: 16px;
+    overflow: hidden;
+    max-height: 0;
+    margin-top: 0;
+    transition: max-height .4s ease-out;
+  }
+
+  #navmenu > li {
+    display: block;
+    margin-bottom: 8px;
   }
 
   #terminal {
