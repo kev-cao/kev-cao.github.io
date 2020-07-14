@@ -12,9 +12,21 @@
     <script src="/js/prettify.js"></script>
     <script src="/js/collapsible.js"></script>
     <script src="/js/hamburger.js"></script>
+    <script src="/js/tooltip.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    function init() {
+      window.addEventListener("click", closeTooltips, false);
+
+      var tooltips = document.getElementsByClassName("tooltipnumber");
+
+      for (var i = 0; i < tooltips.length; i++) {
+        tooltips[i].addEventListener("click", toggleTooltip);
+      }
+    }
+  </script>
   </head>
-  <body>
+  <body onload="init()">
     <div id="header">
     </div>
     <script>
