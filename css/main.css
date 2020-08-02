@@ -67,7 +67,7 @@ nav {
   padding-left: 0;
   width: 90%;
   max-width: 80em;
-  margin-bottom: 0;
+  margin-bottom: 5px;
 }
 
 #navmenu > li {
@@ -531,6 +531,7 @@ blockquote {
     max-height: 0;
     margin-top: 0;
     transition: max-height .4s ease-out;
+    margin-bottom: 0;
   }
 
   #navmenu > li {
