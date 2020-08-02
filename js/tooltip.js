@@ -1,5 +1,5 @@
 function toggleTooltip() { 
-  var tooltiptext = event.srcElement.nextElementSibling;
+  var tooltiptext = event.srcElement.nextElementSibling.childNodes[0];
   tooltiptext.style.display = tooltiptext.style.display != "block" ? "block" : "none";
 
   // Check to see if absolutely positioned tooltip overflows the viewport.
@@ -13,8 +13,8 @@ function toggleTooltip() {
 }
 
 function closeTooltips() {
-  if (event.srcElement.className != "tooltiptext" && event.srcElement.className != "tooltipnumber") {
-    var tooltips = document.getElementsByClassName("tooltiptext");
+  if (event.srcElement.className != "tiptext" && event.srcElement.className != "tipnumber") {
+    var tooltips = document.getElementsByClassName("tiptext");
 
     for (var i = 0; i < tooltips.length; i++) {
       tooltips[i].style.display = "none";
