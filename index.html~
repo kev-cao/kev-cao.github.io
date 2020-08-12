@@ -1,0 +1,186 @@
+<html>
+	<head>
+		<!--Contains meta-data about the page.-->
+		<title>Learning HTML</title>
+	</head>
+	<body>
+		<h1>Learning HTML</h1>
+		<p>
+			Paragraph under. Line break is doing using <code>&lt;br /&gt;</code>.
+			<br />
+			A horizontal line is achieved using <code>&lt;hr /&gt;</code>.
+			<br /> These two tags are known as <b>empty elements</b> because they do not have any words in between the opening and closing tag. Most empty elements only have an opening tag.
+			The space before the / is not needed, but it's added to show that is an empty tag and is a good habit to get into.
+		</p>
+		<hr />
+		<h2>Types of Tags</h2>
+		<h3>Text Emphasis</h3>
+		<p>
+			<b>Bold</b> is done using <code>&lt;b&gt;</code><code>&lt;/b&gt;</code>.</b>
+			<br />
+			<i>Italics</i> is done using <code>&lt;i&gt;</code><code>&lt;/i&gt;</code>.
+			<br />
+			<u>Underline</u> is done using <code>&lt;u&gt;</code><code>&lt;/u&gt;</code>.
+			<br />
+			Super<sup>script</sup> is done using <code>&lt;sup&gt;</code><code>&lt;/sup&gt;</code>.
+			<br />
+			Sub<sub>script</sub> is done using <code>&lt;sub&gt;</code><code>&lt;/sub&gt;</code>.</sub>
+			<br /><br />
+			<strong>Strong</strong> is done using <code>&lt;strong&gt;</code><code>&lt;/strong&gt;</code>. 
+			It visually looks the same as <code>bold</code>, but it's used to indicate the content is important.
+			Some readers for the visually impaired will differentiate between <code>strong</code> and <code>bold</code>, so keep that in mind.
+			<br />
+			<em>Emphasis</em> is done using <code>&lt;em&gt;</code><code>&lt;/em&gt;</code>. As with the connection between <code>strong</code> and <code>bold</code>, <code>em</code> is visually identical to italics.
+			However, it carries the meaning that the emphasis will subtly change the meaning of a sentence.
+		</p>
+		<h3>Quotations</h3>
+		<p>
+			<blockquote>
+				Blockquotes can be done using <code>&lt;blockquote&gt;</code><code>&lt;/blockquote&gt;</code>. It's used for longer quotes that take up an entire paragraph.
+				Typically, you use <code>&lt;p&gt;</code><code>&lt;/p&gt;</code> inside of it. Browsers tend to indent these blockquotes, but won't always do so. Rely on CSS for indentation.
+			</blockquote>
+			For <q cite="https://www.youtube.com">shorter quotes</q> that sit inside a paragraph, use <code>&lt;q&gt;</code><code>&lt;/q&gt;</code>.
+			<br />
+			Both blockquotes and shorter quotes have a <code>cite</code> attribute with a URL value that will have more information.
+			The <code>cite</code> attribute doesn't have much presentational value, but is there to add semantic information to the quote.
+		</p>
+		<h3>Abbreviations</h3>
+		<p>
+			For an <abbr title="abbreviation">abbr</abbr>, you can add the full term by using <code>&lt;abbr title=""&gt;</code><code>&lt;/abbr&gt;</code>.
+		</p>
+		<h3>Citations and Definitions</h3>
+		<p>
+			According to <cite>HTML&CS;S Design and Build Websites</cite>, when citing, you can use <code>&lt;cite&gt;</code><code>&lt;/cite&gt;</code> to cite work. In HTML5, cite shouldn't be used to cite a person's name, but people usually do anyway.
+			Browsers will render the content of a cite in italics.
+			<br /><br />
+			The first time you explain some new terminology, you can use the <dfn>dfn</dfn> tag to indicate a defining instance is occuring by using <code>&lt;dfn&gt;</code><code>&lt;/dfn&gt;</code>.
+			Some browsers show the content in italics, but Safari and Chrome do not. The dfn tag is used to let browsers and web crawlers know that nearby text contains a definition.
+		</p>
+		<h3>Author Details</h3>
+		<p>
+			The address element is fairly niche: it contains the contact details for the author of the page. It can be done using <code>&lt;address&gt;</code><code>&lt;/address&gt;</code>.
+			<address>
+				<p><a href="thisisnotarealemail@notarealemailhoster.com">thisisnotarealemail@notarealemailhoster.com</a></p>
+				<p>12345 NotARealStreet, Fake Town, NonExistent State, 11111.</p>
+			</address>
+		</p>
+		<h3>Changes to Content</h3>
+		<p>
+			The <del>iensrt</del> <ins>ins</ins> element shows where something has been inserted, and the del element shows where something has been deleted.
+			Insertion uses <code>&lt;ins&gt;</code><code>&lt;/ins&gt;</code> and deletion using <code>&lt;del&gt;</code><code>&lt;/del&gt;</code>. Typically insertion is underlined, and deletion has a line through it.
+		</p>
+		<p>The s, or strikethrough, tag can be used to indicate something that is no longer accurate or relevant. It shows as a line through the center, like deletion. Used by doing <code>&lt;s&gt;</code><code>&lt;/s&gt;</code>.
+			The difference between s and del is semantical.
+			<br />
+			<s>I don't know HTML.</s>
+			<br />
+			I know some HTML.
+		</p>
+		<h3>Monospace Text</h3>
+		<p>The <tt><code>&lt;tt&gt;</code></tt> element can be used to specify teletype text. However, this tag is now obselete, so should not be used as it could be removed at any time.</p>
+		<p>Alternatively, the <code><code>&lt;code&gt;</code></code> tag can be used to specify computer code, and anything in between the tags (will still have to use special characters for some characters like &am;p) will be treated as code.
+			It is often paired with the <code><code>&lt;pre&gt;</code></code> element (preformatted) to preserve line spaces. As with <code><code>&lt;ol&gt;</code></code>, <code><code>&lt;pre&gt;</code></code> should not be used in <code><code>&lt;p&gt;</code></code>.</p>
+		<p>And while not monospaced, the <code>&lt;var&gt;</code> element is used to indicate variables, and is often presented in italics. <var>y</var> = <var>mx</var> + <var>b</var>.</p>
+
+<pre><code>
+#include&lt;stdio.h&gt;
+
+int main(void) {
+	while (!mastered_html) {
+		learn_html();
+	}
+}
+</code></pre>
+		<hr />
+		<h2>Lists</h2>
+		<p>There are three types of lists in HTML: ordered, unordered, and definition. <dfn>Ordered lists</dfn> are lists where each item in the list is numbered. 
+		<dfn>Unordered lists</dfn> are lists that begin with a bullet point. <dfn>Definition lists</dfn> are made up of a set of terms along with their definitions. 
+		One thing to also keep in mind is that list elements should not be stored between <code>&lt;p&gt;</code> tags, because <code>&lt;p&gt;</code> elements contain "phrasing" content, which are inline 
+		elements like <code>&lt;strong&gt;</code>. List elements contain "flow" content, which are block elements like <code>&lt;p&gt;</code> and <code>&lt;div&gt;</code></p>
+		<h3>Ordered Lists</h3>
+		<p>Ordered lists are created using <code>&lt;ol&gt;</code><code>&lt;/ol&gt;</code>. Each item in the list is placed between <code>&lt;li&gt;</code> and <code>&lt;/li&gt;</code>. Sometimes you may see a <code>type</code> attribute used with ol to specify the type of numbering. But it is better to use CSS for this.</p>
+		<ol>
+			<li>Bring pot of water to a boil.</li>
+			<li>Sell as lakefront property.</li>
+			<li>???</li>
+			<li>Profit.</li>
+		</ol>
+		<h3>Unordered Lists</h3>
+		<p>Unordered lists are created using <code>&lt;ul&gt;</code><code>&lt;/ul&gt;</code>. As with ordered lists, each item should be placed in li tags. And as with ordered lists, you may see a <code>type</code> attribute to customize the bullet points, but it's better to use CSS for this.</p>
+		<ul>
+			<li>Three feet of hempen rope.</li>
+			<li>Twenty two gallons of goat's milk.</li>
+			<li>Nine square feet of sheet metal.</li>
+		</ul>
+		<h3>Definition Lists</h3>
+		<p>Definition lists are created using <code>&lt;dl&gt;</code><code>&lt;/dl&gt;</code>. The definition term is stored between <code>&lt;dt&gt;</code> and <code>&lt;/dt&gt;</code> tags. The definition for the term is stored in <code>&lt;dd&gt;</code> and <code>&lt;/dd&gt;</code> tags. 
+			Inside of the dl element, you will usually see pairs of dt and dd elements.
+		</p>
+		<dl>
+			<dt>Recursion</dt>
+			<dd>See <i>recursion</i>.</dd>
+			<dt>Definition</dt>
+			<dd>a statement of the exact meaning of a word, especially in a dictionary.</dd>
+			<dt>Synonym</dt>
+			<dt lang="es">Sinónimo</dt>
+			<dd>a word or phrase that means exactly or nearly the same as another word or phrase.</dd>
+		</dl>
+		<h3>Nested Lists</h3>
+		<p>You can also create nested lists inside of the items of another list. Browsers display nested lists even further indented, and in unordered lists, they will usually change the style of the bullet point as well.</p>
+		<ul>
+			<li>Markup Languages
+				<ul>
+					<li>HTML</li>
+					<li>LaTeX</li>
+					<li>Markdown</li>
+				</ul>
+			</li>
+			<li>Programming Languages
+				<ul>
+					<li>C</li>
+					<li>Java</li>
+					<li>Python</li>
+					<li>Swift</li>
+					<li>C#</li>
+					<li>Javascript</li>
+					<li>Racket</li>
+					<li>Arduino</li>
+				</ul>
+			</li>
+		</ul>
+
+		<ol>
+			<li>Fee</li>
+			<li>Fie
+				<ol>
+					<li>Foe</li>
+					<li>Fum</li>
+				</ol>
+			</li>
+		</ol>
+		<hr />
+		<h2>Links</h2>
+		<p>Links allow you to move from one webpage to another.
+		</p>
+		<h3>Types of Links</h3>
+		<ul>
+			<li>Links from one website to another.</li>
+			<li>Links from one page to another on the same website.</li>
+			<li>Links that open in a new browser window.</li>
+			<li>Links that start up your email program and address a new email to someone.</li>
+		</ul>
+		<h3>Writing Links</h3>
+		<p>Links are created using the <code>&lt;a&gt;</code><code>&lt;/a&gt;</code> tags. Users can click anywhere in between the tags. To specify the page you want to link to, use the <code>href</code> attribute.
+		<br />
+		<code>&lt;a href="link goes here"&gt;Link text&lt;/a&gt;</code>
+		<br /><br />
+		<a href="https://www.reddit.com/r/learnprogramming">LearnProgramming Subreddit</a></p>
+		<h4>Linking to Other Sites</h4>
+		<p>When you link to a different website, the value of the <code>href</code> attribute will be the full web address for the site, which is known as an <dfn>absolute URL</dfn>.
+		<br /><br />
+		Example:
+		<br />
+		</p>
+		<code><a href="https://www.reddit.com/r/learnprogramming">LearnProgramming Subreddit</a></code></p>
+	</body>
+</html>
