@@ -1,0 +1,399 @@
+<header id="articleheader">
+  <h2 id="articletitle">What are Hash Tables?</h2>
+  <time id="articledate">Published August 12, 2020</time>
+</header>
+<article id="articlecontent">
+  <p>If you're unfamiliar with hash tables, then you've likely only used standard arrays and lists to store data so far. With those simpler data structures, operations such as search and deletion take linear time, <code>O(n)</code>, or in certain implementations, logarithmic time, <code>O(log n)</code>. For hash tables, however, these operations can be done in amortized constant time, <code>O(1)</code>. Loosely speaking, using hash tables allow you to access data instantly.</p>
+  <img src="https://i.imgur.com/Y3p19VO.png" class="center" alt="Hash tables shown as the Flash superhero." title="I'm Hash Table, and I'm the fastest data structure alive." />
+  <p class="disclaimer"><strong>DISCLAIMER:&nbsp;</strong><em>I am by no means an expert in programming, so keep in mind that it is possible that I may be wrong here and there. At the time of writing this post, I have assisted in teaching data structures at my university for three semesters, and have taught hash tables multiple times. While I have a fairly solid understanding of hash tables, I have also learned something new each semester I have taught, so it is possible that I have misconceptions. If you would like some help in finding educational resources, check out the /r/learnprogramming subreddit wiki <a href="https://www.reddit.com/r/learnprogramming/wiki/faq" target="_blank">[here]</a>. While I still have your attention, [<a href="https://www.reddit.com/r/learnprogramming/wiki/index#wiki_discouraged_resources" target="_blank">here</a>] is a list of resources discouraged by /r/learnprogramming either due to unreliable or misleading information.</em></p>
+  <br />
+  <h2>Introduction to Time Complexity</h2>
+  <p>Before I launch into an explanation of hash tables, let's discuss time complexity of operations for other data structures first. Time complexity itself can be a whole other post, so I'll keep it simple for those of you unfamiliar with the term. In short, time complexity describes the amount of time taken by an algorithm as the input size grows. Note that it does not specify how much time the algorithm <b>will</b> take, it simply describes how the amount of time taken will grow as input grows. In the case of big-O notation, it describes an upper bound for the growth function of time for the algorithm, and generally refers to the worst-case.<span class="tooltip"><span class="tipnumber">[1]</span><span class="tiptextbox"><span class="tiptext">There's more nuances to time complexity than just this, but I'm not going to go into that here.</span></span></span> For example, if we have an algorithm with an <code>O(n)</code> time complexity, where n represents the input size, then if we increase <code>n</code>, we should see the amount of time taken grow linearly with respect to <code>n</code>. For an algorithm with <code>O(n<sup>2</sup>)</code> time complexity, as <code>n</code> increases, the amount of time increases quadratically.</p>
+  <figure>
+    <img src="https://i.imgur.com/kAv9QmZ.jpg" class="center" alt="Graph showing time complexity for O(n^2), O(n), O(log n)." />
+    <br />
+    <figcaption>I specifically avoided adding numbers to the graph because the numbers don't actually matter. The shape of the graphed function is what is important, and we can see the pattern of how time grows as input size grows.</figcaption>
+  </figure>
+  <p>With time complexity out of the way, let's talk about the big-O time complexity for some of the other data structures. The first data structure you usually learn is the array, which is essentially just an ordered list of items. For a standard unsorted array, if you want to determine if item X exists in the array, you simply have to check every item in the list. In the worst case, X is either the very last item, or not in the list at all. That means if your list is 1,000,000 items long, then you'd have to do 1,000,000 comparison operations.</p>
+  <img src="https://i.imgur.com/vxIAgQl.png" width="80%" class="center" alt="Man reads through long CVS list in linear time looking for toothpaste itemization." title="There's a problem when you can start relating the length of a CVS receipt to the height of a person." />
+  <p>With small lists, this isn't particularly a problem, as a quick scan will do. But with particularly large lists, perhaps a database containing all the students at a university<span class="tooltip"><span class="tipnumber">[2]</span><span class="tiptextbox"><span class="tiptext">or one CVS receipt</span></span></span>, individual searches end up taking far too much time.</p>
+  <p>You can improve on this time complexity by using a sorted list instead. Since the list is sorted, you can know the relative location of an item X when compared to another item in the list. In the example above, if CVS printed out their receipts with their itemizations in alphabetical order, then you would know that "toothpaste" would be listed after "ibuprofen", but before "windex". In a typical search algorithm for a sorted list, you take the middle item of the list and compare it to X. If X comes before the middle item, then you look for X in the first half. If X comes after the middle item, then you look for X in the second half. You then recursively do the same thing in the halves you are searching in until you find X or run out of items to compare X to. Since you are repeatedly dividing the search domain in half, the time complexity comes out to be <code>O(log n)</code>.</p>
+  <p>You can improve on this even further by using a hash table, which reduces the search time complexity to a constant <code>O(1)</code><span class="tooltip"><span class="tipnumber">[3]</span><span class="tiptextbox"><span class="tiptext">Technically, <em>amortized</em> <code>O(1)</code>, but I'll go into that later.</span></span></span>. Now, <code>O(1)</code> does <strong>not</strong> mean that it only takes 1 operation to complete the algorithm. It simply means that regardless of the input size, the amount of time taken for the algorithm is constant. So with a hash table, it doesn't matter if you're storing 100 items or 1,000,000 items, the amount of time taken to find the X you're looking for is the same.</p>
+  <br />
+  <h2>What's the Trick?</h2>
+  <p>The trick is to use a magic box that tells you where something is whenever you ask it<span class="tooltip"><span class="tipnumber">[4]</span><span class="tiptextbox"><span class="tiptext">I don't suppose it could help me find out where my old Gameboy Advance SP is.</span></span></span>. This magic box is also known as a hash function. A <dfn>hash function</dfn> is a function that takes an input, also known as a <dfn>key</dfn>, and converts that key into a number, which represents the index at which the key would be found.</p>
+  <img src="https://i.imgur.com/Bei8Y3b.png" class="center" alt="Machine that generates the location of where something is." title="If only." />
+  <p>With this hash function, our search isn't slowed down by the amount of items in the list. If the hash function tells us that X should be at the end of our list, we no longer have to scan through the front of the list &mdash; we can simply jump to the end and see if X is there. Fortunately, we should all be familiar with the concept with a hash function.</p>
+  <p>Imagine you work as an administrator at a university, and your job is to deal with student records. All of the records are stored in filing cabinets<span class="tooltip"><span class="tipnumber">[5]</span><span class="tiptextbox"><span class="tiptext">It's an old fashioned university.</span></span></span>, and there are 26 of them, each labeled with a unique letter from A to Z.</p>
+  <img src="https://i.imgur.com/t9sbAmQ.png" class="center" alt="Cabinets with letters on them." title="Have fun." />
+  <p>If I asked you to retrieve Timmy McFakeName's file, where would you go? Presumably, you would go to cabinet M<span class="tooltip"><span class="tipnumber">[6]</span><span class="tiptextbox"><span class="tiptext">or cabinet T</span></span></span>and search through it. Even without telling you how the organizational system for the student records worked, you were able to determine a way to avoid having to search through every single cabinet. We can describe your thought process with a hash function:</p>
+<pre class="prettyprint linenums">
+def hash_function(name):
+  return name.last[0] # Returns the first letter of the last name.
+</pre>
+  <p>Of course, if we were to use this programatically, we'd probably want a number returned to be used as an index:</p>
+<pre class="prettyprint linenums">
+def hash_function(name):
+  # ord() returns the ASCII value of the given character.
+  # By subtracting the ASCII value of the letter 'A',
+  # we get the 0-index position of the given letter in the alphabet.
+  return ord(name.last[0]) - ord("A")
+</pre>
+<p>With this hash function, we will always know what drawer a student record can be found in, regardless of how many student records are being stored. The function will return a value from 0 to 25, inclusive, and that number represents a drawer.</p>
+<p>However, this only works if your last name starts with a capital letter. What if you have a student with a last name that starts with the character "d"<span class="tooltip"><span class="tipnumber">[7]</span><span class="tiptextbox"><span class="tiptext">For example: de Angelo</span></span></span>? <code>ord("d") - ord("A")</code> would return 35, which isn't a valid cabinet. So how can we avoid these invalid indices?</p>
+<p>We need some way of restricting the returned value to within the valid range of 0 to 25. Fortunately, there happens to be a very simple way of going about it &mdash; the modulus operator. The result of <code>x % y</code> will always be within the range of <code>0</code> to <code>y - 1</code>, inclusive<span class="tooltip"><span class="tipnumber">[8]</span><span class="tiptextbox"><span class="tiptext">Modulus is <i>similar</i> to remainders, so think about why the remainder of <code>x / y</code> will never be greater than or equal to <code>y</code>.</span></span></span>. So to keep the result restricted to the aforementioned range, we simply have to modulus it with 26, the total number of cabinets.</p>
+<pre class="prettyprint linenums">
+def hash_function(name):
+  return (ord(name.last[0]) - ord("A")) % 26
+</pre>
+<p>The above hash function now also works for names that start with lowercase letters<span class="tooltip"><span class="tipnumber">[9]</span><span class="tiptextbox"><span class="tiptext">And also names that start with other characters, like John $mith.</span></span></span>. Generally speaking, the modulus operator is a useful tool when making hash functions, especially if you can't guarantee that the value returned will be a valid index. For example, if you just want to store numbers, you can create a hash function that reduces the input number modulo the table size.</p>
+<pre class="prettyprint linenums">
+def hash_function(num):
+  return num % self.size
+</pre>
+<p>So for a table of size 10, we would see the following values hashed to the corresponding indices:
+<table class="bordered-table center">
+  <tr>
+    <th>Index</th>
+    <th>Value</th>
+  </tr>
+  <tr>
+    <td>0</td>
+    <td>30</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>53</td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>5</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>6</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>7</td>
+    <td>97</td>
+  </tr>
+  <tr>
+    <td>8</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>9</td>
+    <td>9</td>
+  </tr>
+</table>
+<br />
+<h2>Collisions: What are They and How to Avoid Them</h2>
+<p>In a perfect world, a hash function would return a unique index for every key you provide it. We don't live in a perfect world<span class="tooltip"><span class="tipnumber">[10]</span><span class="tiptextbox"><span class="tiptext">Source: air resistance isn't negligible and cows aren't spherical.</span></span></span>. In actuality, you'll often end up with multiple keys being hashed to the same index. We call that a <dfn>collision</dfn>. Since you shouldn't just simply replace whatever is already there when you have a collision, you need to consider how you want to resolve it.</p>
+<img src="https://i.imgur.com/1YrpXHX.png" alt="Girl asks for insurance information after car collision." title="This is the correct thing to do." class="center"/>
+<br />
+<h3>Separate Chaining</h3>
+<p>The simplest way would be to just create a list at each index, and all keys that are hashed to an index are inserted into the list at that index. This would be the collision resolution method for the cabinets mentioned before. If you have two students with last names that start with the same letter, both of their records would be stored in the cabinet.</p>
+<img src="https://i.imgur.com/Q4QXt9B.png" alt="Girl offers to just leave cars there." title="This is not the correct thing to do." class="center" />
+<p>The main advantages to this system is that it's easy to implement, and the hash table will never fill up. The hash table might have <code>N</code> slots, but each slot contains a list that is not restricted to any maximum size. Programmatically, you might create an insertion function like this:</p>
+<pre class="prettyprint linenums">
+def insert(key):
+  index = self.hash_function(key)
+  list_at_index = self.hashtable[index] # self.hashtable is a list of lists.
+  list_at_index.append(key)
+</pre>
+<p>Search and deletion is pretty straightforward. Simply pull up the list that the key is contained in, find the key, and act accordingly. A search function and delete function would look like this:</p>
+<pre class="prettyprint linenums">
+def search(key):
+  index = self.hash_function(key)
+  list_at_index = self.hashtable[index]
+  return key in list_at_index
+
+def delete(key):
+  index = self.hash_function(key)
+  list_at_index = self.hashtable[index]
+  list_at_index.remove(key)
+</pre>
+<p>Unsurprisingly, there are downsides to using separate chaining. The primary negative is that you can end up wasting space in the hash table. If your hash function doesn't end up hashing to a certain index, then that slot of the hash table is wasted. This is also why it's incredibly important that you have a good hash function. <strong>A poor hash function will be more likely to return certain indices over others, whereas a good hash function is equally likely to return any of the indices.</strong> The hash function we wrote above for the cabinets is actually fairly terrible.</p>
+<p>According to data collected from the 2010 United States Census, the most common first letter for surnames is the letter "W", followed by "J" and "M". So we can expect that the cabinets for those letters would be the most filled. On the other hand, cabinets like "X" and "Z" are likely to be fairly empty. If I asked you to find the student record of Led Zeppelin, you'd be able to find it easily in the "Z" cabinet, and wouldn't have to rifle through many papers. But if I asked for the student record of Walter White, you'd have to spend a lot of time searching through the plethora of records in the "W" cabinet. This effect is twofold &mdash; not only does this create an imbalance in search time, but it also means that you optimize search time for rare records, and bottleneck search time for common records. And this is not restricted to separate chaining; having a proper hash function is the key for having good performance, regardless of the collision resolution method.</p>
+<p><b>Sample Hashtable using Separate Chaining</b>
+<br />
+Insert 14, 16, 24, 34, 26, 30, 10, 11, in that order.</p>
+<table class="bordered-table center">
+  <tr>
+    <th>Index</th>
+    <th>Value</th>
+  </tr>
+  <tr>
+    <td>0</td>
+    <td>[30, 10]</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>[11]</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>[]</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>[]</td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td>[14, 24, 34]</td>
+  </tr>
+  <tr>
+    <td>5</td>
+    <td>[]</td>
+  </tr>
+  <tr>
+    <td>6</td>
+    <td>[16, 26]</td>
+  </tr>
+  <tr>
+    <td>7</td>
+    <td>[]</td>
+  </tr>
+  <tr>
+    <td>8</td>
+    <td>[]</td>
+  </tr>
+  <tr>
+    <td>9</td>
+    <td>[]</td>
+  </tr>
+</table>
+<br />
+<h3>Linear Probing</h3>
+<p>This isn't what you think it is.</p>
+<img src="https://i.imgur.com/yXcdfuI.png" alt="People lining up at the proctologist." title="It reaaally isn't what you think it is." class="center" />
+<p>This collision resolution method is called linear probing because when you run into a collision, you probe the indices next to the collision site and look for an empty cell. Simply put, if you try to insert a key at an index and there already is a key there, you check the next index. If that index is full, you check the next index after that. And if <i>that</i> index is full, you check the <i>ne</i> &mdash; you get the gist.</p>
+<pre class="prettyprint linenums">
+def insert(key):
+  index = self.hash_function(key)
+
+  # We continually increment index until there is nothing at that index.
+  while self.hashtable[index] != None:
+    index += 1
+    # Make sure that if we reach the end of the table, we loop back around to the front.
+    index %= len(self.hashtable)
+
+  self.hashtable[index] = key
+</pre>
+<p>It then follows that the search function would follow a similiar style. We would get the initial index from the hash function and check to see if our desired key is at that index. If it isn't, we can't assume that the table does not have the key, as it could have been relocated elsewhere due to collisions. So we'll check the next index. If it isn't there, we'll check the one after that. And we will continue to do this until we find an empty cell or the actual key itself. If we reach an empty cell, we must know that the key does not exist in the table for the simple reason that if it did exist in the table, we would have run into it before running into an empty cell. So programatically, perhaps something like this would work:</p>
+<pre class="prettyprint linenums">
+def search(key):
+  index = self.hash_function(key)
+
+  while self.hashtable[index] != None:
+    if self.hashtable[index] == key:
+      return True
+    index += 1
+    index %= len(self.hashtable)
+
+  # If we reach an empty cell before finding the key,
+  # then the key does not exist in the table.
+  return False 
+</pre>
+<p>However, it turns out that the above method isn't quite perfect. For example, let's say that we have a hash table of size 10, which has had values 12, 42, 32, and 102 inserted into it, in that order. Assuming the table uses linear probing, it would look like this:</p>
+<table class="bordered-table center">
+  <tr>
+    <th>Index</th>
+    <th>Value</th>
+  </tr>
+  <tr>
+    <td>0</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>12</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>42</td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td>32</td>
+  </tr>
+  <tr>
+    <td>5</td>
+    <td>102</td>
+  </tr>
+  <tr>
+    <td>6</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>7</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>8</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>9</td>
+    <td></td>
+  </tr>
+</table>
+<p>Now, let's say that we decide to delete 32 from the table. Giving 32 to the hash function returns 2 as an index, so we check index 2. 32 is not located there, but it could be stored in a different location, so we check index 3. 32 isn't located there, so we check index 4. We find 32, and then delete it.</p>
+<table class="bordered-table center">
+  <tr>
+    <th>Index</th>
+    <th>Value</th>
+  </tr>
+  <tr>
+    <td>0</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>12</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>42</td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>5</td>
+    <td>102</td>
+  </tr>
+  <tr>
+    <td>6</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>7</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>8</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>9</td>
+    <td></td>
+  </tr>
+</table>
+<p>Then we attempt to search for 102. Our hash function returns index 2. 102 is not located at index 2, so we check index 3. 102 is not there, so we check index 4. Index 4 is empty, so our search returns <code>False</code>, meaning 102 is not in the hash table.</p>
+<p>Clearly, this is incorrect<span class="tooltip"><span class="tipnumber">[11]</span><span class="tiptextbox"><span class="tiptext">You can tell by the fact that 102 is actually there.</span></span></span>. When we deleted 32, it left an empty space behind that was not there when 102 was originally inserted. Consequently, we need some way of indicating that this is not an empty cell, but a deleted cell. To do so, we can use some sort of flag to mark a deletion.</p>
+<table class="bordered-table center">
+  <tr>
+    <th>Index</th>
+    <th>Value</th>
+  </tr>
+  <tr>
+    <td>0</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>12</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>42</td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td>&#x2715;</td>
+  </tr>
+  <tr>
+    <td>5</td>
+    <td>102</td>
+  </tr>
+  <tr>
+    <td>6</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>7</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>8</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>9</td>
+    <td></td>
+  </tr>
+</table>
+<p>This time, as we search for 102, it starts as before. But when we reach index 4, since the cell is marked as deleted, the loop does not stop. It continues to index 5, where 102 is found. Programmatically, we can make a delete function like so:</p>
+<pre class="prettyprint linenums">
+def delete(key):
+  index = self.hash_function(key)
+
+  # Increment index until we either find the key, or reach an empty cell.
+  while self.hashtable[index] != None and self.hashtable[index] != key:
+    index += 1
+    index %= len(self.hashtable)
+
+  # Check if we have found the key.
+  if self.hashtable[index] == key:
+    self.hashtable[index] = 'X' # Set a flag to indicate a deleted cell.
+    return True # Return true if we were able to delete a key.
+
+  return False # Return false if we did not delete a key.
+</pre>
+<p>With this, the <code>search</code> function we made above now works perfectly fine. If it runs into a deleted cell, it sees <code>'X'</code> instead of <code>None</code>, so the loop continues. However, our <code>insert</code> function will need to be updated. If we run into a deleted cell, we can insert a value there.</p>
+<pre class="prettyprint linenums">
+def insert(key):
+  index = self.hash_function(key)
+
+  while self.hashtable[index] != None and self.hashtable[index] != 'X':
+    index += 1
+    index %= len(self.hashtable)
+
+  self.hashtable[index] = key
+</pre>
+<p>Do keep in mind, however, that using <code>'X'</code> as a flag only works if you will never be storing <code>'X'</code> in the table. Otherwise, the function will mistake an actual <code>'X'</code> data point for a deleted cell. A better implementation would likely include a custom object created to represent a deleted cell.</p>
+<img src="https://i.imgur.com/QPUr7Lj.png" alt="Girl offers to just move car and forget about it." title="?????????" class="center"/>
+<p>There's disadvantages to using linear probing as well. For one, the table can become full. Unlike in separate chaining, the total amount of slots in linear probing is equal to the amount of cells in the hash table. This means that you will have to put in a check for if the table reaches max capacity. If so, you'll have to not only increase the capacity of the hash table, but <em>also rehash all pre-existing elements in the hash table</em>, as the returned indices for the old elements will almost surely have changed.</p>
+<p>In addition, you can also end up with clusters of filled cells, which will slow down operations. In the case of linear probing, this is known as <dfn>primary clustering</dfn>. If you have a cluster of filled adjacent cells, any time the hash function returns an index within that cluster, you will have to deal with, in the worst case, the entire cluster. Furthermore, any insertion operation that hashes into the cluster will only exacerbate the issue, increasing the size of the cluster.</p>
+<img src="https://i.imgur.com/Vy94apM.png" alt="Diagram showing how clustering happens." class="center" />
+<p>To avoid clustering, it requires careful attention and a properly built hash function, which makes implementing a satisfactory hash table with linear probing more difficult than with separate chaining.</p>
+<br />
+<h3>Other Collision Resolution Methods</h3>
+<p>There's a whole slew of other collision resolvement methods, such as quadratic probing, cuckoo, double hashing, etc. For the sake of brevity, I'll summarily go over quadratic probing, and leave the rest of them up to you.</p>
+<p>Quadratic probing is similar to linear probing, but it avoids the problem of primary clustering. Instead of always checking the next immediate cell, it takes the number of collisions, squares it, and adds that value to the index of the original hashed position. For example, if the original hashed position is at index 5, and there is a collision there, we would check index 5 + 1<sup>2</sup> = 6. If there was yet another collision there, we would check index 5 + 2<sup>2</sup> = 9. If there was still a collision, we would check index 5 + 3<sup>2</sup> = 14.</p>
+<p>By squaring the number of collisions, we end up doing larger and larger hops as we probe. Consequently, we avoid having clusters of values that result from collisions. However, in order to create a properly functioning hash table that uses quadratic probing, there are some prerequisites. First, the size of the hash table must be a prime number. Second, the table must never be more than half full. There's an entire proof that explains the prerequisites, but I won't go into that here.</p>
+<br />
+<h2>What Does Amortized Mean?</h2>
+<p>If you only look at the worst case, you can end up discounting algorithms that aren't necessarily bad. In the case of hash tables, the worst case is actually linear. The worst primary cluster results in a linear search, and increasing the size of the table and moving over old elements is also linear. The key is that this does not happen often, and most of the time, operations are in constant time.</p>
+<p>Amortization, in a nutshell, looks at the average amount of time taken instead of just the worst case. For a hash table that uses quadratic probing, on average you will need less than two probes to find the right index. So while operations on a hash table are not <i>always</i> <code>O(1)</code>, on <i>average</i> they are.</p>
+<br />
+<h2>Conclusion</h2>
+<p>There's definitely more I could write about, and I could go into even more detail in what I've already written, but this post took a month to write because I procrastinated it off so many times. For the sake of my sanity, I'll end it there. If you want to look into the proofs for hash tables and amortization, I highly recommend looking it up as it will help solidify your understanding. Thanks for reading!</p>
+</article>

@@ -4,6 +4,7 @@
 }
 
 p {
+  font-family: Helvetica, sans-serif;
   overflow-wrap: break-word;
 }
 
@@ -23,6 +24,11 @@ sup {
 dfn {
   font-weight: bold;
   font-style: normal;
+}
+
+code {
+  font-family: SourceCodePro, monospace;
+  background-color: #f5f5f5;
 }
 
 #header {
@@ -115,6 +121,7 @@ a:visited.nodecor {
 }
 
 #terminal p {
+  font-family: inherit;
   line-height: .8em;
   width: 100%;
 } 
@@ -470,7 +477,12 @@ blockquote {
 }
 
 .prettyprint {
-  overflow: auto;
+  overflow: auto !important;
+  border: none !important;
+  border-left: solid 5px !important;
+  border-color: #54ace3 !important;
+  border-radius: 5px !important;
+  background-color: #f5f5f5 !important;
 }
 
 .linenums > li {
