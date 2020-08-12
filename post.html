@@ -8,8 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Define Coding | Blog</title>
     <link href="/css/main.css" rel="stylesheet" />
-    <link href="/css/prettify.css" rel="stylesheet" />
-    <script src="/js/prettify.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
     <script src="/js/collapsible.js"></script>
     <script src="/js/hamburger.js"></script>
     <script src="/js/tooltip.js"></script>
@@ -18,7 +17,7 @@
       function init() {
         window.addEventListener("click", closeTooltips, false);
 
-        var tooltips = document.getElementsByClassName("tooltipnumber");
+        var tooltips = document.getElementsByClassName("tipnumber");
 
         for (var i = 0; i < tooltips.length; i++) {
           tooltips[i].addEventListener("click", toggleTooltip);

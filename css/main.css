@@ -4,6 +4,7 @@
 }
 
 p {
+  font-family: Helvetica, sans-serif;
   overflow-wrap: break-word;
 }
 
@@ -18,6 +19,16 @@ sup {
   line-height: 0;
   vertical-align: super;
   font-size: 80%;
+}
+
+dfn {
+  font-weight: bold;
+  font-style: normal;
+}
+
+code {
+  font-family: SourceCodePro, monospace;
+  background-color: #f5f5f5;
 }
 
 #header {
@@ -67,13 +78,17 @@ nav {
   padding-left: 0;
   width: 90%;
   max-width: 80em;
-  margin-bottom: 5px;
+  margin-bottom: 1em;
 }
 
 #navmenu > li {
   color: #757575;
   display: inline-block;
   margin: 0 3% 0 3%;
+}
+
+#navmenu > li:hover {
+  color: #54ace3;
 }
 
 .nodecor {
@@ -106,6 +121,7 @@ a:visited.nodecor {
 }
 
 #terminal p {
+  font-family: inherit;
   line-height: .8em;
   width: 100%;
 } 
@@ -113,7 +129,6 @@ a:visited.nodecor {
 #terminal th, #terminal td {
   padding: 0 1em 0 0;
 }
-
 
 .terminal table {
   display: block;
@@ -462,14 +477,29 @@ blockquote {
 }
 
 .prettyprint {
-  overflow: auto;
+  overflow: auto !important;
+  border: none !important;
+  border-left: solid 5px !important;
+  border-color: #54ace3 !important;
+  border-radius: 5px !important;
+  background-color: #f5f5f5 !important;
+}
+
+.linenums > li {
+  color: #8a8a8a;
+}
+
+.linenums > li.L0, li.L1, li.L2, li.L3, li.L4, li.L5, li.L6, li.L7, li.L8, li.L9 {
+  list-style-type: decimal !important;
+  margin-bottom: 0 !important;
+  background-color: inherit !important;
 }
 
 .tooltip {
   position: relative;
 }
 
-.tooltipnumber {
+.tipnumber {
   position: relative;
   bottom: .5em;
   font-size: 80%;
@@ -479,17 +509,34 @@ blockquote {
   cursor: pointer;
 }
 
-.tooltiptext {
+.tiptextbox {
+  position: absolute;
+  width: 20em;
+}
+
+.tiptext {
   position: absolute;
   display: none;
-  left: 20px;
-  bottom: 2em;
-  width: 20em;
+  max-width: 20em;
+  bottom: 0;
   overflow: auto;
   background-color: #f5f5f5;
   border: 1px solid black;
   padding: .5em;
   font-size: 80%;
+  z-index: 100;
+}
+
+.bordered-table {
+  border-collapse: collapse;
+  display: table;
+}
+
+.bordered-table th, .bordered-table td {
+  border: 1px solid black;
+  width: auto;
+  padding: 0 .5em 0 .5em;
+  text-align: center;
 }
 
 @media screen and (max-width: 910px) {
