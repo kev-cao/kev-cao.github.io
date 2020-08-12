@@ -48,6 +48,7 @@
       $("#article").load("/blog_files/" + articlefile, function () {
         document.title = $("#articletitle").text();
         init();
+        PR.prettyPrint();
       });
     </script>
  </body>
