@@ -23,6 +23,8 @@
           tooltips[i].addEventListener("click", toggleTooltip);
         }
       }
+
+      $(document).ready(init);
     </script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-173167197-1"></script>
@@ -34,7 +36,7 @@
       gtag('config', 'UA-173167197-1');
     </script>
   </head>
-  <body>
+  <body onload="init()">
     <div id="header">
     </div>
     <script>
@@ -48,7 +50,6 @@
       $("#article").load("/blog_files/" + articlefile, function () {
         document.title = $("#articletitle").text();
       });
-      init();
     </script>
  </body>
 </html>
