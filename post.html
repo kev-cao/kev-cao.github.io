@@ -34,7 +34,7 @@
       gtag('config', 'UA-173167197-1');
     </script>
   </head>
-  <body onload="init()">
+  <body>
     <div id="header">
     </div>
     <script>
@@ -48,6 +48,7 @@
       $("#article").load("/blog_files/" + articlefile, function () {
         document.title = $("#articletitle").text();
       });
+      init();
     </script>
  </body>
 </html>
