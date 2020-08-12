@@ -23,8 +23,6 @@
           tooltips[i].addEventListener("click", toggleTooltip);
         }
       }
-
-      $(document).ready(init);
     </script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-173167197-1"></script>
@@ -49,6 +47,7 @@
       let articlefile = params.get("postid") + ".html";
       $("#article").load("/blog_files/" + articlefile, function () {
         document.title = $("#articletitle").text();
+        init();
       });
     </script>
  </body>
