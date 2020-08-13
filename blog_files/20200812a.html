@@ -31,7 +31,7 @@
 def hash_function(name):
   return name.last[0] # Returns the first letter of the last name.
 </pre>
-  <p>Of course, if we were to use this programatically, we'd probably want a number returned to be used as an index:</p>
+  <p>Of course, if we were to use this programmatically, we'd probably want a number returned to be used as an index:</p>
 <pre class="prettyprint linenums">
 def hash_function(name):
   # ord() returns the ASCII value of the given character.
@@ -193,7 +193,7 @@ def insert(key):
 
   self.hashtable[index] = key
 </pre>
-<p>It then follows that the search function would follow a similiar style. We would get the initial index from the hash function and check to see if our desired key is at that index. If it isn't, we can't assume that the table does not have the key, as it could have been relocated elsewhere due to collisions. So we'll check the next index. If it isn't there, we'll check the one after that. And we will continue to do this until we find an empty cell or the actual key itself. If we reach an empty cell, we must know that the key does not exist in the table for the simple reason that if it did exist in the table, we would have run into it before running into an empty cell. So programatically, perhaps something like this would work:</p>
+<p>It then follows that the search function would follow a similiar style. We would get the initial index from the hash function and check to see if our desired key is at that index. If it isn't, we can't assume that the table does not have the key, as it could have been relocated elsewhere due to collisions. So we'll check the next index. If it isn't there, we'll check the one after that. And we will continue to do this until we find an empty cell or the actual key itself. If we reach an empty cell, we must know that the key does not exist in the table for the simple reason that if it did exist in the table, we would have run into it before running into an empty cell. So programmatically, perhaps something like this would work:</p>
 <pre class="prettyprint linenums">
 def search(key):
   index = self.hash_function(key)
