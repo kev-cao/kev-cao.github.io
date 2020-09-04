@@ -200,13 +200,13 @@ nav {
   margin: 0 3% 0 3%;
 }
 
-#navmenu > li:hover {
-  color: #54ace3;
-}
-
 .nodecor {
   text-decoration: none;
   color: inherit;
+}
+
+a:hover {
+  color: #54ace3 !important;
 }
 
 a:visited.nodecor {
