@@ -1,3 +1,7 @@
+:root {
+  --classy-blue: #54ace3;
+}
+
 @font-face {
   font-family: 'SourceCodePro';
   src: url('/assets/fonts/SourceCodePro-Regular.otf') format('opentype');
@@ -207,7 +211,7 @@ nav {
 }
 
 a:hover {
-  color: #54ace3 !important;
+  color: var(--classy-blue) !important;
 }
 
 a:visited.nodecor {
@@ -324,7 +328,7 @@ a:visited.nodecor {
 
 #introduction h2 {
   margin: 0 0 .5em 0;
-  color: #54ace3;
+  color: var(--classy-blue);
 }
 
 #download-button {
@@ -338,7 +342,7 @@ a:visited.nodecor {
 }
 
 #download-button:hover {
-  color: #54ace3;
+  color: var(--classy-blue);
   background-color: #fbfbfb;
 }
 
@@ -378,8 +382,8 @@ a:visited.nodecor {
 }
 
 .tablink.active {
-  border-color: #54ace3;
-  color: #54ace3;
+  border-color: var(--classy-blue);
+  color: var(--classy-blue);
 }
 
 .tablink:hover {
@@ -611,7 +615,7 @@ blockquote {
   overflow: auto !important;
   border: none !important;
   border-left: solid 5px !important;
-  border-color: #54ace3 !important;
+  border-color: var(--classy-blue) !important;
   border-radius: 5px !important;
   background-color: #f5f5f5 !important;
 }
