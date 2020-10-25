@@ -26,7 +26,7 @@ const projects = {
   'Sorting Algorithms Visualizer': 'https://github.com/defCoding/sort-visualizer'
 }
 
-$('#terminal-container').terminal({
+$('#terminal-container > div').terminal({
   help: function() {
     const table = $('<table>' + tableContents + '</table>');
     this.echo(table);

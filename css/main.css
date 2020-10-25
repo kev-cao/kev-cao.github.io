@@ -257,6 +257,8 @@ a:visited.nodecor {
 #terminal-container {
   font-family: SourceCodePro;
   border-radius: 0 0 5px 5px;
+  background-color: #1b1d1e;
+  padding: 5px 5px 5px 0;
 }
 
 #terminal-container th, #terminal-container td {
