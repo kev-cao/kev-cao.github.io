@@ -225,34 +225,59 @@ a:visited.nodecor {
   padding: 2.5% 2.5% 0 2.5%;
 }
 
-#terminal {
-  font-family: SourceCodePro;
+#terminal-window {
   display: inline-block;
-  color: white;
   width: 45%;
   min-width: 25em;
-  background-color: #1b1d1e;
   border-radius: 5px;
   box-shadow: 10px 10px 7px rgba(0, 0, 0, 0.3);
   margin-right: 30px;
   margin-bottom: 30px;
-  padding: .5em 1em 1em 1em;
 }
 
-#terminal p {
-  font-family: inherit;
-  line-height: .8em;
-  width: 100%;
-} 
+#terminal-title {
+  font-family: SourceCodePro;
+  display: flex;
+  padding-left: 10px;
+  border-radius: 5px 5px 0 0;
+  background-color: #d6d6d6;
+  height: 20px;
+  align-items: center;
+}
 
-#terminal th, #terminal td {
+.terminal-button {
+  width: 12px;
+  height: 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  text-align: center;
+  margin-right: 6px;
+}
+
+#terminal-container {
+  font-family: SourceCodePro;
+  border-radius: 0 0 5px 5px;
+}
+
+#terminal-container th, #terminal-container td {
   padding: 0 1em 0 0;
+  border: none;
 }
 
-.terminal table {
+#terminal-container table {
   display: block;
   margin-bottom: 1em;
   width: 100%;
+  border-collapse: collapse;
+}
+
+.terminal, .cmd, .terminal .terminal-output div div, .cmd .prompt, .cmd-wrapper {
+  --size: 1.25;
+  line-height: 1.5em;
+}
+
+.terminal {
+  color: white !important;
 }
 
 .blinking-cursor {
@@ -686,8 +711,9 @@ blockquote {
     display: table-header-group;
   }
 
-  #terminalcontainer {
+  #terminal-window {
     display: table-footer-group;
+    margin-right: 0;
   }
 
   #hamburger-button {
