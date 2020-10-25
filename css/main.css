@@ -716,6 +716,7 @@ blockquote {
   #terminal-window {
     display: table-footer-group;
     margin-right: 0;
+    box-shadow: none;
   }
 
   #hamburger-button {
