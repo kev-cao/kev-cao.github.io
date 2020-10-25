@@ -968,6 +968,7 @@ terminal .terminal-output > div {
 }
 .terminal::-webkit-scrollbar-thumb {
     background: var(--color, #FFF);
+    border-radius: 5px;
 }
 .terminal::-webkit-scrollbar-thumb:hover {
     background: var(--color, #FFF);
