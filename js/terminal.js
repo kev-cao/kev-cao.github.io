@@ -35,7 +35,7 @@ $('#terminal-container > div').terminal({
     this.echo('Kevin Cao');
   },
   id: function() {
-    this.echo('name=1000(Kevin Cao)   major=998(Computer Science)   spec=56(Software Engineering)');
+    this.echo('major=998(Computer Science)   spec=56(Software Engineering)   minor=42(Mathematics)');
   },
   pwd: function() {
     this.echo('/undergrad/Indiana_University/Bloomington');
