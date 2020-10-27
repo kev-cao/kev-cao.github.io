@@ -57,17 +57,23 @@ $('#terminal-container > div').terminal({
             '<tr>' +
               '<td style="text-align: right;">2</td>' +
               '<td>?</td>' +
+              '<td style="text-align: right;">2020-Now</td>' +
+              '<td>Research Assistant</td>' +
+            '</tr>' +
+            '<tr>' +
+              '<td style="text-align: right;">3</td>' +
+              '<td>?</td>' +
               '<td style="text-align: right;">2019-Now</td>' +
               '<td>IU Undergraduate Instructor</td>' +
             '</tr>' +
             '<tr>' +
-              '<td style="text-align: right;">3</td>' +
+              '<td style="text-align: right;">4</td>' +
               '<td>?</td>' +
               '<td style="text-align: right;">2019-2020</td>' +
               '<td>IU SICE Tutor</td>' +
             '</tr>' +
             '<tr>' +
-              '<td style="text-align: right;">4</td>' +
+              '<td style="text-align: right;">5</td>' +
               '<td>?</td>' +
               '<td style="text-align: right;">2015-Now</td>' +
               '<td>Tokyo Grill IT Support</td>' +
