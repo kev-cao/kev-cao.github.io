@@ -83,7 +83,7 @@ $('#terminal-container > div').terminal({
     this.echo(table);
   },
   locale: function() {
-    this.echo('Java\nC\nPython\nRacket\nJavascript\nC#\nGDScript\nSwift\nKotlin');
+    this.echo('Java\nC\nPython\nRacket\nJavascript\nC#\nGDScript\nSwift\nProcessing\nKotlin');
   },
   ls: function() {
     for (let name in projects) {
