@@ -21,6 +21,7 @@ for (let command in helpMap) {
 }
 
 const projects = {
+	'Minimax Checkers AI': 'https://github.com/defCoding/checkers-ai',
   'NEAT AI for Dino Run': 'https://github.com/defCoding/NEAT-dino-run',
   'Teaching Helper Discord Bot': 'https://github.com/defCoding/bot-TA-discord',
   'Sorting Algorithms Visualizer': 'https://github.com/defCoding/sort-visualizer'
