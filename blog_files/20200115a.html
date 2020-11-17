@@ -29,7 +29,7 @@
     <li>Set the distance of&nbsp;<em>s</em>&nbsp;to 0. For all nodes <strong>except <em>s</em></strong>, set the distance to some value to represent infinity (for example, in Java, Integer.MAX_VALUE would be a good representation).</li>
     <li>Of all the&nbsp;<strong>unsettled</strong> nodes, choose the node with the smallest distance value. That will be the current node we are working on, and we’ll call that node <em>c</em>. Mark <em>c </em>as settled. Then, relax all of its <strong>unsettled</strong> neighboring nodes.
       <ol>
-        <li>To relax a neighbor&nbsp;<em>n</em>, check if&nbsp;<em>dist(n) &gt; dist(c) + weight(c, n)</em>. If that equality is true, then set&nbsp;<em>dist(n) = dist(c) + weight(c, n)</em>.</li>
+        <li>To relax a neighbor&nbsp;<em>n</em>, check if&nbsp;<em>dist(n) &gt; dist(c) + weight(c, n)</em>. If that inequality is true, then set&nbsp;<em>dist(n) = dist(c) + weight(c, n)</em>.</li>
       </ol>
     </li>
     <li>Rinse and repeat step 3 until one of two conditions have met:
