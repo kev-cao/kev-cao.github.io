@@ -21,9 +21,9 @@ for (let command in helpMap) {
 }
 
 const projects = {
-	'Minimax Checkers AI': 'https://github.com/defCoding/checkers-ai',
+	'Code Similarity Detection': 'https://github.com/defCoding/racket-code-similarity',
+  'Discord Bot Teaching Assistant': 'https://github.com/defCoding/bot-TA-discord',
   'NEAT AI for Dino Run': 'https://github.com/defCoding/NEAT-dino-run',
-  'Teaching Helper Discord Bot': 'https://github.com/defCoding/bot-TA-discord',
   'Sorting Algorithms Visualizer': 'https://github.com/defCoding/sort-visualizer'
 }
 
@@ -52,20 +52,20 @@ $('#terminal-container > div').terminal({
             '<tr>' +
               '<td style="text-align: right;">1</td>' +
               '<td>?</td>' +
-              '<td style="text-align: right;">2020-Now</td>' +
-              '<td>IUSG Project Manager</td>' +
+              '<td style="text-align: right;">2019-Now</td>' +
+              '<td>IU Undergraduate Instructor</td>' +
             '</tr>' +
             '<tr>' +
               '<td style="text-align: right;">2</td>' +
               '<td>?</td>' +
-              '<td style="text-align: right;">2020-Now</td>' +
-              '<td>Research Assistant</td>' +
+              '<td style="text-align: right;">2020-2020</td>' +
+              '<td>IUSG Project Manager</td>' +
             '</tr>' +
             '<tr>' +
               '<td style="text-align: right;">3</td>' +
               '<td>?</td>' +
-              '<td style="text-align: right;">2019-Now</td>' +
-              '<td>IU Undergraduate Instructor</td>' +
+              '<td style="text-align: right;">2020-2020</td>' +
+              '<td>Research Assistant</td>' +
             '</tr>' +
             '<tr>' +
               '<td style="text-align: right;">4</td>' +
@@ -77,14 +77,14 @@ $('#terminal-container > div').terminal({
               '<td style="text-align: right;">5</td>' +
               '<td>?</td>' +
               '<td style="text-align: right;">2015-Now</td>' +
-              '<td>Tokyo Grill IT Support</td>' +
+              '<td>Tokyo Grill IT Specialist</td>' +
             '</tr>' +
           '</table>');
 
     this.echo(table);
   },
   locale: function() {
-    this.echo('Java\nC\nPython\nRacket\nJavascript\nC#\nGDScript\nSwift\nProcessing\nKotlin\nScala');
+    this.echo('Java\nPython\nJavascript\nC\nHTML\nCSS\nC#\nx86\nLaTeX');
   },
   ls: function() {
     for (let name in projects) {
