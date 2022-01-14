@@ -23,8 +23,8 @@ for (let command in helpMap) {
 const projects = {
 	'Code Similarity Detection': 'https://github.com/defCoding/racket-code-similarity',
   'Discord Bot Teaching Assistant': 'https://github.com/defCoding/bot-TA-discord',
-  'NEAT AI for Dino Run': 'https://github.com/defCoding/NEAT-dino-run',
-  'Sorting Algorithms Visualizer': 'https://github.com/defCoding/sort-visualizer'
+  'Rofi Dictionary': 'https://github.com/defCoding/rofi-dictionary',
+  'NEAT AI for Dino Run': 'https://github.com/defCoding/NEAT-dino-run'
 }
 
 $('#terminal-container > div').terminal({
@@ -39,7 +39,7 @@ $('#terminal-container > div').terminal({
     this.echo('major=998(Computer Science)   spec=56(Software Engineering)   minor=42(Mathematics)');
   },
   pwd: function() {
-    this.echo('/undergrad/Indiana_University/Bloomington');
+    this.echo('/grad/University_of_Chicago/Chicago');
   },
   ps: function() {
     const table = $('<table>'+
@@ -50,9 +50,15 @@ $('#terminal-container > div').terminal({
               '<td>CMD</td>' +
             '</tr>' +
             '<tr>' +
+              '<td style="text-align: right;">0</td>' +
+              '<td>?</td>' +
+              '<td style="text-align: right;">2020-Now</td>' +
+              '<td>Certik Software Engineer Intern</td>' +
+            '</tr>' +
+            '<tr>' +
               '<td style="text-align: right;">1</td>' +
               '<td>?</td>' +
-              '<td style="text-align: right;">2019-Now</td>' +
+              '<td style="text-align: right;">2019-2021</td>' +
               '<td>IU Undergraduate Instructor</td>' +
             '</tr>' +
             '<tr>' +
@@ -84,7 +90,7 @@ $('#terminal-container > div').terminal({
     this.echo(table);
   },
   locale: function() {
-    this.echo('Java\nPython\nJavascript\nC\nHTML\nCSS\nC#\nx86\nLaTeX');
+    this.echo('Python\nJava\nJavascript\nC/C++\nHTML\nCSS\nC#\nHaskell\nx86');
   },
   ls: function() {
     for (let name in projects) {
