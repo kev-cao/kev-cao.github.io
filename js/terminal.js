@@ -90,7 +90,7 @@ $('#terminal-container > div').terminal({
     this.echo(table);
   },
   locale: function() {
-    this.echo('Python\nJava\nJavascript\nC/C++\nHTML\nCSS\nC#\nHaskell\nx86');
+    this.echo('Python\nJavascript\nJava\nC/C++\nHTML\nCSS\nC#\nHaskell\nx86');
   },
   ls: function() {
     for (let name in projects) {
