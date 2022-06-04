@@ -21,10 +21,11 @@ for (let command in helpMap) {
 }
 
 const projects = {
-	'Code Similarity Detection': 'https://github.com/defCoding/racket-code-similarity',
+  'AniMalSync': 'https://animalsync.com',
+  'XKCD Browser': 'https://apps.apple.com/us/app/xkcd-browser/id1618306887',
+  'S.P.I.D.E.R.': 'https://github.com/defCoding/s.p.i.d.e.r.',
   'Discord Bot Teaching Assistant': 'https://github.com/defCoding/bot-TA-discord',
   'Rofi Dictionary': 'https://github.com/defCoding/rofi-dictionary',
-  'NEAT AI for Dino Run': 'https://github.com/defCoding/NEAT-dino-run'
 }
 
 $('#terminal-container > div').terminal({
@@ -36,7 +37,7 @@ $('#terminal-container > div').terminal({
     this.echo('Kevin Cao');
   },
   id: function() {
-    this.echo('major=998(Computer Science)   spec=56(Software Engineering)   minor=42(Mathematics)');
+    this.echo('masters=2022(Computer Science) major=998(Computer Science)   spec=56(Software Engineering)   minor=42(Mathematics)');
   },
   pwd: function() {
     this.echo('/grad/University_of_Chicago/Chicago');
@@ -52,7 +53,7 @@ $('#terminal-container > div').terminal({
             '<tr>' +
               '<td style="text-align: right;">0</td>' +
               '<td>?</td>' +
-              '<td style="text-align: right;">2020-Now</td>' +
+              '<td style="text-align: right;">2020-2022</td>' +
               '<td>Certik Software Engineer Intern</td>' +
             '</tr>' +
             '<tr>' +
@@ -90,7 +91,7 @@ $('#terminal-container > div').terminal({
     this.echo(table);
   },
   locale: function() {
-    this.echo('Python\nJavascript\nJava\nC/C++\nHTML\nCSS\nC#\nHaskell\nx86');
+    this.echo('Python\nJavascript\nJava\nC/C++\nHTML\nCSS\nSwift\nKotlin\nC#\nHaskell');
   },
   ls: function() {
     for (let name in projects) {

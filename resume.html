@@ -40,8 +40,7 @@
       <span id="tabs">
         <button id="default" class="tablink" onclick="showResume(event, 'education')">Education</button>
         <button class="tablink" onclick="showResume(event, 'workexperience')">Work Experience</button>
-        <button class="tablink" onclick="showResume(event, 'github')">Github Projects</button>
-        <button class="tablink" onclick="showResume(event, 'otherprojects')">Other Projects</button>
+        <button class="tablink" onclick="showResume(event, 'projects')">Projects</button>
         <button class="tablink" onclick="showResume(event, 'technicalskills')">Technical Skills</button>
       </span>
       <span id="tabcontentcontainer">
@@ -65,6 +64,9 @@
               <li>Foundations of Computer Networks</li>
               <li>C/C++ for Advanced Programmers</li>
               <li>iOS Application Development</li>
+              <li>Databases</li>
+              <li>Mobile Application Development</li>
+              <li>Cloud Computing</li>
             </ul>
           </div>
           <div class="tabheader">
@@ -109,7 +111,7 @@
           <h2>Work Experience</h2>
           <hr />
           <div class="tabheader">
-            <b class="tabtitle">Certik LLC</b><p class="tabright">May 2021 - Present</p>
+            <b class="tabtitle">Certik LLC</b><p class="tabright">May 2021 - June 2022</p>
             <p class="tabtitle">Software Engineer Intern</p><p class="tabright">New York, NY</p>
           </div>
           <div class="tabbody">
@@ -183,13 +185,33 @@
             </ul>
           </div>
         </div>
-        <div id="github" class="tabcontent">
+        <div id="projects" class="tabcontent">
           <div class="tabheader">
-            <h2 class="tabtitle"><a class="nodecor" href="https://www.github.com/defCoding" target="_blank">Github Projects</a></h2><p class="tabright">Click on titles to go to the project.</p>
+            <h2 class="tabtitle"><a class="nodecor" href="https://www.github.com/defCoding" target="_blank">Projects</a></h2><p class="tabright">Click on titles to go to the project.</p>
           </div>
           <hr />
           <div class="tabheader">
+            <b class="tabtitle"><a class="nodecor" href="https://animalsync.com" class="tabtitle" target="_blank">AniMalSync</a></b><p class="tabright">June 2022</p>
+            </div>
+            <div class="tabbody">
+              <ul>
+                  <li>Created a Flask webapp using Bootstrap that automatically syncs changes on AniList profiles to MyAnimeList for its users.</li>
+                  <li>Set up automatic deployment to AWS Elastic Beanstalk and Lambda using GitHub actions.</li>
+                  <li>Utilized AWS DynamoDB to store user information and powered sync script using Lambda, SNS, SQS, SFN, and SES.</li>
+              </ul>
+            </div>
+          <div class="tabheader">
+            <b class="tabtitle"><a class="nodecor" href="https://apps.apple.com/us/app/xkcd-browser/id1618306887" class="tabtitle" target="_blank">XKCD Browser</a></b><p class="tabright">April 2022</p>
+            </div>
+            <div class="tabbody">
+              <ul>
+                  <li>Published an application on App Store for browsing XKCD comics, with support for iOS, iPad OS, and MacOS.</li>
+                  <li>Allow users to browse comics offline, save favorite comics, and perform deep searches through all comics.</li>
+              </ul>
+            </div>
+          <div class="tabheader">
             <b class="tabtitle"><a class="nodecor" href="https://github.com/defCoding/racket-code-similarity" class="tabtitle" target="_blank">Racket Code Similarity Detection Tool</a></b><p class="tabright">April 2021</p>
+            </div>
             <div class="tabbody">
               <ul>
                 <li>
@@ -199,9 +221,9 @@
                 </li>
               </ul>
             </div>
-          </div>
           <div class="tabheader">
             <b class="tabtitle"><a class="nodecor" href="https://github.com/defCoding/s.p.i.d.e.r." class="tabtitle" target="_blank">S.P.I.D.E.R.</a></b><p class="tabright">Feb 2021</p>
+          </div>
             <div class="tabbody">
               <ul>
                 <li>
@@ -214,9 +236,9 @@
                 </li>
               </ul>
             </div>
-          </div>
           <div class="tabheader">
             <b class="tabtitle"><a class="nodecor" href="https://github.com/defCoding/manga-scroller" class="tabtitle" target="_blank">Manga Scroller</a></b><p class="tabright">Feb 2021</p>
+          </div>
             <div class="tabbody">
               <ul>
                 <li>
@@ -224,7 +246,6 @@
                 </li>
               </ul>
             </div>
-          </div>
           <div class="tabheader">
             <b class="tabtitle"><a class="nodecor" href="https://github.com/defCoding/autograder-utils" class="tabtitle" target="_blank">Autograder.io Utils</a></b><p class="tabright">Feb 2021</p>
           </div>
@@ -435,28 +456,6 @@
             </ul>
           </div>
         </div>
-        <div id="otherprojects" class="tabcontent">
-          <h2>Other Projects</h2>
-          <hr />
-          <div class="tabheader">
-            <b class="tabtitle"<a class="nodecor" href="blog.html" class="tabtitle" target="_blank">DefineCoding Blog</a></b><p class="tabright">July 2018 - Present</p>
-          </div>
-          <div class="tabbody">
-            <ul>
-              <li>A blog created to document progress in learning programming.</li>
-              <li>Educate readers with informative posts on various programming concepts.</li>
-            </ul>
-          </div>
-          <div class="tabheader">
-            <b class="tabtitle"<a class="nodecor" href="https://www.youtube.com/channel/UCLic-4S1Ym0eyJzpI1Eqlsw" class="tabtitle" target="_blank">DefineCoding YouTube</a></b><p class="tabright">Feb 2020 - Present</p>
-          </div>
-          <div class="tabbody">
-            <ul>
-              <li>A YouTube channel created to review material covered in Data Structures lectures.</li>
-              <li>Utilize video/audio editing and graphic design software to create educational content.</li>
-            </ul>
-          </div>
-        </div>
         <div id="technicalskills" class="tabcontent">
           <h2>Technical Skills</h2>
           <hr />
@@ -464,31 +463,25 @@
             <b>Languages</b>
           </div>
           <div class="tabbody">
-            <p>Python, Javascript, Java, C/C++, HTML/CSS, Haskell, Swift, Bash, C#, x86</p>
+            <p>Python, Javascript, Java, C/C++, HTML/CSS, Haskell, Swift, Bash, Kotlin, C#</p>
           </div>
           <div class="tabheader">
             <b>Frameworks</b>
           </div>
           <div class="tabbody">
-            <p>ReactJS, Ant Design, Bootstrap, jQuery</p>
+            <p>ReactJS, Flask, Ant Design, Bootstrap, jQuery</p>
           </div>
           <div class="tabheader">
             <b>Databases</b>
           </div>
           <div class="tabbody">
-            <p>PostgreSQL</p>
-          </div>
-          <div class="tabheader">
-            <b>Game Design</b>
-          </div>
-          <div class="tabbody">
-            <p>Godot, Unity</p>
+            <p>PostgreSQL, SQLite</p>
           </div>
           <div class="tabheader">
             <b>Other</b>
           </div>
           <div class="tabbody">
-            <p>Unix, Git, Docker, Intellij, XCode, RESTful APIs, Agile Development, Photoshop, Premiere, After Effects, Animate, Autodesk Inventor</p>
+            <p>AWS, Unix, Git, Intellij, XCode, RESTful APIs, Docker</p>
           </div>
         </div>
       </span>
