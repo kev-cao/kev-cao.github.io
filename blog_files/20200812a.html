@@ -28,12 +28,12 @@
   <img src="https://i.imgur.com/t9sbAmQ.png" class="center" alt="Cabinets with letters on them." title="Have fun." />
   <p>If I asked you to retrieve Timmy McFakeName's file, where would you go? Presumably, you would go to cabinet M<span class="tooltip"><span class="tipnumber">[6]</span><span class="tiptextbox"><span class="tiptext">or cabinet T</span></span></span> and search through it. Even without telling you how the organizational system for the student records worked, you were able to determine a way to avoid having to search through every single cabinet. We can describe your thought process with a hash function:</p>
 <pre class="prettyprint linenums">
-def hash_function(name):
+def hash_function(self, name):
   return name.last[0] # Returns the first letter of the last name.
 </pre>
   <p>Of course, if we were to use this programmatically, we'd probably want a number returned to be used as an index:</p>
 <pre class="prettyprint linenums">
-def hash_function(name):
+def hash_function(self, name):
   # ord() returns the ASCII value of the given character.
   # By subtracting the ASCII value of the letter 'A',
   # we get the 0-index position of the given letter in the alphabet.
@@ -41,17 +41,19 @@ def hash_function(name):
 </pre>
 <p>With this hash function, we will always know what drawer a student record can be found in, regardless of how many student records are being stored. The function will return a value from 0 to 25, inclusive, and that number represents a drawer.</p>
 <p>However, this only works if your last name starts with a capital letter. What if you have a student with a last name that starts with the character "d"<span class="tooltip"><span class="tipnumber">[7]</span><span class="tiptextbox"><span class="tiptext">For example: de Angelo</span></span></span>? <code>ord("d") - ord("A")</code> would return 35, which isn't a valid cabinet. So how can we avoid these invalid indices?</p>
-<p>We need some way of restricting the returned value to within the valid range of 0 to 25. Fortunately, there happens to be a very simple way of going about it &mdash; the modulus operator. The result of <code>x % y</code> will always be within the range of <code>0</code> to <code>y - 1</code>, inclusive<span class="tooltip"><span class="tipnumber">[8]</span><span class="tiptextbox"><span class="tiptext">Modulus is <i>similar</i> to remainders, so think about why the remainder of <code>x / y</code> will never be greater than or equal to <code>y</code>.</span></span></span>. So to keep the result restricted to the aforementioned range, we simply have to modulus it with 26, the total number of cabinets.</p>
+<p>We need some way of restricting the returned value to within the valid range of 0 to 25. Fortunately, there happens to be a very simple way of going about it &mdash; the modulus operator. The result of <code>x % y</code> will always be within the range of <code>0</code> to <code>y - 1</code>, inclusive<span class="tooltip"><span class="tipnumber">[8]</span><span class="tiptextbox"><span class="tiptext">Modulus is <i>similar</i> to remainders, so think about why the remainder of <code>x / y</code> will never be greater than or equal to <code>y</code>.</span></span></span>. So to keep the result restricted to the aforementioned range, after getting the hash of a name, we simply have to modulus it with 26, the total number of cabinets.</p>
 <pre class="prettyprint linenums">
-def hash_function(name):
-  return (ord(name.last[0]) - ord("A")) % 26
+self.hash_function("Timmy McTimFace") % 26
 </pre>
-<p>The above hash function now also works for names that start with lowercase letters<span class="tooltip"><span class="tipnumber">[9]</span><span class="tiptextbox"><span class="tiptext">And also names that start with other characters, like John $mith.</span></span></span>. Generally speaking, the modulus operator is a useful tool when making hash functions, especially if you can't guarantee that the value returned will be a valid index. For example, if you just want to store numbers, you can create a hash function that reduces the input number modulo the table size.</p>
+<p>The above hash function now also works for names that start with lowercase letters<span class="tooltip"><span class="tipnumber">[9]</span><span class="tiptextbox"><span class="tiptext">And also names that start with other characters, like John $mith.</span></span></span>. Generally speaking, the modulus operator is a useful tool when making hash functions, especially if you can't guarantee that the value returned will be a valid index. For example, if you just want to store numbers, you can create a hash function that just returns the input number and modulo that with the table capacity.</p>
 <pre class="prettyprint linenums">
-def hash_function(num):
-  return num % self.size
+def hash_function(self, num):
+  return num
+
+# Elsewhere in the HashTable class,
+self.hash_function(1800) % self.capacity
 </pre>
-<p>So for a table of size 10, we would see the following values hashed to the corresponding indices:
+<p>So for a table of capacity 10, we would see the following values hashed to the corresponding indices:
 <table class="bordered-table center">
   <tr>
     <th>Index</th>
@@ -109,19 +111,19 @@ def hash_function(num):
 <p>The main advantages to this system is that it's easy to implement, and the hash table will never fill up. The hash table might have <code>N</code> slots, but each slot contains a list that is not restricted to any maximum size. Programmatically, you might create an insertion function like this:</p>
 <pre class="prettyprint linenums">
 def insert(key):
-  index = self.hash_function(key)
+  index = self.hash_function(key) % self.capacity
   list_at_index = self.hashtable[index] # self.hashtable is a list of lists.
   list_at_index.append(key)
 </pre>
 <p>Search and deletion is pretty straightforward. Simply pull up the list that the key is contained in, find the key, and act accordingly. A search function and delete function would look like this:</p>
 <pre class="prettyprint linenums">
 def search(key):
-  index = self.hash_function(key)
+  index = self.hash_function(key) % self.capacity
   list_at_index = self.hashtable[index]
   return key in list_at_index
 
 def delete(key):
-  index = self.hash_function(key)
+  index = self.hash_function(key) % self.capacity
   list_at_index = self.hashtable[index]
   list_at_index.remove(key)
 </pre>
@@ -183,7 +185,7 @@ Insert 14, 16, 24, 34, 26, 30, 10, 11, in that order.</p>
 <p>This collision resolution method is called linear probing because when you run into a collision, you probe the indices next to the collision site and look for an empty cell. Simply put, if you try to insert a key at an index and there already is a key there, you check the next index. If that index is full, you check the next index after that. And if <i>that</i> index is full, you check the <i>ne</i> &mdash; you get the gist.</p>
 <pre class="prettyprint linenums">
 def insert(key):
-  index = self.hash_function(key)
+  index = self.hash_function(key) % self.capacity
 
   # We continually increment index until there is nothing at that index.
   while self.hashtable[index] != None:
@@ -196,7 +198,7 @@ def insert(key):
 <p>It then follows that the search function would follow a similiar style. We would get the initial index from the hash function and check to see if our desired key is at that index. If it isn't, we can't assume that the table does not have the key, as it could have been relocated elsewhere due to collisions. So we'll check the next index. If it isn't there, we'll check the one after that. And we will continue to do this until we find an empty cell or the actual key itself. If we reach an empty cell, we must know that the key does not exist in the table for the simple reason that if it did exist in the table, we would have run into it before running into an empty cell. So programmatically, perhaps something like this would work:</p>
 <pre class="prettyprint linenums">
 def search(key):
-  index = self.hash_function(key)
+  index = self.hash_function(key) % self.capacity
 
   while self.hashtable[index] != None:
     if self.hashtable[index] == key:
@@ -353,7 +355,7 @@ def search(key):
 <p>This time, as we search for 102, it starts as before. But when we reach index 4, since the cell is marked as deleted, the loop does not stop. It continues to index 5, where 102 is found. Programmatically, we can make a delete function like so:</p>
 <pre class="prettyprint linenums">
 def delete(key):
-  index = self.hash_function(key)
+  index = self.hash_function(key) % self.capacity
 
   # Increment index until we either find the key, or reach an empty cell.
   while self.hashtable[index] != None and self.hashtable[index] != key:
@@ -370,7 +372,7 @@ def delete(key):
 <p>With this, the <code>search</code> function we made above now works perfectly fine. If it runs into a deleted cell, it sees <code>'X'</code> instead of <code>None</code>, so the loop continues. However, our <code>insert</code> function will need to be updated. If we run into a deleted cell, we can insert a value there.</p>
 <pre class="prettyprint linenums">
 def insert(key):
-  index = self.hash_function(key)
+  index = self.hash_function(key) % self.capacity
 
   while self.hashtable[index] != None and self.hashtable[index] != 'X':
     index += 1
